@@ -1,0 +1,115 @@
+.NavBar__root {
+    width: 100%;
+    height: 168px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .black_line {
+        width: 100%;
+        height: 80px;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .main_line {
+        width: 100%;
+        height: 88px;
+        background-color: #F5F5F6;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .wrapper {
+            width: calc(100% - 240px);
+            max-width: 1680px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .categories, .controls {
+                width: max-content;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+
+                .link {
+                    padding: 16px;
+                    font-size: 18px;
+                    line-height: 24px;
+                    color: #0B0B0B;
+                    text-transform: uppercase;
+                    text-decoration: none;
+
+                    transition: color .3s ease-in;
+                }
+
+                .all {
+                    padding-left: 0;
+                }
+
+                .link:hover {
+                    color: #ADADB6;
+                }
+
+                .link.active {
+                    color: #9898A4;
+                }
+            }
+    
+            .controls {
+                gap: 16px;
+
+                .icon_c {
+                    width: 48px;
+                    height: 48px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .profile_img {
+                        width: 48px;
+                        height: 48px;
+                        object-fit: contain;
+                        margin-right: 16px;
+                    }
+
+                    .bag_img {
+                        width: 48px;
+                        height: 48px;
+                        object-fit: contain;
+                    }
+                }
+
+                .lang_c {
+                    cursor: pointer;
+
+                    p {
+                        padding: 16px 0 16px 16px;
+                        color: #9898A4;
+                        font-size: 18px;
+                        line-height: 24px;
+                    }
+                }
+            }
+        }
+    }
+}

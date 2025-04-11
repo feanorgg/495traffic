@@ -1,0 +1,63 @@
+import styles from "@/components/TextInput.module.scss";
+import { useEffect, useRef, useState } from "react";
+
+interface TextInputProps {
+    placeholder?: string;
+    value?: string;
+    onChangeText?: (text: string) => void;
+    errorMsg?: string;
+    required?: boolean;
+
+    hints?: Array<string>;
+};
+
+export default function TextInput({
+    placeholder = "",
+    value = "",
+    onChangeText = (text: string) => {},
+    errorMsg = "",
+    required = false,
+    hints = []
+}: TextInputProps) {
+    const [hintsShown, setHintsShown] = useState<boolean>(false);
+    const boxRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+                setHintsShown(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    return(
+        <div className={styles.TextInput} ref={boxRef}>
+            <input className={`${styles.input} ${errorMsg != "" ? styles.error : ''}`}
+                value={value}
+                onChange={e => onChangeText(e.target.value)}
+                onClick={() => setHintsShown(true)}
+            />
+            {value == "" && placeholder != "" && <p className={styles.placeholder}>{placeholder}{required ? <span>*</span> : ''}</p>}
+            {errorMsg != "" && <p className={styles.err_msg}>{errorMsg}</p>}
+
+            {hintsShown && hints.length > 0 && 
+            <div className={styles.hints_container}>
+                <div className={styles.scroll_container}>
+                    <div className={styles.hints_wrapper}>
+                    {hints.map((hint, index) => (
+                        <div key={index} className={styles.hint} onClick={() => onChangeText(hint)}>
+                            <p>{hint}</p>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    );
+}

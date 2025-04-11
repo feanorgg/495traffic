@@ -1,0 +1,126 @@
+.Button {
+    width: 200px;
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 0 !important;
+    border: none;
+    outline: none;
+    background-color: #01F300;
+
+    p {
+        color: #001800;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    transition: background-color .3s ease-in;
+}
+
+.Button:hover {
+    background-color: #01C200;
+}
+
+.Button:focus {
+    background-color: #019200;
+}
+
+.Button:active {
+    background-color: #01C200;
+
+    p {
+        color: #E6FEE5;
+    }
+}
+
+.Button.loading {
+    background-color: #01C200;
+    cursor: default;
+}
+
+.Button.disabled {
+    background-color: #EAEAED;
+    cursor: default;
+
+    p {
+        color: #C1C1C8;
+    }
+}
+
+
+.Button.secondary {
+    background-color: #0B0B0B;
+
+    p {
+        color: #F5F5F6;
+    }
+}
+
+.Button.secondary:hover {
+    background-color: #464646;
+}
+
+.Button.secondary:focus {
+    background-color: #292929;
+}
+
+.Button.secondary:active {
+    background-color: #464646;
+}
+
+.Button.secondary.loading {
+    background-color: #646464;
+    cursor: default
+
+    p {
+        color: #FFFFFF;
+    }
+}
+
+.Button.secondary:disabled {
+    background-color: #EAEAED;
+    cursor: default;
+
+    p {
+        color: #C1C1C8;
+    }
+}
+
+.Button.tertiary {
+    background-color: #E0E0E4;
+
+    p {
+        color: #0B0B0B;
+    }
+}
+
+.Button.tertiary:hover {
+    background-color: #C1C1C8;
+}
+
+.Button.tertiary:focus {
+    background-color: #C1C1C8;
+}
+
+.Button.tertiary:active {
+    background-color: #ADADB6;
+}
+
+.Button.tertiary.loading {
+    background-color: #E0E0E4;
+    cursor: default;
+}
+
+.Button.tertiary.disabled {
+    background-color: #EAEAED;
+    cursor: default;
+
+    p {
+        color: #C1C1C8;
+    }
+}
