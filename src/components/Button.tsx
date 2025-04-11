@@ -11,6 +11,9 @@ interface ButtonProps {
     tertiary?: boolean;
 
     onClick?: () => void;
+
+    className?: string;
+    style?: React.CSSProperties;
 };
 
 export default function Button({
@@ -19,13 +22,16 @@ export default function Button({
     disabled=false,
     secondary=false,
     tertiary=false,
-    onClick=()=>{}
+    onClick=()=>{},
+    className="",
+    style={}
 }: ButtonProps) {
     return(
         <button 
-            className={`${styles.Button} ${loading ? styles.loading : ''} ${secondary ? styles.secondary : ''} ${tertiary ? styles.tertiary : ''}`}
+            className={`${styles.Button} ${loading ? styles.loading : ''} ${secondary ? styles.secondary : ''} ${tertiary ? styles.tertiary : ''} ${className}`}
             disabled={disabled}
             onClick={disabled ? () => {} : onClick}
+            style={style}
         >
             <p>{(loading && !tertiary) ? "Loading..." : label}</p>
         </button>
