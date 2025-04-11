@@ -2,6 +2,7 @@ import styles from "@/layouts/NavBar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import Footer from "./Footer";
 
 export default function NavBar({ children }: { children: React.ReactElement }) {
     const router = useRouter();
@@ -10,7 +11,7 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
         <>
         <div className={styles.NavBar__root}>
             <div className={styles.black_line}>
-                <img src="/logo.png" />
+                <Link href="/"><img src="/logo.png" /></Link>
             </div>
             <div className={styles.main_line}>
                 <div className={styles.wrapper}>
@@ -33,10 +34,13 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                     </div>
                     <div className={styles.controls}>
                         <Link className={styles.icon_c} href="/profile">
-                            <img src="/profile.png" className={styles.profile_img} />
+                            <img src="/profile.png" className={`${styles.profile_img} ${router.pathname.includes('/profile') ? styles.active : ''}`} />
                         </Link>
                         <Link className={styles.icon_c} href="/cart">
-                            <img src="/bag.png" className={styles.bag_img} />
+                            <img src="/bag.png" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />
+                            <div id="cart" className={styles.cart_counter_container}>
+                                <p id="cart-cnt">1</p>
+                            </div>
                         </Link>
                         <div className={styles.lang_c}>
                             <p>EN</p>
@@ -46,6 +50,7 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
             </div>
         </div>
         {children}
+        <Footer/>
         </>
     );
 }
