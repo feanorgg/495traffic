@@ -43,6 +43,10 @@
             justify-content: space-between;
             align-items: center;
 
+            .mobile_menu_button {
+                display: none;
+            }
+
             .categories, .controls {
                 width: max-content;
                 display: flex;
@@ -145,6 +149,89 @@
                         font-size: 18px;
                         line-height: 24px;
                     }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1920px) {
+    .NavBar__root {
+        .main_line {
+            .wrapper {
+                width: calc(100% - 128px);
+                max-width: 1312px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .NavBar__root {
+        .main_line {
+            .wrapper {
+                width: calc(100% - 80px);
+                max-width: 920px;
+
+                .categories {
+                    gap: 24px;
+                }
+
+                .controls {
+                    gap: 32px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .NavBar__root {
+        .main_line {
+            .wrapper {
+                width: calc(100% - 80px);
+                max-width: 688px;
+
+                .categories {
+                    gap: 8px;
+                }
+
+                .controls {
+                    gap: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .NavBar__root {
+        .main_line {
+            .wrapper {
+                width: calc(100% - 40px);
+                max-width: 1000px;
+
+                flex-direction: row-reverse;
+
+                .mobile_menu_button {
+                    display: flex;
+                    width: 32px;
+                    height: 32px;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+
+                .categories {
+                    display: none;
+                }
+
+                .controls {
+                    gap: 32px;
                 }
             }
         }

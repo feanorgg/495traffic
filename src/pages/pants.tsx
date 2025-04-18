@@ -21,7 +21,7 @@ export default function Home() {
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <h1>ALL PRODUCTS</h1>
+                    <h1>PANTS</h1>
                     <DropdownPicker
                         placeholder="Sort by"
                         items={[
@@ -34,11 +34,6 @@ export default function Home() {
                 </div>
 
                 <div className={styles.products_grid}>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
-
                     <ProductCard/>
                     <ProductCard/>
                     <ProductCard/>

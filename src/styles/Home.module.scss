@@ -1,10 +1,220 @@
 .Home__root {
-    height: 200vh;
     width: 100%;
+    height: max-content;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 250px;
     align-items: center;
-    gap: 12px;
+
+    .header {
+        width: 100%;
+        height: 520px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 168px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+    }
+
+    .wrapper {
+        width: calc(100% - 240px);
+        max-width: 1680px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 80px 0 0 0;
+
+        .head {
+            width: 100%;
+            height: max-content;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 64px;
+        }
+
+        .products_grid {
+            width: 100%;
+            height: max-content;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-auto-rows: max-content;
+            gap: 64px 40px;
+        }
+
+        .load_more {
+            width: 100%;
+            margin: 64px 0 120px 0;
+            height: max-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .archive_banner_container {
+        width: 100%;
+        height: 800px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+
+        .fade {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background: linear-gradient(360deg, #000000 0%, rgba(0, 0, 0, 0) 76.62%);
+        }
+
+        .wrapper {
+            position: absolute;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: max-content;
+            height: max-content;
+            z-index: 3;
+
+            .title {
+                color: #FFFFFF;
+                font-weight: 600;
+                font-size: 80px;
+                line-height: 100%;
+                letter-spacing: 20%;
+                margin-bottom: 40px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1920px) {
+    .Home__root {
+        .header {
+            height: 465px;
+        }
+
+        .wrapper {
+            width: calc(100% - 128px);
+            max-width: 1312px;
+            margin: 48px 0 0 0;
+
+            .products_grid {
+                gap: 40px;
+            }
+        }
+
+        .load_more {
+            margin: 64px 0;
+        }
+
+        .archive_banner_container {
+            height: 616px;
+
+            .wrapper {
+                bottom: 96px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .Home__root {
+        .header {
+            height: 337px;
+        }
+
+        .wrapper {
+            width: calc(100% - 80px);
+            max-width: 920px;
+
+            .products_grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .load_more {
+            margin: 40px 0 48px !important;
+        }
+
+        .archive_banner_container {
+            height: 514px;
+
+            .wrapper {
+                bottom: 48px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .Home__root {
+        .header {
+            height: 287px;
+        }
+
+        .wrapper {
+            width: calc(100% - 80px);
+            max-width: 688px;
+
+            .products_grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .load_more {
+            margin: 40px 0 !important;
+        }
+
+        .archive_banner_container {
+            height: 364px;
+
+            .wrapper {
+                bottom: 40px;
+                
+                .title {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Home__root {
+        .wrapper {
+            width: calc(100% - 40px);
+            max-width: 1000px;
+
+            .products_grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        .archive_banner_container {
+            height: 420px;
+        }
+    }
 }

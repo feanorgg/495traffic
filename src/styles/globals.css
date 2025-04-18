@@ -7,7 +7,7 @@ html {
     padding: 0;
 }
 
-a, p, input {
+a, p, input, h1, h2, h3, h4, h5 {
     font-family: var(--font-oswald);
     font-weight: 400;
 }
@@ -49,4 +49,18 @@ h5 {
     font-size: 24px;
     line-height: 28px;
     letter-spacing: -1%;
+}
+
+@media screen and (max-width: 1000px) {
+    h1 {
+        font-size: 40px;
+        line-height: 48px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 32px;
+        line-height: 40px;
+    }
 }

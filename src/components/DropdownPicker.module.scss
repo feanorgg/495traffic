@@ -1,0 +1,97 @@
+.DropdownPicker {
+    width: max-content;
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    .container {
+        width: max-content;
+        height: 48px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+
+        .label {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 28px;
+            color: #7B7B85;
+        }
+
+        .label.active {
+            color: #0B0B0B;
+        }
+    
+        img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+    }
+
+    .items_frame {
+        position: absolute;
+        top: 46px;
+        right: 0;
+        border: 1px solid #C1C1C8;
+        box-shadow: 0px 8px 17px 0px #0000000D,
+            0px 30px 30px 0px #0000000A,
+            0px 69px 41px 0px #00000008,
+            0px 122px 49px 0px #00000003,
+            0px 191px 53px 0px #00000000;
+        background-color: #FFFFFF;
+        width: max-content;
+        height: max-content;
+
+        .items_wrapper {
+            margin: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+            width: max-content;
+
+            .item {
+                width: 100%;
+                cursor: pointer;
+                height: max-content;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+
+                .item_title {
+                    margin: 8px 0 8px 13px;
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: #5F5F67;
+                    width: max-content;
+                    text-align: right;
+                }
+            }
+
+            .item:hover {
+                .item_title {
+                    color: #0B0B0B;
+                }
+            }
+        }
+    }
+}
+
+.DropdownPicker:hover {
+    .container {
+        .label {
+            color: #0B0B0B;
+        }
+    }
+}

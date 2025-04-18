@@ -15,6 +15,9 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
             </div>
             <div className={styles.main_line}>
                 <div className={styles.wrapper}>
+                    <div className={styles.mobile_menu_button}>
+                        <img src="/mobile-menu.png" />
+                    </div>
                     <div className={styles.categories}>
                         <Link className={`${styles.link} ${styles.all} ${router.pathname == '/' ? styles.active : ''}`} href="/">
                             All
@@ -22,7 +25,7 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                         <Link className={`${styles.link} ${router.pathname == '/pants' ? styles.active : ''}`} href="/pants">
                             Pants
                         </Link>
-                        <Link className={`${styles.link} ${router.pathname == '/tshirts' ? styles.active : ''}`} href="/tshirts">
+                        <Link className={`${styles.link} ${router.pathname == '/t-shirts' ? styles.active : ''}`} href="/t-shirts">
                             T-shirts
                         </Link>
                         <Link className={`${styles.link} ${router.pathname == '/hoodie' ? styles.active : ''}`} href="/hoodie">
