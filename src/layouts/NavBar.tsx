@@ -1,12 +1,16 @@
 import styles from "@/layouts/NavBar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 
 export default function NavBar({ children }: { children: React.ReactElement }) {
     const router = useRouter();
     const [menuState, setMenuState] = useState<boolean>(false);
+
+    useEffect(() => {
+        setMenuState(false);
+    }, [router.pathname]);
 
     return(
         <>
@@ -39,19 +43,19 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                         {menuState ? <img src="/mobile-close.png" /> : <img src="/mobile-menu.png" />}
                     </div>
                     <div className={styles.categories}>
-                        <Link className={`${styles.link} ${styles.all} ${router.pathname == '/' ? styles.active : ''}`} href="/" onPointerDown={() => setMenuState(false)}>
+                        <Link className={`${styles.link} ${styles.all} ${router.pathname == '/' ? styles.active : ''}`} href="/">
                             All
                         </Link>
-                        <Link className={`${styles.link} ${router.pathname == '/pants' ? styles.active : ''}`} href="/pants" onPointerDown={() => setMenuState(false)}>
+                        <Link className={`${styles.link} ${router.pathname == '/pants' ? styles.active : ''}`} href="/pants">
                             Pants
                         </Link>
-                        <Link className={`${styles.link} ${router.pathname == '/t-shirts' ? styles.active : ''}`} href="/t-shirts" onPointerDown={() => setMenuState(false)}>
+                        <Link className={`${styles.link} ${router.pathname == '/t-shirts' ? styles.active : ''}`} href="/t-shirts">
                             T-shirts
                         </Link>
-                        <Link className={`${styles.link} ${router.pathname == '/hoodie' ? styles.active : ''}`} href="/hoodie" onPointerDown={() => setMenuState(false)}>
+                        <Link className={`${styles.link} ${router.pathname == '/hoodie' ? styles.active : ''}`} href="/hoodie">
                             Hoodie
                         </Link>
-                        <Link className={`${styles.link} ${router.pathname == '/accessories' ? styles.active : ''}`} href="/accessories" onPointerDown={() => setMenuState(false)}>
+                        <Link className={`${styles.link} ${router.pathname == '/accessories' ? styles.active : ''}`} href="/accessories">
                             Accessories
                         </Link>
                     </div>
