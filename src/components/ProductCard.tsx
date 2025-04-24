@@ -5,7 +5,10 @@ export default function ProductCard() {
     return(
         <div className={styles.ProductCard}>
             <div className={styles.img_container}>
-                <img src="/495-product-img.webp" />
+                <img 
+                    src="/495-product-img.webp" 
+                    alt="product_image"
+                />
             </div>
             <div className={styles.info_container}>
                 <p className={styles.category}>Hoodie</p>
