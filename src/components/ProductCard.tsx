@@ -54,6 +54,7 @@ export default function ProductCard() {
                         <img 
                             src={image.min}
                             key={index}
+                            alt={`product_img_${index}`}
                             style={imageIndex == index ? {opacity: 1} : {}}
                         />
                     );
