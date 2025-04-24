@@ -17,7 +17,7 @@ export default function Home() {
         </Head>
         <div className={styles.Home__root}>
             <div className={styles.header}>
-                <img src="/main-banner.png" />
+                <img src="/main-banner.webp" />
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
@@ -54,7 +54,7 @@ export default function Home() {
             </div>
 
             <div className={styles.archive_banner_container}>
-                <img src="/archive-banner.png" />
+                <img src="/archive-banner.webp" />
                 <div className={styles.fade} />
                 <div className={styles.wrapper}>
                     <p className={styles.title}>ARCHIVE</p>
