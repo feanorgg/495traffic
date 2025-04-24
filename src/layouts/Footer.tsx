@@ -19,16 +19,16 @@ export default function Footer() {
                         Privacy Policy
                     </Link>
                 </div>
-                <img src="/dngc.png" className={styles.dngc} />
+                <img src="/dngc.png" alt="do_not_get_caught" className={styles.dngc} />
                 <div className={styles.socials}>
                     <Link className={styles.social} href="/">
-                        <img src="/tg.png" />
+                        <img src="/tg.png" alt="tg" />
                     </Link>
                     <Link className={styles.social} href="/">
-                        <img src="/is.png" />
+                        <img src="/is.png" alt="insta" />
                     </Link>
                     <Link className={styles.social} href="/">
-                        <img src="/vk.png" />
+                        <img src="/vk.png" alt="vk" />
                     </Link>
                 </div>
             </div>

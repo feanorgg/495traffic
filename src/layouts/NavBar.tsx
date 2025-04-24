@@ -35,12 +35,12 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
         </div>
         <div className={styles.NavBar__root}>
             <div className={styles.black_line}>
-                <Link href="/"><img src="/logo.png" /></Link>
+                <Link href="/"><img src="/logo.png" alt="logo" /></Link>
             </div>
             <div className={styles.main_line}>
                 <div className={styles.wrapper}>
                     <div className={styles.mobile_menu_button} onPointerDown={() => setMenuState(!menuState)}>
-                        {menuState ? <img src="/mobile-close.png" /> : <img src="/mobile-menu.png" />}
+                        {menuState ? <img src="/mobile-close.png" alt="close_menu" /> : <img src="/mobile-menu.png" alt="open_menu" />}
                     </div>
                     <div className={styles.categories}>
                         <Link className={`${styles.link} ${styles.all} ${router.pathname == '/' ? styles.active : ''}`} href="/">
@@ -61,10 +61,10 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                     </div>
                     <div className={styles.controls}>
                         <Link className={styles.icon_c} href="/profile">
-                            <img src="/profile.png" className={`${styles.profile_img} ${router.pathname.includes('/profile') ? styles.active : ''}`} />
+                            <img src="/profile.png" alt="profile" className={`${styles.profile_img} ${router.pathname.includes('/profile') ? styles.active : ''}`} />
                         </Link>
                         <Link className={styles.icon_c} href="/cart">
-                            <img src="/bag.png" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />
+                            <img src="/bag.png" alt="bag" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />
                             <div id="cart" className={styles.cart_counter_container}>
                                 <p id="cart-cnt">1</p>
                             </div>

@@ -34,7 +34,7 @@ export default function DropdownPicker({
         <div className={styles.DropdownPicker} ref={boxRef}>
             <div className={styles.container} onClick={() => setState(!state)}>
                 <p className={`${styles.label} ${state ? styles.active : ''}`}>{value == "" ? placeholder : value}</p>
-                <img src={state ? '/arrow-up.png' : '/arrow-down.png'} />
+                <img alt="chevron" src={state ? '/arrow-up.png' : '/arrow-down.png'} />
             </div>
             {state &&
             <div className={styles.items_frame}>
