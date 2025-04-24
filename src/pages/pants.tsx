@@ -5,6 +5,7 @@ import TextInput from "@/components/TextInput";
 import Checkbox from "@/components/Checkbox";
 import DropdownPicker from "@/components/DropdownPicker";
 import ProductCard from "@/components/ProductCard";
+import Link from "next/link";
 
 export default function Home() {
     return (
@@ -53,10 +54,11 @@ export default function Home() {
                 <div className={styles.fade} />
                 <div className={styles.wrapper}>
                     <p className={styles.title}>ARCHIVE</p>
+                    <Link href="/archive" style={{textDecoration: 'none'}}>
                     <Button
                         label="SEE MORE"
                         tertiary
-                    />
+                    /></Link>
                 </div>
             </div>
         </div>

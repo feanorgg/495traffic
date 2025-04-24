@@ -160,6 +160,26 @@
 
 @media screen and (max-width: 768px) {
     .ProductCard {
+        gap: 8px;
+
+        .info_container {
+
+            .category {
+                font-size: 14px;
+            }
+
+            h5 {
+                font-size: 16px;
+                line-height: 18px;
+                margin: 4px 0 8px;
+            }
+    
+            .price {
+                font-size: 16px;
+                line-height: 18px;
+            }
+        }
+
         .img_container {
             width: 100%;
             height: auto;

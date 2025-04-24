@@ -61,9 +61,7 @@ export default function ProductCard() {
                 <div className={styles.indicators}>
                     {product.images.map((image, index) => {
                         return(
-                            <div className={`${styles.indicator} ${imageIndex == index ? styles.active : ''}`} key={index}>
-                                
-                            </div>
+                            <div className={`${styles.indicator} ${imageIndex == index ? styles.active : ''}`} key={index}/>
                         );
                     })}
                 </div>
