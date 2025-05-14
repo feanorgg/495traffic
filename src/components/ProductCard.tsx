@@ -1,6 +1,7 @@
 import styles from "@/components/ProductCard.module.scss";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 export default function ProductCard() {
     const product = {
@@ -22,7 +23,7 @@ export default function ProductCard() {
 
     const [imageIndex, setImageIndex] = useState<number>(0);
 
-    const cardRef = useRef<HTMLDivElement | null>(null);
+    const cardRef = useRef<HTMLAnchorElement | null>(null);
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
             if (!cardRef.current) return;
@@ -47,7 +48,7 @@ export default function ProductCard() {
     }, []);
 
     return(
-        <div className={styles.ProductCard} ref={cardRef}>
+        <Link href="/product/abc" style={{textDecoration: 'none', color: 'inherit'}} className={styles.ProductCard} ref={cardRef}>
             <div className={styles.img_container}>
                 {product.images.map((image, index) => {
                     return(
@@ -83,6 +84,6 @@ export default function ProductCard() {
                     className={styles.btn}
                 />
             </div>*/}
-        </div>
+        </Link>
     );
 }
