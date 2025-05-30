@@ -60,8 +60,8 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                         </Link>
                     </div>
                     <div className={styles.controls}>
-                        <Link className={styles.icon_c} href="/profile">
-                            <img src="/profile.png" alt="profile" className={`${styles.profile_img} ${router.pathname.includes('/profile') ? styles.active : ''}`} />
+                        <Link className={styles.icon_c} href="/account">
+                            <img src="/profile.png" alt="profile" className={`${styles.profile_img} ${router.pathname.includes('/account') ? styles.active : ''}`} />
                         </Link>
                         <Link className={styles.icon_c} href="/cart">
                             <img src="/bag.png" alt="bag" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />

@@ -5,13 +5,15 @@ interface CheckboxProps {
     label?: string;
     onChange?: (checked: boolean) => void;
     error?: boolean;
+    children?: React.ReactElement;
 };
 
 export default function Checkbox({
     checked = false,
     label = "",
     onChange = () => {},
-    error = false
+    error = false,
+    children
 }: CheckboxProps) {
     return(
         <div className={`${styles.Checkbox} ${error ? styles.error : ''}`} onClick={() => onChange(!checked)}>
@@ -19,6 +21,7 @@ export default function Checkbox({
                 {checked && <img src="/check.png" className={styles.check_img} />}
             </div>
             {label != "" && <p className={styles.label}>{label}</p>}
+            {children}
         </div>
     );
 }

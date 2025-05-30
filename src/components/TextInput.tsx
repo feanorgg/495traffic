@@ -1,4 +1,5 @@
 import styles from "@/components/TextInput.module.scss";
+import { useMask } from "@react-input/mask";
 import { useEffect, useRef, useState } from "react";
 
 interface TextInputProps {
@@ -7,6 +8,7 @@ interface TextInputProps {
     onChangeText?: (text: string) => void;
     errorMsg?: string;
     required?: boolean;
+    phone?: boolean;
 
     hints?: Array<string>;
 };
@@ -17,10 +19,16 @@ export default function TextInput({
     onChangeText = (text: string) => {},
     errorMsg = "",
     required = false,
-    hints = []
+    hints = [],
+    phone=false
 }: TextInputProps) {
     const [hintsShown, setHintsShown] = useState<boolean>(false);
     const boxRef = useRef<HTMLDivElement | null>(null);
+
+    const phoneRef = useMask({
+        mask: '+7 (___) ___-__-__',
+        replacement: { _: /\d/ },
+    });
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -41,6 +49,7 @@ export default function TextInput({
                 value={value}
                 onChange={e => onChangeText(e.target.value)}
                 onClick={() => setHintsShown(true)}
+                ref={phone ? phoneRef : null}
             />
             {value == "" && placeholder != "" && <p className={styles.placeholder}>{placeholder}{required ? <span>*</span> : ''}</p>}
             {errorMsg != "" && <p className={styles.err_msg}>{errorMsg}</p>}

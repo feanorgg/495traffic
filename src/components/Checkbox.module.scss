@@ -13,6 +13,7 @@
         height: 14px;
         border: 1px solid #9898A4;
         margin: 20px 10px 20px 20px;
+        margin: 0 10px 0 0;
 
         display: flex;
         justify-content: center;
@@ -33,7 +34,7 @@
         border: 1px solid #0B0B0B;
     }
 
-    .label {
+    .label, p, a {
         color: #ADADB6;
         font-weight: 400;
         font-size: 16px;

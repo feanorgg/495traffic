@@ -28,7 +28,7 @@ export default function Button({
 }: ButtonProps) {
     return(
         <button 
-            className={`${styles.Button} ${loading ? styles.loading : ''} ${secondary ? styles.secondary : ''} ${tertiary ? styles.tertiary : ''} ${className}`}
+            className={`${styles.Button} ${loading ? styles.loading : ''} ${secondary ? styles.secondary : ''} ${tertiary ? styles.tertiary : ''} ${className} ${disabled ? styles.disabled : ''}`}
             disabled={disabled}
             onClick={disabled ? () => {} : onClick}
             style={style}
