@@ -35,6 +35,8 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         if(elMob) {
             elMob.innerHTML = String(cl.length);
         }
+
+        setInCart(true);
     }
 
     useEffect(() => {
@@ -44,6 +46,17 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
             setCart(cList);
         }
     }, []);
+
+    useEffect(() => {
+        let flag = false;
+        for(const item of cart) {
+            if(item.id == product._id && item.size == selectedSize) {
+                flag = true;
+                break;
+            }
+        }
+        setInCart(flag);
+    }, [cart, selectedSize]);
 
     function tryDecreaseQty() {
       // const sizeAlias = product.availability[selectedSizeIndex].size;
@@ -190,18 +203,19 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                         }
                         <div className={styles.product_actions}>
                             <Button
-                                label="Add to bag"
+                                label={inCart ? "Added..." : "Add to bag"}
                                 className={styles.add_button}
-                                disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "")}
+                                disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "") || inCart}
+                                onClick={() => addToCart({id: product._id, size: selectedSize != "" ? selectedSize : sizes[0]})}
                             />
                             <div className={styles.amount_contols}>
-                                <div className={styles.control}>
+                                <div className={styles.control} onClick={() => tryDecreaseQty()}>
                                     <img src="/minus.png" />
                                 </div>
                                 <div className={styles.counter}>
                                     <p>{amount}</p>
                                 </div>
-                                <div className={styles.control}>
+                                <div className={styles.control} onClick={() => tryIncreaseQty()}>
                                     <img src="/plus.png" />
                                 </div>
                             </div>
