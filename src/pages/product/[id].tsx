@@ -52,39 +52,43 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         for(const item of cart) {
             if(item.id == product._id && item.size == selectedSize) {
                 flag = true;
+                setAmount(item.amount);
                 break;
             }
+        }
+        if(!flag) {
+            setAmount(1);
         }
         setInCart(flag);
     }, [cart, selectedSize]);
 
     function tryDecreaseQty() {
-      // const sizeAlias = product.availability[selectedSizeIndex].size;
-      const sizeAlias = selectedSize;
-      const _cart = JSON.parse(JSON.stringify(cart));
-      let i = 0;
-      let cnt = 0;
-      for(const item of _cart) {
-        if(item.size == sizeAlias) {
-          const _item = item;
-          _item.amount = _item.amount - 1;
-          _cart[i] = _item;
+        // const sizeAlias = product.availability[selectedSizeIndex].size;
+        const sizeAlias = selectedSize;
+        const _cart = JSON.parse(JSON.stringify(cart));
+        let i = 0;
+        let cnt = 0;
+        for(const item of _cart) {
+            if(item.size == sizeAlias) {
+                const _item = item;
+                _item.amount = _item.amount - 1;
+                _cart[i] = _item;
+            }
+
+            cnt += _cart[i].amount;
+            i += 1;
         }
 
-        cnt += _cart[i].amount;
-        i += 1;
-      }
-
-      CookieService.setCookie('cart', JSON.stringify(_cart), 365);
-      const el = document.getElementById('cart-cnt');
-      const elMob = document.getElementById('cart-cnt-mob');
-      if(el) {
-          el.innerHTML = String(cnt);
-      }
-      if(elMob) {
-          elMob.innerHTML = String(cnt);
-      }
-      setCart(_cart);
+        CookieService.setCookie('cart', JSON.stringify(_cart), 365);
+        const el = document.getElementById('cart-cnt');
+        const elMob = document.getElementById('cart-cnt-mob');
+        if(el) {
+            el.innerHTML = String(cnt);
+        }
+        if(elMob) {
+            elMob.innerHTML = String(cnt);
+        }
+        setCart(_cart);
     }
 
     function tryIncreaseQty() {
@@ -95,9 +99,9 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         let cnt = 0;
         for(const item of _cart) {
             if(item.size == sizeAlias) {
-            const _item = item;
-            _item.amount = _item.amount + 1;
-            _cart[i] = _item;
+                const _item = item;
+                _item.amount = _item.amount + 1;
+                _cart[i] = _item;
             }
             
             cnt += _cart[i].amount;
