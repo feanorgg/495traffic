@@ -104,9 +104,38 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
     }
 
     const [imageIndex, setImageIndex] = useState<number>(0);
+    const [overlayState, setOverlayState] = useState<boolean>(false);
 
     return(
         <>
+        {overlayState &&
+        <div className={styles.Product__overlay_container}>
+            <div className={styles.wrapper}>
+                <div className={styles.arrow_left} onClick={() => {
+                    if(imageIndex > 0) {
+                        setImageIndex(imageIndex - 1);
+                    } else {
+                        setImageIndex(product.images.length - 1);
+                    }
+                }}>
+                    <img src="/chevron-left-b.png" alt="left_arrow" />
+                </div>
+                <img className={styles.image} src={product.images[imageIndex].max} />
+                <div className={styles.arrow_right} onClick={() => {
+                    if(imageIndex < product.images.length - 1) {
+                        setImageIndex(imageIndex + 1);
+                    } else {
+                        setImageIndex(0);
+                    }
+                }}>
+                    <img src="/chevron-right-b.png" alt="right_arrow" />
+                </div>
+                <div className={styles.close_button}>
+                    <img src="/archive-close.png" alt="close" onClick={() => setOverlayState(false)} />
+                </div>
+            </div>
+        </div>
+        }
         <div className={styles.ProductPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
@@ -117,7 +146,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 <div className={styles.grid}>
                     <div className={styles.gallery}>
                         <div className={styles.main_img_c}>
-                            <img src={product.images[imageIndex].max} />
+                            <img src={product.images[imageIndex].max} onClick={() => setOverlayState(true)} />
                             {imageIndex != 0 &&
                             <div className={styles.arrow_back} onClick={() => setImageIndex(imageIndex - 1)}>
                                 <img src="/chevron-left-w.png" />
