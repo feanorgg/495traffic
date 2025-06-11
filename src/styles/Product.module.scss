@@ -62,7 +62,88 @@
                 height: max-content;
                 min-height: 500px;
                 margin-left: auto;
-                background-color: #dedede;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+
+                .main_img_c {
+                    width: 500px;
+                    width: 100%;
+                    height: 542px;
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .arrow_back {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 64px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: center;
+
+                        cursor: pointer;
+
+                        img {
+                            margin-left: 8px;
+                            width: 32px;
+                            height: 32px;
+                        }
+                    }
+
+                    .arrow_forward {
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 64px;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        align-items: center;
+
+                        cursor: pointer;
+
+                        img {
+                            margin-right: 8px;
+                            width: 32px;
+                            height: 32px;
+                        }
+                    }
+                }
+
+                .img_list {
+                    width: 100%;
+                    height: 100px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    overflow: hidden;
+                    gap: 8px;
+                    margin-top: 8px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100px;
+                        object-fit: cover;
+                        overflow: hidden;
+                        cursor: pointer;
+                    }
+                }
             }
 
             .info {
@@ -95,8 +176,8 @@
                     margin: 24px 0;
                 }
 
-                .color_picker {
-                    margin: 24px 0;
+                .color_picker, .size_picker {
+                    margin: 0 0 24px;
                 }
 
                 .product_actions {
@@ -241,6 +322,10 @@
             .grid {
                 .gallery, .info {
                     width: 440px;
+
+                    .main_img_c {
+                        height: 512px;
+                    }
                 }
             }
 
@@ -266,6 +351,17 @@
             .grid {
                 .gallery, .info {
                     width: 324px;
+
+                    .main_img_c {
+                        height: 448px;
+                    }
+                    
+                    .img_list {
+                        img {
+                            height: 64px;
+                            max-width: 64px;
+                        }
+                    }
                 }
             }
 
@@ -302,6 +398,17 @@
 
                 .gallery, .info {
                     width: 100%;
+
+                    .main_img_c {
+                        height: 487px;
+                    }
+                    
+                    .img_list {
+                        img {
+                            height: 80px;
+                            max-width: 80px;
+                        }
+                    }
                 }
             }
 
@@ -326,6 +433,21 @@
                 h2 {
                     font-size: 28px;
                     line-height: 32px;
+                }
+            }
+
+            .grid {
+                .gallery {
+                    .main_img_c {
+                        height: 408px;
+                    }
+
+                    .img_list {
+                        img {
+                            height: 64px;
+                            max-width: 64px;
+                        }
+                    }
                 }
             }
         }

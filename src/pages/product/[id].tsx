@@ -2,14 +2,20 @@ import Button from "@/components/Button";
 import ColorPicker from "@/components/ColorPicker";
 import ProductCard from "@/components/ProductCard";
 import SizePicker from "@/components/SizePicker";
+import CatalogService from "@/services/CatalogService";
 import CookieService from "@/services/CookieService";
 import styles from "@/styles/Product.module.scss";
+import { Product } from "@/types/Product";
+import { GetServerSidePropsContext } from "next";
 import { useEffect, useState } from "react";
 
-export default function ProductPage() {
+export default function ProductPage({ product, relatedProducts }: { product: Product, relatedProducts: Array<Product> }) {
     const [selectedSize, setSelectedSize] = useState<string>("");
-    const [selectedColor, setSelectedColor] = useState<string>("red");
+    const [selectedColor, setSelectedColor] = useState<string>("");
     const [amount, setAmount] = useState<number>(1);
+
+    const [sizes, setSizes] = useState<Array<string>>(product.availability.map((item, index) => item.size));
+    const [colors, setColors] = useState<Array<string>>([]);
 
     const [cart, setCart] = useState<Array<{id: string, size: string, amount: number}>>([]);
     const [inCart, setInCart] = useState<boolean>(false);
@@ -97,39 +103,67 @@ export default function ProductPage() {
         setCart(_cart);
     }
 
+    const [imageIndex, setImageIndex] = useState<number>(0);
+
     return(
         <>
         <div className={styles.ProductPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <p className={styles.bc}>T-shirts</p>
+                    <p className={styles.bc}>{product.categories[0].name}</p>
                     <img src="/crumb.png" />
-                    <p className={`${styles.bc} ${styles.current}`}>«AUTHORISED SUPPLIER»</p>
+                    <p className={`${styles.bc} ${styles.current}`}>«{product.name}»</p>
                 </div>
                 <div className={styles.grid}>
                     <div className={styles.gallery}>
-
+                        <div className={styles.main_img_c}>
+                            <img src={product.images[imageIndex].max} />
+                            {imageIndex != 0 &&
+                            <div className={styles.arrow_back} onClick={() => setImageIndex(imageIndex - 1)}>
+                                <img src="/chevron-left-w.png" />
+                            </div>
+                            }
+                            {imageIndex != product.images.length - 1 &&
+                            <div className={styles.arrow_forward} onClick={() => setImageIndex(imageIndex + 1)}>
+                                <img src="/chevron-left-w.png" style={{transform: 'rotate(180deg)'}} />
+                            </div>
+                            }
+                        </div>
+                        <div className={styles.img_list}>
+                            {product.images.map((image, index) => {
+                                return(
+                                    <img
+                                        key={index}
+                                        src={image.min}
+                                        onClick={() => setImageIndex(index)}
+                                    />
+                                );
+                            })}
+                        </div>
                     </div>
                     <div className={styles.info}>
-                        <h5 className={styles.cat}>t-shirt</h5>
-                        <h4 className={styles.title}>«AUTHORISED SUPPLIER»</h4>
-                        <p className={styles.price}>2 500 ₽</p>
+                        <h5 className={styles.cat}>{product.categories[0].name}</h5>
+                        <h4 className={styles.title}>«{product.name}»</h4>
+                        <p className={styles.price}>{numberWithSpaces(product.availability[0].prices[0].value)} ₽</p>
                         <SizePicker
-                            items={['S', 'M', 'L', 'XL']}
+                            items={sizes}
                             value={selectedSize}
                             onChange={setSelectedSize}
+                            className={styles.size_picker}
                         />
+                        {colors.length > 0 &&
                         <ColorPicker
-                            items={['red', 'black']}
+                            items={colors}
                             value={selectedColor}
                             onChange={setSelectedColor}
                             className={styles.color_picker}
                         />
+                        }
                         <div className={styles.product_actions}>
                             <Button
                                 label="Add to bag"
                                 className={styles.add_button}
-                                disabled={selectedColor == "" || selectedSize == ""}
+                                disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "")}
                             />
                             <div className={styles.amount_contols}>
                                 <div className={styles.control}>
@@ -145,11 +179,11 @@ export default function ProductPage() {
                         </div>
                         <p className={styles.desc_title}>Description</p>
                         <p className={styles.desc_content}>
-                            • Kulirnaya glade<br/>
-                            • 95% cotton, 5% elastane<br/>
-                            • Density 200g/m2<br/>
-                            • Silkscreen printing<br/>
-                            • Two colors: red and black
+                            {product.description.split("\n").map((item, index) => {
+                                return(
+                                    <span key={index}>{item}<br/></span>
+                                );
+                            })}
                         </p>
                     </div>
                 </div>
@@ -158,13 +192,54 @@ export default function ProductPage() {
                     <h2>RELATED PRODUCTS</h2>
                 </div>
                 <div className={styles.rel_grid}>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
+                    {relatedProducts.map((item, index) => {
+                        return(
+                            <ProductCard
+                                product={item}
+                                key={index}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>
         </>
     );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { id } = context.query;
+
+    if(id == undefined || typeof(id) == 'object') {
+        return {
+            props: {
+                product: null
+            }
+        }
+    }
+    
+    const p: Product = await CatalogService.getProduct({ id: "", alias: id });
+    const relProds: Product[] = [];
+    const r = await CatalogService.getProducts({page: 1});
+    let i = 0;
+    for(const pr of r.data) {
+        if(i > 4) {
+            break;
+        }
+        if(pr._id != p._id) {
+            relProds.push(p);
+        }
+        i += 1;
+    }
+
+    return {
+        props: {
+            product: p,
+            relatedProducts: relProds
+        }
+    }
+}
+
+function numberWithSpaces(x: number) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }

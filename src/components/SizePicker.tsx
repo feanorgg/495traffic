@@ -6,6 +6,7 @@ interface SizePickerProps {
     disabledItems?: Array<string>;
     value?: string;
     onChange?: (v: string) => void;
+    className?: string;
 };
 
 export default function SizePicker({
@@ -13,10 +14,11 @@ export default function SizePicker({
     items=["S", "M", "L", "XL"],
     disabledItems=[],
     value="",
-    onChange=()=>{}
+    onChange=()=>{},
+    className=""
 }: SizePickerProps) {
     return(
-        <div className={styles.SizePicker}>
+        <div className={`${styles.SizePicker} ${className}`}>
             <p className={styles.label}>{label}</p>
             <div className={styles.options_wrapper}>
                 {items.map((item, index) => {

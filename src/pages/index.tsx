@@ -6,8 +6,31 @@ import Checkbox from "@/components/Checkbox";
 import DropdownPicker from "@/components/DropdownPicker";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
+import CatalogService from "@/services/CatalogService";
+import { useEffect, useState } from "react";
+import { Product } from "@/types/Product";
 
 export default function Home() {
+    const [products, setProducts] = useState<Array<Product>>([]);
+    const [page, setPage] = useState<number>(1);
+    const [pagesCount, setPagesCount] = useState<number>(0);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    async function fetchProducts() {
+        const catalogResponse = await CatalogService.getProducts({page: 1});
+        setProducts(catalogResponse.data);
+        setPagesCount(catalogResponse.pages);
+    }
+
+    async function loadMoreProducts() {
+        const catalogResponse = await CatalogService.getProducts({page: page + 1});
+        setPage(page + 1);
+        setProducts([...products, ...catalogResponse.data]);
+    }
+
     return (
         <>
         <Head>
@@ -38,21 +61,21 @@ export default function Home() {
                 </div>
 
                 <div className={styles.products_grid}>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
-
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
-                    <ProductCard/>
+                    {products.map((product, index) => {
+                        return(
+                            <ProductCard
+                                product={product}
+                                key={index}
+                            />
+                        );
+                    })}
                 </div>
 
                 <div className={styles.load_more}>
                     <Button
                         label="load more"
                         tertiary
+                        onClick={() => loadMoreProducts()}
                     />
                 </div>
             </div>

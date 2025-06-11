@@ -2,9 +2,10 @@ import styles from "@/components/ProductCard.module.scss";
 import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Product } from "@/types/Product";
 
-export default function ProductCard() {
-    const product = {
+export default function ProductCard({product}: {product: Product}) {
+    /*const product = {
         images: [
             {
                 min: '/495-product-img.webp',
@@ -19,7 +20,7 @@ export default function ProductCard() {
                 max: '/495-product-img.webp',
             }
         ]
-    };
+    };*/
 
     const [imageIndex, setImageIndex] = useState<number>(0);
 
@@ -48,7 +49,7 @@ export default function ProductCard() {
     }, []);
 
     return(
-        <Link href="/product/abc" style={{textDecoration: 'none', color: 'inherit'}} className={styles.ProductCard} ref={cardRef}>
+        <Link href={`/product/${product.alias}`} style={{textDecoration: 'none', color: 'inherit'}} className={styles.ProductCard} ref={cardRef}>
             <div className={styles.img_container}>
                 {product.images.map((image, index) => {
                     return(
@@ -69,9 +70,9 @@ export default function ProductCard() {
                 </div>
             </div>
             <div className={styles.info_container}>
-                <p className={styles.category}>Hoodie</p>
-                <h5>«FREE ALL BROTHERS THAT GOT BAGGED»</h5>
-                <p className={styles.price}>7000 ₽</p>
+                <p className={styles.category}>{product.categories[0].name}</p>
+                <h5>«{product.name}»</h5>
+                <p className={styles.price}>{product.availability[0].prices[0].value} ₽</p>
             </div>
             {/*<div className={styles.actions_container}>
                 <Button

@@ -216,7 +216,7 @@
                 width: calc(100% - 40px);
                 max-width: 1000px;
 
-                flex-direction: row-reverse;
+                flex-direction: row;
 
                 .mobile_menu_button {
                     display: flex;
@@ -255,7 +255,7 @@
         background-color: #F5F5F6;
 
         position: fixed;
-        right: -100vw;
+        left: -100vw;
         transition: right .3s ease-in;
         will-change: right;
 
@@ -287,6 +287,6 @@
     }
 
     .MobileMenu__container.visible {
-        right: 0;
+        left: 0;
     }
 }
