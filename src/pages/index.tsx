@@ -22,7 +22,7 @@ export default function Home() {
     async function fetchProducts() {
         const catalogResponse = await CatalogService.getProducts({page: 1});
         setProducts(catalogResponse.data);
-        setPagesCount(catalogResponse.pages);
+        setPagesCount(catalogResponse.numpages);
     }
 
     async function loadMoreProducts() {
@@ -76,6 +76,7 @@ export default function Home() {
                         label="load more"
                         tertiary
                         onClick={() => loadMoreProducts()}
+                        disabled={page == pagesCount}
                     />
                 </div>
             </div>
