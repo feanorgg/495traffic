@@ -274,7 +274,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             break;
         }
         if(pr._id != p._id) {
-            relProds.push(p);
+            relProds.push(pr);
         }
         i += 1;
     }
