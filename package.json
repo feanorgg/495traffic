@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "startp": "next start -p 3040"
   },
   "dependencies": {
     "@react-input/mask": "^2.0.4",
