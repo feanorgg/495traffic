@@ -32,10 +32,16 @@ export default function ProductCard({product}: {product: Product}) {
             const card = cardRef.current as HTMLElement;
             const rect = card.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
             const width = rect.width;
+            const height = rect.height;
 
-            const newIndex = Math.floor((mouseX / width) * product.images.length);
-            setImageIndex(Math.min(Math.max(newIndex, 0), product.images.length - 1));
+            if(mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+                const newIndex = Math.floor((mouseX / width) * product.images.length);
+                setImageIndex(Math.min(Math.max(newIndex, 0), product.images.length - 1));
+            } else {
+                setImageIndex(0);
+            }
         };
 
         const cardElement = cardRef.current as HTMLElement;

@@ -1,0 +1,80 @@
+.TextPage__root {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .wrapper {
+        width: calc(100% - 240px);
+        max-width: 1680px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 248px 0 0 0;
+
+        .head {
+            width: 100%;
+            height: max-content;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 64px;
+        }
+
+        .content {
+            width: 100%;
+            height: max-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-bottom: 64px;
+
+            p {
+                text-align: start;
+                white-space: pre-wrap;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1920px) {
+    .Home__root {
+        .wrapper {
+            width: calc(100% - 128px);
+            max-width: 1312px;
+            margin: 48px 0 0 0;
+        }
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .TextPage__root {
+        .wrapper {
+            width: calc(100% - 80px);
+            max-width: 920px;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .TextPage__root {
+        .wrapper {
+            width: calc(100% - 80px);
+            max-width: 688px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .TextPage__root {
+        .wrapper {
+            width: calc(100% - 40px);
+            max-width: 1000px;
+        }
+    }
+}

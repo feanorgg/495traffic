@@ -15,8 +15,11 @@ export default function Footer() {
                     <Link className={styles.link} href="/contacts">
                         Contacts
                     </Link>
-                    <Link className={styles.link} href="/privacy-policy">
-                        Privacy Policy
+                    <Link className={styles.link} href="/privacy">
+                        Privacy
+                    </Link>
+                    <Link className={styles.link} href="/offer">
+                        Offer
                     </Link>
                 </div>
                 <img src="/dngc.png" alt="do_not_get_caught" className={styles.dngc} />
