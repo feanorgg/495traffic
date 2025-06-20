@@ -32,25 +32,25 @@ export default function ProductCard({product}: {product: Product}) {
             const card = cardRef.current as HTMLElement;
             const rect = card.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
             const width = rect.width;
-            const height = rect.height;
 
-            if(mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-                const newIndex = Math.floor((mouseX / width) * product.images.length);
-                setImageIndex(Math.min(Math.max(newIndex, 0), product.images.length - 1));
-            } else {
-                setImageIndex(0);
-            }
+            const newIndex = Math.floor((mouseX / width) * product.images.length);
+            setImageIndex(Math.min(Math.max(newIndex, 0), product.images.length - 1));
+        };
+
+        const handleMouseLeave = () => {
+            setImageIndex(0);
         };
 
         const cardElement = cardRef.current as HTMLElement;
         if(window.innerWidth >= 1000) {
             cardElement.addEventListener("mousemove", handleMouseMove);
+            cardElement.addEventListener("mouseleave", handleMouseLeave);
         }
 
         return () => {
             cardElement.removeEventListener("mousemove", handleMouseMove);
+            cardElement.removeEventListener("mouseleave", handleMouseLeave);
         };
     }, []);
 
