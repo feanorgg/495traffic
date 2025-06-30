@@ -508,7 +508,7 @@
                             .p_info {
                                 height: 80px;
                                 max-height: 80px;
-                                max-width: auto;
+                                max-width: max-content;
                                 width: max-content;
                             }
                         }
@@ -520,6 +520,11 @@
                             justify-content: space-between;
                             margin: 0;
                             height: max-content;
+                            align-items: center;
+
+                            .p_price {
+                                margin: 0;
+                            }
                         }
 
                         .p_remove {
