@@ -575,7 +575,7 @@ export default function CartPage() {
             }
             `}</style>
         </Head>
-        <Script src="https://api-maps.yandex.ru/v3/?apikey=1c386748-24a0-46eb-911b-e7ccd05e4ad7&lang=ru_RU" type="text/javascript" strategy="beforeInteractive" id="ymap" />
+        <Script src="https://api-maps.yandex.ru/v3/?apikey=9a60df23-70f9-4e64-ade1-dce7ada907ff&lang=ru_RU" type="text/javascript" strategy="beforeInteractive" id="ymap" />
         <Script id="ymap-functions">{`
         /*initMap();
 
