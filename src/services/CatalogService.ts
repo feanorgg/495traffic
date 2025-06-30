@@ -19,6 +19,7 @@ export default class CatalogService {
                 if(i < categories.length-1) {
                     url += ',';
                 }
+                i += 1;
             }
         }
         const res = await axios.get(url);
