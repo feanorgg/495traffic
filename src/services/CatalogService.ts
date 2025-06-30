@@ -7,9 +7,21 @@ axios.defaults.headers.common['Shop-Id'] = '495TRA';
 
 export default class CatalogService {
     static async getProducts({
-        page=1
-    }: {page: number}) {
-        const res = await axios.get(`${API_URL}/catalog?page=${page}`);
+        page=1,
+        categories=[]
+    }: {page: number, categories?: Array<string>}) {
+        let url = `${API_URL}/catalog?page=${page}`;
+        if(categories.length > 0) {
+            url += `&categories=`;
+            let i = 0;
+            for(const c of categories) {
+                url += c;
+                if(i < categories.length-1) {
+                    url += ',';
+                }
+            }
+        }
+        const res = await axios.get(url);
         return res.data;
     }
 

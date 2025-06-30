@@ -20,13 +20,13 @@ export default function Home() {
     }, []);
 
     async function fetchProducts() {
-        const catalogResponse = await CatalogService.getProducts({page: 1});
+        const catalogResponse = await CatalogService.getProducts({page: 1, categories: ['t-shirt']});
         setProducts(catalogResponse.data);
         setPagesCount(catalogResponse.numpages);
     }
 
     async function loadMoreProducts() {
-        const catalogResponse = await CatalogService.getProducts({page: page + 1});
+        const catalogResponse = await CatalogService.getProducts({page: page + 1, categories: ['t-shirt']});
         setPage(page + 1);
         setProducts([...products, ...catalogResponse.data]);
     }

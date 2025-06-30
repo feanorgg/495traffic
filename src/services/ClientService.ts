@@ -18,4 +18,46 @@ export default class ClientService {
             return false;
         }
     }
+
+    static async signUp() {}
+
+    static async signInWithEmailAndPassword({
+        email,
+        password
+    }: {
+        email: string,
+        password: string
+    }) {
+        try {
+            const res = await axios.post(
+                `${API_URL}/users/login?remember`,
+                {user: {email: email, password: password}},
+                {withCredentials: true}
+            );
+
+            return res.data.user;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    }
+
+    static async signInWithCookies({
+        _callback
+    }: {
+        _callback: (r: any) => void
+    }) {
+        try {
+            const res = await axios.post(
+                `${API_URL}/users/login?remember`,
+                {},
+                { withCredentials: true }
+            );
+
+            return res.data.user;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    }
 };
