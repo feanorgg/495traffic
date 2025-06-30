@@ -2,25 +2,37 @@ import styles from "@/components/TextInput.module.scss";
 import { useMask } from "@react-input/mask";
 import { useEffect, useRef, useState } from "react";
 
+type CityObject = {
+    // city_uuid: string;
+    code: number;
+    full_name: string;
+    longitude: number;
+    latitude: number;
+};
+
 interface TextInputProps {
     placeholder?: string;
     value?: string;
     onChangeText?: (text: string) => void;
+    onClickHint?: (h: string | CityObject) => void;
     errorMsg?: string;
     required?: boolean;
     phone?: boolean;
+    onBlur?: () => void;
 
-    hints?: Array<string>;
+    hints?: Array<string | CityObject>;
 };
 
 export default function TextInput({
     placeholder = "",
     value = "",
     onChangeText = (text: string) => {},
+    onClickHint=()=>{},
     errorMsg = "",
     required = false,
     hints = [],
-    phone=false
+    phone=false,
+    onBlur=()=>{}
 }: TextInputProps) {
     const [hintsShown, setHintsShown] = useState<boolean>(false);
     const boxRef = useRef<HTMLDivElement | null>(null);
@@ -34,6 +46,7 @@ export default function TextInput({
         function handleClickOutside(event: MouseEvent) {
             if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
                 setHintsShown(false);
+                onBlur();
             }
         }
 
@@ -59,8 +72,17 @@ export default function TextInput({
                 <div className={styles.scroll_container}>
                     <div className={styles.hints_wrapper}>
                     {hints.map((hint, index) => (
-                        <div key={index} className={styles.hint} onClick={() => onChangeText(hint)}>
-                            <p>{hint}</p>
+                        <div key={index} className={styles.hint} onClick={() => {
+                            if(typeof(hint) == 'string') {
+                                onChangeText(hint);
+                                onClickHint(hint);
+                            } else {
+                                // onChangeText(hint.full_name);
+                                onClickHint(hint);
+                            }
+                            setHintsShown(false);
+                        }}>
+                            <p>{typeof(hint) == 'string' ? hint : hint.full_name}</p>
                         </div>
                     ))}
                     </div>
