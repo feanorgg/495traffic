@@ -5,7 +5,12 @@ import CookieService from "@/services/CookieService";
 import OrderService from "@/services/OrderService";
 import styles from "@/styles/CartPage.module.scss";
 import { Product } from "@/types/Product";
+import Head from "next/head";
+import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
+import { yMapCfg } from '@/constants/mapStyleCfg';
+import { useRouter } from "next/router";
+import { Order } from "@/types/Order";
 
 export default function CartPage() {
     const [cart, setCart] = useState<Array<{id: string, size: string, amount: number}>>([]);
@@ -79,17 +84,22 @@ export default function CartPage() {
     }
 
      const [promo, setPromo] = useState<string>("");
-    const [fio, setFio] = useState<string>("");
 
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
+    const [firstNameErr, setFirstNameErr] = useState<string>("");
+    const [lastNameErr, setLastNameErr] = useState<string>("");
 
     const [email, setEmail] = useState<string>("");
+    const [emailErr, setEmailErr] = useState<string>("");
 
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [city, setCity] = useState<string>("");
     const [address, setAddress] = useState<string>("");
     const [address2, setAddress2] = useState<string>("");
+    const [phoneNumberErr, setPhoneNumberErr] = useState<string>("");
+    const [cityErr, setCityErr] = useState<string>("");
+    const [addressErr, setAddressErr] = useState<string>("");
 
     type CityObject = {
         // city_uuid: string;
@@ -131,7 +141,9 @@ export default function CartPage() {
     }
 
     const [deliveryCost, setDeliveryCost] = useState<number>(0);
+    const [cdekDeliveryCost, setCdekDeliveryCost] = useState<number>(0);
     const [deliveryCalendar, setDeliveryCalendar] = useState<number>(0);
+    const [deliveryMethod, setDeliveryMethod] = useState<'cdek'|'courier'>('cdek');
 
     type ShippingPoint = {
         _id: string;
@@ -161,9 +173,18 @@ export default function CartPage() {
         spRef.current = shippingPoints;
     }, [shippingPoints]);
 
+    useEffect(() => {
+        if(deliveryMethod == 'cdek') {
+            setDeliveryCost(cdekDeliveryCost);
+        } else {
+            setDeliveryCost(1000);
+        }
+    }, [deliveryMethod]);
+
     async function getDeliveryInfo(code: number) {
         const res = await OrderService.getDeliveryCost(code, rawTotal);
         setDeliveryCost(Math.round(res.delivery_sum));
+        setCdekDeliveryCost(Math.round(res.delivery_sum));
         setDeliveryCalendar(res.calendar_min);
 
         const res2 = await OrderService.getShippingPoints(code);
@@ -178,12 +199,11 @@ export default function CartPage() {
                 
                 if(sspRef.current != null) {
                     const el1 = document.getElementById(sspRef.current.code);
-                    // el1!.style.borderColor = '#36f';
                     el1!.style.borderColor = '#525252';
                 }
 
                 const el2 = document.getElementById(id);
-                el2!.style.borderColor = '#f55';
+                el2!.style.borderColor = '#01F300';
 
                 setSelectedShippingPoint(point);
                 break;
@@ -191,16 +211,18 @@ export default function CartPage() {
         }
     }
 
+    const router = useRouter();
+
     useEffect(() => {
         const cl: string | null = CookieService.getCookie('cart');
         if(cl != null) {
             const cList: Array<{id: string, size: string, amount: number}> = JSON.parse(cl);
             if(cList.length == 0) {
-                // router.back(); // ENABLE_BACK
+                router.back(); // ENABLE_BACK
             }
             getCartProductsAsync(cList);
         } else {
-            // router.back(); // ENABLE_BACK
+            router.back(); // ENABLE_BACK
         }
 
         document.addEventListener('click', function(e) {
@@ -212,14 +234,53 @@ export default function CartPage() {
         });
     }, []);
 
-    const [agreeShipmentRules, setAgreeShipmentRules] = useState<boolean>(false);
     const [agreePrivacyPolicy, setAgreePrivacyPolicy] = useState<boolean>(false);
-
-    const [saveContacts, setSaveContacts] = useState<boolean>(true);
+    const [agreePublicOffer, setAgreePublicOffer] = useState<boolean>(false);
+    const [agreePrivacyPolicyErr, setAgreePrivacyPolicyErr] = useState<string>("");
+    const [agreePublicOfferErr, setAgreePublicOfferErr] = useState<string>("");
+    const [agreeSubscription, setAgreeSubscription] = useState<boolean>(true);
  
     function validateData() {
         // check if all necessary fields are filled
-        if(!(firstName != "" && lastName != "" && email != "" && phoneNumber != "" && cityCode != 0 && city != "" && selectedShippingPoint != null && agreeShipmentRules && agreePrivacyPolicy)) {
+        if(firstName == "") {
+            return false;
+        }
+
+        if(lastName == "") {
+            return false;
+        }
+
+        if(email == "") {
+            return false;
+        }
+
+        if(phoneNumber == "") {
+            return false;
+        }
+
+        if(deliveryMethod == 'cdek') {
+            if(cityCode == 0) {
+                return false;
+            }
+
+            if(selectedShippingPoint == null) {
+                return false;
+            }
+        } else if(deliveryMethod == 'courier') {
+            if(cityCode == 0) {
+                return false;
+            }
+
+            if(address == "") {
+                return false;
+            }
+        }
+
+        if(!agreePrivacyPolicy) {
+            return false;
+        }
+
+        if(!agreePublicOffer) {
             return false;
         }
 
@@ -237,8 +298,158 @@ export default function CartPage() {
         }
     }
 
-    async function tryCreateOrder() {
+    const [creationLoading, setCreationLoading] = useState<boolean>(false);
 
+    const [shippingPointErr, setShippingPointErr] = useState<string>("");
+
+    async function tryCreateOrder() {
+        setCreationLoading(true);
+
+        if(firstName == "") {
+            setFirstNameErr("Required field");
+            setCreationLoading(false);
+            return false;
+        } else {setFirstNameErr("");}
+
+        if(lastName == "") {
+            setLastNameErr("Required field");
+            setCreationLoading(false);
+            return false;
+        } else {setLastNameErr("");}
+
+        if(email == "") {
+            setEmailErr("Required field");
+            setCreationLoading(false);
+            return false;
+        } else {setEmailErr("");}
+
+        if(!String(email).toLowerCase().match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )) {
+            setEmailErr("Incorrect data, please try again");
+            setCreationLoading(false);
+            return false;
+        } else {setEmailErr("");}
+
+        if(phoneNumber == "") {
+            setPhoneNumberErr("Required field");
+            setCreationLoading(false);
+            return false;
+        } else {setPhoneNumberErr("");}
+
+        if(deliveryMethod == 'cdek') {
+            if(cityCode == 0) {
+                setCityErr("Required field");
+                setCreationLoading(false);
+                return false;
+            } else {setCityErr("");}
+
+            if(selectedShippingPoint == null) {
+                setShippingPointErr("Required field");
+                setCreationLoading(false);
+                return false;
+            } else {setShippingPointErr("");}
+        } else if(deliveryMethod == 'courier') {
+            if(cityCode == 0) {
+                setCityErr("Required field");
+                setCreationLoading(false);
+                return false;
+            } else {setCityErr("");}
+
+            if(address == "") {
+                setAddressErr("Required field");
+                setCreationLoading(false);
+                return false;
+            } else {setAddressErr("");}
+        }
+
+        if(!agreePrivacyPolicy) {
+            setAgreePrivacyPolicyErr("Required field");
+            setCreationLoading(false);
+            return false;
+        } else {setAgreePrivacyPolicyErr("");}
+
+        if(!agreePublicOffer) {
+            setAgreePublicOfferErr("Required field");
+            setCreationLoading(false);
+            return false;
+        } else {setAgreePublicOfferErr("");}
+
+        if(rawTotal == 0) {
+            setCreationLoading(false);
+            return false;
+        }
+
+        // process order
+        if(deliveryMethod == 'cdek') {
+            OrderService.createOrder({
+                products: _cartProducts,
+                email: email,
+                first_name: firstName,
+                last_name: lastName,
+                promo_code: promo.toLowerCase(),
+                currency: "RUB",
+                phone_number: phoneNumber,
+                user_id: "",
+                delivery_type: "cdek",
+                cdek_data: {
+                    shipping_point_code: selectedShippingPoint!.code,
+                    city_code: cityCode,
+                    address: address,
+                    zip: ""
+                },
+                delivery_address: `${city}, ${address}, ${address2}`,
+                payment_method: "card",
+                _callback: (order: Order) => {
+                    CookieService.setCookie('cart', '[]', 365);
+                    const el = document.getElementById('cart-cnt');
+                    el!.innerHTML = "0";
+    
+                    if(order.payment_url != "") {
+                        router.push(order.payment_url);
+                    }
+                },
+                _onStockError: () => {
+                    alert("Некоторые товары из вашей корзины стали недоступны");
+                    setCreationLoading(false);
+                    getCartProductsAsync(cart);
+                }
+            });
+        } else if(deliveryMethod == 'courier') {
+            OrderService.createOrder({
+                products: _cartProducts,
+                email: email,
+                first_name: firstName,
+                last_name: lastName,
+                promo_code: promo.toLowerCase(),
+                currency: "RUB",
+                phone_number: phoneNumber,
+                user_id: "",
+                delivery_type: "courier",
+                cdek_data: {
+                    shipping_point_code: "",
+                    city_code: 0,
+                    address: "",
+                    zip: ""
+                },
+                delivery_address: `${city}, ${address}, ${address2}`,
+                payment_method: "card",
+                _callback: (order: Order) => {
+                    CookieService.setCookie('cart', '[]', 365);
+                    const el = document.getElementById('cart-cnt');
+                    el!.innerHTML = "0";
+    
+                    if(order.payment_url != "") {
+                        router.push(order.payment_url);
+                    }
+                },
+                _onStockError: () => {
+                    alert("Некоторые товары из вашей корзины стали недоступны");
+                    setCreationLoading(false);
+                    getCartProductsAsync(cart);
+                }
+            });
+        }
     }
 
     async function increaseQty(p: Product) {
@@ -351,6 +562,91 @@ export default function CartPage() {
     }
 
     return(
+        <>
+        <Head>
+            <style type="text/css">{`
+            .marker-class {
+                width: 16px;
+                height: 16px;
+                background-color: #fff;
+                border-radius: 16px;
+                cursor: pointer;
+                border: 3px solid #525252;
+            }
+            `}</style>
+        </Head>
+        <Script src="https://api-maps.yandex.ru/v3/?apikey=1c386748-24a0-46eb-911b-e7ccd05e4ad7&lang=ru_RU" type="text/javascript" strategy="beforeInteractive" id="ymap" />
+        <Script id="ymap-functions">{`
+        /*initMap();
+
+        async function initMap() {
+            await ymaps3.ready;
+
+            const {YMap, YMapDefaultSchemeLayer} = ymaps3;
+
+            const map = new YMap(
+                document.getElementById('map'),
+
+                {
+                    location: {
+                        center: [37.588144, 55.733842],
+                        zoom: 10
+                    }
+                }
+            );
+
+            map.addChild(new YMapDefaultSchemeLayer({
+                customization: ${yMapCfg}
+            }));
+        }*/
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function loadMarkers(markers, cfg) {
+            const el = document.getElementById('map');
+            el.innerHTML = "";
+
+            try {
+                await ymaps3.ready;
+            } catch {
+                await sleep(500);
+                await ymaps3.ready;
+            }
+
+            const {YMap, YMapDefaultSchemeLayer, YMapMarker, YMapDefaultFeaturesLayer} = ymaps3;
+
+            const map = new YMap(
+                document.getElementById('map'),
+
+                {
+                    location: {
+                        center: [markers[0].lon, markers[0].lat],
+                        zoom: 9.5
+                    }
+                }
+            );
+
+            map.addChild(new YMapDefaultSchemeLayer({
+                customization: cfg
+            }));
+            map.addChild(new YMapDefaultFeaturesLayer({zIndex: 1800}));
+
+            for(const m of markers) {
+                const markerElement = document.createElement('div');
+                markerElement.className = 'marker-class';
+                markerElement.id = m.code;
+                markerElement.innerHTML = '';
+
+                const marker = new YMapMarker({
+                    coordinates: [m.lon, m.lat],
+                }, markerElement);
+
+                map.addChild(marker);
+            }
+        }
+        `}</Script>
         <div className={styles.Cart__root}>
             <div className={styles.wrapper}>
                 <div className={styles.grid}>
@@ -366,12 +662,14 @@ export default function CartPage() {
                                     required
                                     value={firstName}
                                     onChangeText={setFirstName}
+                                    errorMsg={firstNameErr}
                                 />
                                 <TextInput
                                     placeholder="E-Mail"
                                     required
                                     value={email}
                                     onChangeText={setEmail}
+                                    errorMsg={emailErr}
                                 />
                             </div>
                             <div className={styles.section_hor}>
@@ -380,6 +678,7 @@ export default function CartPage() {
                                     required
                                     value={lastName}
                                     onChangeText={setLastName}
+                                    errorMsg={lastNameErr}
                                 />
                                 <TextInput
                                     placeholder="+7 (999) 999-99-99"
@@ -387,6 +686,7 @@ export default function CartPage() {
                                     required
                                     value={phoneNumber}
                                     onChangeText={setPhoneNumber}
+                                    errorMsg={phoneNumberErr}
                                 />
                             </div>
                         </div>
@@ -407,17 +707,39 @@ export default function CartPage() {
                                             setCityObject(cityHints[0]);
                                         }
                                     }}
+                                    errorMsg={cityErr}
+                                    chevron
                                 />
-                                <div className={styles.section_hor}>
-
+                                <div className={`${styles.section_hor} ${styles.still_hor}`}>
+                                    <div className={`${styles.tab_btn} ${deliveryMethod == 'cdek' ? styles.active : ''}`} onClick={() => setDeliveryMethod('cdek')}>
+                                        <p>Pick-up point</p>
+                                    </div>
+                                    <div className={`${styles.tab_btn} ${deliveryMethod == 'courier' ? styles.active : ''}`} onClick={() => setDeliveryMethod('courier')}>
+                                        <p>By courier</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div className={`${styles.cdek_map_wrapper} ${deliveryMethod != 'cdek' ? styles.hidden : ''}`}>
+                                <div id="map" className={styles.map_container}>
+                                    <p>Specify your city to choose the pick-up point</p>
+                                </div>
+                            </div>
+                            {selectedShippingPoint != null && deliveryMethod == 'cdek' &&
+                            <div className={styles.cdek_shipping_point}>
+                                <div className={styles.wrap}>
+                                    <p className={styles.subname}>Selected pick-up point:</p>
+                                    <p className={styles.name}>{selectedShippingPoint.name.split(', ')[0]}, {selectedShippingPoint.address}</p>
+                                </div>
+                            </div>
+                            }
+                            {deliveryMethod == 'courier' &&
                             <div className={styles.section_hor}>
                                 <TextInput
                                     placeholder="Address"
                                     required
                                     value={address}
                                     onChangeText={setAddress}
+                                    errorMsg={addressErr}
                                 />
                                 <TextInput
                                     placeholder="Apartment, suite, etc. (optional)"
@@ -425,6 +747,7 @@ export default function CartPage() {
                                     onChangeText={setAddress2}
                                 />
                             </div>
+                            }
                         </div>
                         <div className={styles.section}>
                             <p className={styles.section_title}>Comment</p>
@@ -434,27 +757,41 @@ export default function CartPage() {
                         </div>
                         <div className={styles.section}>
                             <p className={styles.section_title}>Promocode</p>
-                            <TextInput
-                                placeholder="Enter the promo code"
-                                value={promo}
-                                onChangeText={setPromo}
-                                errorMsg={promoCodeErr}
-                            />
+                            <div className={styles.promo_hor}>
+                                <TextInput
+                                    placeholder="Enter the promo code"
+                                    value={promo}
+                                    onChangeText={setPromo}
+                                    errorMsg={promoCodeErr}
+                                    disabled={promoApplied}
+                                />
+                                <Button
+                                    label={promoApplied ? "PROMOCODE APPLIED" : "APPLY"}
+                                    secondary
+                                    disabled={promo == "" || promoApplied}
+                                    onClick={() => checkPromo()}
+                                />
+                            </div>
                         </div>
                         <div className={styles.agreements}>
                             <Checkbox
-
+                                error={agreePrivacyPolicyErr != ""}
+                                checked={agreePrivacyPolicy}
+                                onChange={setAgreePrivacyPolicy}
                             >
                                 <p>I agree with the <a href="/privacy" target="_blank">personal data processing policy</a></p>
                             </Checkbox>
                             <Checkbox
-
+                                error={agreePublicOfferErr != ""}
+                                checked={agreePublicOffer}
+                                onChange={setAgreePublicOffer}
                             >
                                 <p>I agree with the terms of the <a href="/offer" target="_blank">public offer</a></p>
                             </Checkbox>
                             <Checkbox
                                 label="I agree to receive an advertising newsletter"
-                                checked
+                                checked={agreeSubscription}
+                                onChange={setAgreeSubscription}
                             />
                         </div>
                         <Button
@@ -462,6 +799,7 @@ export default function CartPage() {
                             secondary
                             style={{width: '100%'}}
                             onClick={() => tryCreateOrder()}
+                            loading={creationLoading}
                         />
                     </div>
                     <div className={styles.right}>
@@ -512,6 +850,7 @@ export default function CartPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

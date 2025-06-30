@@ -96,7 +96,7 @@ export default class OrderService {
         currency?: "USD" | "RUB",
         phone_number: string,
         user_id?: string,
-        delivery_type: "cdek",
+        delivery_type: "cdek" | "courier",
         cdek_data: {
             shipping_point_code: string,
             city_code: number,

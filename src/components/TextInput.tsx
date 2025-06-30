@@ -19,6 +19,8 @@ interface TextInputProps {
     required?: boolean;
     phone?: boolean;
     onBlur?: () => void;
+    disabled?: boolean;
+    chevron?: boolean;
 
     hints?: Array<string | CityObject>;
 };
@@ -32,7 +34,9 @@ export default function TextInput({
     required = false,
     hints = [],
     phone=false,
-    onBlur=()=>{}
+    onBlur=()=>{},
+    disabled=false,
+    chevron=false
 }: TextInputProps) {
     const [hintsShown, setHintsShown] = useState<boolean>(false);
     const boxRef = useRef<HTMLDivElement | null>(null);
@@ -58,11 +62,12 @@ export default function TextInput({
 
     return(
         <div className={styles.TextInput} ref={boxRef}>
-            <input className={`${styles.input} ${errorMsg != "" ? styles.error : ''}`}
+            <input className={`${styles.input} ${errorMsg != "" ? styles.error : ''} ${disabled ? styles.disabled : ''}`}
                 value={value}
                 onChange={e => onChangeText(e.target.value)}
                 onClick={() => setHintsShown(true)}
                 ref={phone ? phoneRef : null}
+                disabled={disabled}
             />
             {value == "" && placeholder != "" && <p className={styles.placeholder}>{placeholder}{required ? <span>*</span> : ''}</p>}
             {errorMsg != "" && <p className={styles.err_msg}>{errorMsg}</p>}
