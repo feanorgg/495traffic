@@ -55,12 +55,12 @@ export default function ProductCard({product}: {product: Product}) {
     }, []);
 
     function inStock() {
-        let flag = false;
         for(const av of product.availability) {
             if(av.amount > 0) {
                 return true;
             }
         }
+        return false;
     }
 
     return(
