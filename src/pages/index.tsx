@@ -84,6 +84,7 @@ export default function Home() {
                                     break;
                                 case "In descending order of price":
                                     setSorting("price_desc");
+                                    break;
                                 default:
                                     setSorting("new");
                                     break;
