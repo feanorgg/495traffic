@@ -54,6 +54,15 @@ export default function ProductCard({product}: {product: Product}) {
         };
     }, []);
 
+    function inStock() {
+        let flag = false;
+        for(const av of product.availability) {
+            if(av.amount > 0) {
+                return true;
+            }
+        }
+    }
+
     return(
         <Link href={`/product/${product.alias}`} style={{textDecoration: 'none', color: 'inherit'}} className={styles.ProductCard} ref={cardRef}>
             <div className={styles.img_container}>
@@ -78,7 +87,7 @@ export default function ProductCard({product}: {product: Product}) {
             <div className={styles.info_container}>
                 <p className={styles.category}>{product.categories[0].name}</p>
                 <h5>«{product.name}»</h5>
-                <p className={styles.price}>{product.availability[0].prices[0].value} ₽</p>
+                <p className={styles.price}>{inStock() ? `${product.availability[0].prices[0].value} ₽` : 'SOLD OUT'}</p>
             </div>
             {/*<div className={styles.actions_container}>
                 <Button
