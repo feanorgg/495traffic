@@ -17,8 +17,9 @@ export default function Home() {
     const [sorting, setSorting] = useState<"new"|"popular"|"price_asc"|"price_desc">("new");
 
     useEffect(() => {
+        setPage(1);
         fetchProducts();
-    }, []);
+    }, [sorting]);
 
     async function fetchProducts() {
         const catalogResponse = await CatalogService.getProducts({

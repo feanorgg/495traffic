@@ -41,7 +41,7 @@ export default function DropdownPicker({
                 <div className={styles.items_wrapper}>
                     {items.map((item, index) => {
                         return(
-                            <div className={styles.item} key={index} onClick={() => onChange(item)}>
+                            <div className={styles.item} key={index} onClick={() => {onChange(item); setState(false);}}>
                                 <p className={styles.item_title}>{item}</p>
                             </div>
                         );
