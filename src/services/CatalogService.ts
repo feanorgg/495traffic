@@ -8,9 +8,10 @@ axios.defaults.headers.common['Shop-Id'] = '495TRA';
 export default class CatalogService {
     static async getProducts({
         page=1,
-        categories=[]
-    }: {page: number, categories?: Array<string>}) {
-        let url = `${API_URL}/catalog?page=${page}`;
+        categories=[],
+        sorting="new"
+    }: {page: number, categories?: Array<string>, sorting?: "new" | "price_asc" | "price_desc"}) {
+        let url = `${API_URL}/catalog?page=${page}&sort=${sorting}`;
         if(categories.length > 0) {
             url += `&categories=`;
             let i = 0;

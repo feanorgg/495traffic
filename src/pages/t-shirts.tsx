@@ -14,19 +14,22 @@ export default function Home() {
     const [products, setProducts] = useState<Array<Product>>([]);
     const [page, setPage] = useState<number>(1);
     const [pagesCount, setPagesCount] = useState<number>(0);
+    const [sorting, setSorting] = useState<"new"|"popular"|"price_asc"|"price_desc">("new");
 
     useEffect(() => {
         fetchProducts();
     }, []);
 
     async function fetchProducts() {
-        const catalogResponse = await CatalogService.getProducts({page: 1, categories: ['t-shirt']});
+        const catalogResponse = await CatalogService.getProducts({page: 1, categories: ['t-shirt'],
+            sorting: sorting == "popular" ? "new" : sorting});
         setProducts(catalogResponse.data);
         setPagesCount(catalogResponse.numpages);
     }
 
     async function loadMoreProducts() {
-        const catalogResponse = await CatalogService.getProducts({page: page + 1, categories: ['t-shirt']});
+        const catalogResponse = await CatalogService.getProducts({page: page + 1, categories: ['t-shirt'],
+            sorting: sorting == "popular" ? "new" : sorting});
         setPage(page + 1);
         setProducts([...products, ...catalogResponse.data]);
     }
@@ -54,6 +57,30 @@ export default function Home() {
                             "In ascending order of price",
                             "In descending order of price"
                         ]}
+                        value={{
+                            "new": "Novelty",
+                            "popular": "Popularity",
+                            "price_asc": "In ascending order of price",
+                            "price_desc": "In descending order of price"
+                        }[sorting]}
+                        onChange={v => {
+                            switch(v) {
+                                case "Novelty":
+                                    setSorting("new");
+                                    break;
+                                case "Popularity":
+                                    setSorting("popular");
+                                    break;
+                                case "In ascending order of price":
+                                    setSorting("price_asc");
+                                    break;
+                                case "In descending order of price":
+                                    setSorting("price_desc");
+                                default:
+                                    setSorting("new");
+                                    break;
+                            }
+                        }}
                     />
                 </div>
 
