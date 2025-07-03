@@ -1,11 +1,69 @@
 import Button from "@/components/Button";
 import DropdownPicker from "@/components/DropdownPicker";
+import ContentService from "@/services/ContentService";
 import styles from "@/styles/Archive.module.scss";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ArchivePage() {
     const [imageSrc, setImageSrc] = useState<string>('');
+
+    const [seasons, setSeasons] = useState<Array<string>>([]);
+    const [selectedSeason, setSelectedSeason] = useState<string>("");
+    const [seasonObjects, setSeasonObjects] = useState<Array<{title: string, images: Array<string>}>>([]);
+    const [filteredSeasonObjects, setFilteredSeasonObjects] = useState<Array<{title: string, images: Array<string>}>>([]);
+
+    useEffect(() => {
+        fetchContents();
+    }, []);
+
+    useEffect(() => {
+        if(selectedSeason != "") {
+            const _seasonObjects = [];
+            for(const obj of seasonObjects) {
+                if(obj.title == selectedSeason) {
+                    _seasonObjects.push(obj);
+                    break;
+                }
+            }
+            if(_seasonObjects.length > 0) {
+                setFilteredSeasonObjects(_seasonObjects);
+            } else {
+                setFilteredSeasonObjects(seasonObjects);
+            }
+        } else {
+            setFilteredSeasonObjects(seasonObjects);
+        }
+    }, [seasonObjects, selectedSeason]);
+
+    async function fetchContents() {
+        const cg = await ContentService.getContentGroup("00000001");
+        const _seasons: Array<string> = [];
+        console.log(cg);
+        const _seasonObjects: Array<{title: string, images: Array<string>}> = [];
+        let _seasonObject: {title: string, images: Array<string>} | null = null;
+        for(const obj of cg.content_objects) {
+            if(obj.type == 'text') {
+                _seasons.push(obj.content);
+                if(_seasonObject != null) {
+                    _seasonObjects.push(_seasonObject);
+                }
+                _seasonObject = {
+                    title: obj.content,
+                    images: []
+                };
+            } else if(obj.type == 'image') {
+                const _images = _seasonObject!.images;
+                _images.push(obj.content);
+                _seasonObject!.images = _images!;
+            }
+        }
+        if(_seasonObject != null) {
+            _seasonObjects.push(_seasonObject);
+        }
+        setSeasons(_seasons);
+        setSeasonObjects(_seasonObjects);
+    }
 
     return(
         <>
@@ -31,35 +89,28 @@ export default function ArchivePage() {
                     <h1>ARCHIVE</h1>
                     <DropdownPicker
                         placeholder="Season"
-                        items={['Spring-Summer 2024', 'Winter 2023']}
+                        items={seasons}
+                        onChange={setSelectedSeason}
+                        value={selectedSeason}
                     />
                 </div>
 
-                <div className={styles.section_title}>
-                    <h3>Spring-Summer 2024</h3>
-                </div>
-                <div className={styles.images_grid}>
-                    <img src="/archive-img-1.webp" alt="archive_img_1" onClick={() => setImageSrc('/archive-img-1.webp')} />
-                    <img src="/archive-img-1.webp" alt="archive_img_2" />
-                    <img src="/archive-img-1.webp" alt="archive_img_3" />
-                    <img src="/archive-img-1.webp" alt="archive_img_4" />
-                    <img src="/archive-img-1.webp" alt="archive_img_5" />
-                    <img src="/archive-img-1.webp" alt="archive_img_6" />
-                </div>
-
-                <div className={styles.section_title}>
-                    <h3>Winter 2023</h3>
-                </div>
-                <div className={styles.images_grid}>
-                    <img src="/archive-img-1.webp" alt="archive_img_7" />
-                    <img src="/archive-img-1.webp" alt="archive_img_8" />
-                    <img src="/archive-img-1.webp" alt="archive_img_9" />
-                    <img src="/archive-img-1.webp" alt="archive_img_10" />
-                    <img src="/archive-img-1.webp" alt="archive_img_11" />
-                    <img src="/archive-img-1.webp" alt="archive_img_12" />
-                    <img src="/archive-img-1.webp" alt="archive_img_13" />
-                    <img src="/archive-img-1.webp" alt="archive_img_14" />
-                </div>
+                {filteredSeasonObjects.map((obj, index) => {
+                    return(
+                        <>
+                        <div className={styles.section_title} key={index*2}>
+                            <h3>{obj.title}</h3>
+                        </div>
+                        <div className={styles.images_grid} key={index*2+1}>
+                            {obj.images.map((image, _index) => {
+                                return(
+                                    <img src={image} alt={`archive_img_${index}_${_index}`} onClick={() => setImageSrc(image)} key={_index} />
+                                );
+                            })}
+                        </div>
+                        </>
+                    );
+                })}
 
                 <div className={styles.go_to_products}>
                     <Link href="/" style={{textDecoration: 'none'}}>
