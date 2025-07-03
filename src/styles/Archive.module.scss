@@ -61,6 +61,7 @@
                 width: 100%;
                 height: auto;
                 aspect-ratio: calc(414/500);
+                object-fit: cover;
                 overflow: hidden;
                 cursor: pointer;
             }
