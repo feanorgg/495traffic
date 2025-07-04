@@ -65,16 +65,54 @@ export default function ArchivePage() {
         setSeasonObjects(_seasonObjects);
     }
 
+    function showPrevImage() {
+        let objIndex = 0;
+        for(const obj of filteredSeasonObjects) {
+            let index = obj.images.indexOf(imageSrc);
+            if(index != -1) {
+                if(index > 0) {
+                    setImageSrc(obj.images[index - 1]);
+                } else {
+                    if(objIndex > 0) {
+                        setImageSrc(filteredSeasonObjects[objIndex - 1].images[filteredSeasonObjects[objIndex - 1].images.length - 1]);
+                    } else {
+                        setImageSrc(filteredSeasonObjects[filteredSeasonObjects.length - 1].images[filteredSeasonObjects[filteredSeasonObjects.length - 1].images.length - 1]);
+                    }
+                }
+            }
+            objIndex += 1;
+        }
+    }
+
+    function showNextImage() {
+        let objIndex = 0;
+        for(const obj of filteredSeasonObjects) {
+            let index = obj.images.indexOf(imageSrc);
+            if(index != -1) {
+                if(index < obj.images.length - 1) {
+                    setImageSrc(obj.images[index + 1]);
+                } else {
+                    if(objIndex < filteredSeasonObjects.length - 1) {
+                        setImageSrc(filteredSeasonObjects[objIndex + 1].images[0]);
+                    } else {
+                        setImageSrc(filteredSeasonObjects[0].images[0]);
+                    }
+                }
+            }
+            objIndex += 1;
+        }
+    }
+
     return(
         <>
         {imageSrc != "" &&
         <div className={styles.Archive__overlay_container}>
             <div className={styles.wrapper}>
-                <div className={styles.arrow_left}>
+                <div className={styles.arrow_left} onClick={() => showPrevImage()}>
                     <img src="/chevron-left-b.png" alt="left_arrow" />
                 </div>
                 <img className={styles.image} src={imageSrc} />
-                <div className={styles.arrow_right}>
+                <div className={styles.arrow_right} onClick={() => showNextImage()}>
                     <img src="/chevron-right-b.png" alt="right_arrow" />
                 </div>
                 <div className={styles.close_button}>
