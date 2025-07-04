@@ -29,12 +29,12 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         setCart(cl);
         
         const el = document.getElementById('cart-cnt');
-        const elMob = document.getElementById('cart-cnt-mob');
+        const elC = document.getElementById('cart');
         if(el) {
             el.innerHTML = String(cl.length);
         }
-        if(elMob) {
-            elMob.innerHTML = String(cl.length);
+        if(elC) {
+            elC.style.display = 'flex';
         }
 
         setInCart(true);
@@ -196,7 +196,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                     </div>
                     <div className={styles.info}>
                         <h5 className={styles.cat}>{product.categories[0].name}</h5>
-                        <h4 className={styles.title}>«{product.name}»</h4>
+                        <h4 className={styles.title}>{product.name}</h4>
                         <p className={styles.price}>{numberWithSpaces(product.availability[0].prices[0].value)} ₽</p>
                         <SizePicker
                             items={sizes}

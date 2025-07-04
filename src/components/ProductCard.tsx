@@ -86,7 +86,7 @@ export default function ProductCard({product}: {product: Product}) {
             </div>
             <div className={styles.info_container}>
                 <p className={styles.category}>{product.categories[0].name}</p>
-                <h5>«{product.name}»</h5>
+                <h5>{product.name}</h5>
                 <p className={styles.price}>{inStock() ? `${product.availability[0].prices[0].value} ₽` : 'SOLD OUT'}</p>
             </div>
             {/*<div className={styles.actions_container}>

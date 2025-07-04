@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
+import CookieService from "@/services/CookieService";
 
 export default function NavBar({ children }: { children: React.ReactElement }) {
     const router = useRouter();
@@ -10,6 +11,34 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
 
     useEffect(() => {
         setMenuState(false);
+    }, [router.pathname]);
+
+    useEffect(() => {
+        const cl: string | null = CookieService.getCookie('cart');
+        if(cl != null) {
+            const cList: Array<{id: string, size: string, amount: number}> = JSON.parse(cl);
+            const el = document.getElementById('cart-cnt');
+            const elC = document.getElementById('cart');
+            let cnt = 0;
+            for(const item of cList) {
+                cnt += item.amount;
+            }
+            if(cnt > 0) {
+                if(el) {
+                    el.innerHTML = String(cnt);
+                }
+                if(elC) {
+                    elC.style.display = 'flex';
+                }
+            } else {
+                if(el) {
+                    el.innerHTML = '0';
+                }
+                if(elC) {
+                    elC.style.display = 'none';
+                }
+            }
+        }
     }, [router.pathname]);
 
     return(
