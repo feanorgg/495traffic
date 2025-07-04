@@ -165,7 +165,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 <div className={styles.head}>
                     <p className={styles.bc}>{product.categories[0].name}</p>
                     <img src="/crumb.png" />
-                    <p className={`${styles.bc} ${styles.current}`}>«{product.name}»</p>
+                    <p className={`${styles.bc} ${styles.current}`}>{product.name}</p>
                 </div>
                 <div className={styles.grid}>
                     <div className={styles.gallery}>
