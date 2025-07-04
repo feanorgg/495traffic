@@ -120,6 +120,7 @@
     .image {
         height: calc(100% - 160px);
         width: auto;
+        max-width: calc(100% - 200px);
         object-fit: contain;
     }
 
@@ -261,6 +262,7 @@
 
             .image {
                 height: calc(100% - 100px);
+                max-width: calc(100% - 150px);
             }
 
             .arrow_left, .arrow_right {
@@ -309,6 +311,7 @@
             .image {
                 height: auto;
                 width: 100%;
+                max-width: 100%;
             }
 
             .arrow_left, .arrow_right {
