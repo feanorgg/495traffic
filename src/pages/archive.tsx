@@ -68,7 +68,7 @@ export default function ArchivePage() {
     function showPrevImage() {
         let objIndex = 0;
         for(const obj of filteredSeasonObjects) {
-            let index = obj.images.indexOf(imageSrc);
+            const index = obj.images.indexOf(imageSrc);
             if(index != -1) {
                 if(index > 0) {
                     setImageSrc(obj.images[index - 1]);
@@ -87,7 +87,7 @@ export default function ArchivePage() {
     function showNextImage() {
         let objIndex = 0;
         for(const obj of filteredSeasonObjects) {
-            let index = obj.images.indexOf(imageSrc);
+            const index = obj.images.indexOf(imageSrc);
             if(index != -1) {
                 if(index < obj.images.length - 1) {
                     setImageSrc(obj.images[index + 1]);
