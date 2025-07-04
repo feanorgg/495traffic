@@ -10,7 +10,7 @@ import { GetServerSidePropsContext } from "next";
 import { useEffect, useState } from "react";
 
 export default function ProductPage({ product, relatedProducts }: { product: Product, relatedProducts: Array<Product> }) {
-    const [selectedSize, setSelectedSize] = useState<string>("");
+    const [selectedSize, setSelectedSize] = useState<string>(product.availability[0].size);
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [amount, setAmount] = useState<number>(1);
 
@@ -19,6 +19,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
 
     const [cart, setCart] = useState<Array<{id: string, size: string, amount: number}>>([]);
     const [inCart, setInCart] = useState<boolean>(false);
+    const [outOfStock, setOutOfStock] = useState<boolean>(false);
 
     function addToCart({id, size}: {id: string, size: string}) {
         const cl: Array<{id: string, size: string, amount: number}> = JSON.parse(JSON.stringify(cart));
@@ -60,6 +61,12 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
             setAmount(1);
         }
         setInCart(flag);
+
+        for(const av of product.availability) {
+            if(av.size == selectedSize) {
+                setOutOfStock(av.amount == 0);
+            }
+        }
     }, [cart, selectedSize]);
 
     function tryDecreaseQty() {
@@ -207,11 +214,12 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                         }
                         <div className={styles.product_actions}>
                             <Button
-                                label={inCart ? "Added..." : "Add to bag"}
+                                label={(outOfStock ? 'Out of stock' : (inCart ? "Added..." : "Add to bag"))}
                                 className={styles.add_button}
-                                disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "") || inCart}
+                                disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "") || inCart || outOfStock}
                                 onClick={() => addToCart({id: product._id, size: selectedSize != "" ? selectedSize : sizes[0]})}
                             />
+                            {!outOfStock &&
                             <div className={styles.amount_contols}>
                                 <div className={styles.control} onClick={() => tryDecreaseQty()}>
                                     <img src="/minus.png" />
@@ -223,6 +231,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                                     <img src="/plus.png" />
                                 </div>
                             </div>
+                            }
                         </div>
                         <p className={styles.desc_title}>Description</p>
                         <p className={styles.desc_content}>
