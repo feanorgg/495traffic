@@ -21,6 +21,7 @@ interface TextInputProps {
     onBlur?: () => void;
     disabled?: boolean;
     chevron?: boolean;
+    secure?: boolean;
 
     hints?: Array<string | CityObject>;
 };
@@ -36,7 +37,8 @@ export default function TextInput({
     phone=false,
     onBlur=()=>{},
     disabled=false,
-    chevron=false
+    chevron=false,
+    secure=false
 }: TextInputProps) {
     const [hintsShown, setHintsShown] = useState<boolean>(false);
     const boxRef = useRef<HTMLDivElement | null>(null);
@@ -68,6 +70,7 @@ export default function TextInput({
                 onClick={() => setHintsShown(true)}
                 ref={phone ? phoneRef : null}
                 disabled={disabled}
+                type={secure ? 'password' : 'text'}
             />
             {value == "" && placeholder != "" && <p className={styles.placeholder}>{placeholder}{required ? <span>*</span> : ''}</p>}
             {errorMsg != "" && <p className={styles.err_msg}>{errorMsg}</p>}
