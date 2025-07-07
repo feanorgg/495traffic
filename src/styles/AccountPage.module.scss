@@ -16,6 +16,7 @@
         gap: 1px;
         grid-template-columns: 1fr 1fr;
         grid-auto-rows: max-content;
+        margin-bottom: 32px;
 
         .left, .right {
             width: 100%;
@@ -62,6 +63,7 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 16px;
                 grid-auto-rows: max-content;
+                margin-top: 32px;
 
                 .tab_btn {
                     width: 100%;
@@ -140,7 +142,7 @@
 
         .hor {
             margin-top: auto;
-            display: flex;
+            display: flex !important;
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-start;
@@ -151,6 +153,7 @@
                 font-size: 16px;
                 line-height: 24px;
                 color: #9898A4;
+                text-transform: capitalize;
 
                 .delivered {
                     color: #01C200;
@@ -183,7 +186,14 @@
         .img_c {
             width: 100px;
             height: 120px;
-            background-color: #b0b0b3;
+            // background-color: #b0b0b3;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                overflow: hidden;
+            }
         }
 
         .more {
@@ -238,9 +248,40 @@
 
     .OrderTile {
         height: 100px;
+        gap: 16px;
 
         .info {
             height: 84px;
+            max-height: 84px;
+            width: 100%;
+
+            .date {
+                font-size: 13px;
+                line-height: 16px;
+            }
+
+            .code {
+                font-size: 18px;
+                line-height: 28px;
+            }
+
+            .hor {
+                position: relative;
+                margin-top: auto !important;
+                width: 100%;
+
+                .status {
+                    font-size: 16px;
+                    line-height: 24px;
+                    width: max-content;
+                }
+
+                .total {
+                    font-size: 16px;
+                    line-height: 24px;
+                    width: max-content;
+                }
+            }
         }
 
         .gallery {
@@ -280,6 +321,8 @@
 
         .info {
             height: 84px;
+            max-height: 84px;
+            overflow: hidden;
         }
 
         .gallery {
