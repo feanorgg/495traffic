@@ -19,7 +19,49 @@ export default class ClientService {
         }
     }
 
-    static async signUp() {}
+    static async signUp({
+        firstName,
+        lastName,
+        phone,
+        email,
+        password,
+        newsletterAgreement
+    }: {
+        firstName: string,
+        lastName: string,
+        phone: string,
+        email: string,
+        password: string,
+        newsletterAgreement?: boolean
+    }) {
+        try {
+            const res = await axios.post(
+                `${API_URL}/users/register`,
+                {
+                    user: {
+                        first_name: firstName,
+                        last_name: lastName,
+                        phone: phone,
+                        email: email,
+                        username: email,
+                        password: password,
+                        newsletter_agreement: newsletterAgreement || false
+                    }
+                },
+                { withCredentials: true }
+            );
+
+            if(res.status == 201) {
+                axios.defaults.headers.common['Authorization'] = `Token ${res.data.user.token}`;
+                return res.data.user;
+            } else {
+                return {};
+            }
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    }
 
     static async signInWithEmailAndPassword({
         email,

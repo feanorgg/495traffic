@@ -24,7 +24,7 @@ export default function SignInPage() {
             }
         }
         checkAuth();
-    });
+    }, []);
 
     async function trySignIn() {
         if(email == "") {

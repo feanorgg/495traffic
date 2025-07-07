@@ -15,10 +15,12 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
 
     useEffect(() => {
         const cl: string | null = CookieService.getCookie('cart');
+        const el = document.getElementById('cart-cnt');
+        const elC = document.getElementById('cart');
+
         if(cl != null) {
             const cList: Array<{id: string, size: string, amount: number}> = JSON.parse(cl);
-            const el = document.getElementById('cart-cnt');
-            const elC = document.getElementById('cart');
+            
             let cnt = 0;
             for(const item of cList) {
                 cnt += item.amount;
@@ -37,6 +39,13 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                 if(elC) {
                     elC.style.display = 'none';
                 }
+            }
+        } else {
+            if(el) {
+                el.innerHTML = '0';
+            }
+            if(elC) {
+                elC.style.display = 'none';
             }
         }
     }, [router.pathname]);
@@ -95,7 +104,7 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                         <Link className={styles.icon_c} href="/cart">
                             <img src="/bag.png" alt="bag" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />
                             <div id="cart" className={styles.cart_counter_container}>
-                                <p id="cart-cnt">1</p>
+                                <p id="cart-cnt">0</p>
                             </div>
                         </Link>
                         <div className={styles.lang_c}>
