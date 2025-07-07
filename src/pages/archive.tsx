@@ -142,7 +142,13 @@ export default function ArchivePage() {
                         <div className={styles.images_grid} key={index*2+1}>
                             {obj.images.map((image, _index) => {
                                 return(
-                                    <img src={image} alt={`archive_img_${index}_${_index}`} onClick={() => setImageSrc(image)} key={_index} />
+                                    <GalleryImage
+                                        image={image} 
+                                        index={index} 
+                                        _index={_index} 
+                                        setImageSrc={setImageSrc}
+                                        key={`${index}_${_index}`}
+                                    />
                                 );
                             })}
                         </div>
@@ -160,5 +166,29 @@ export default function ArchivePage() {
             </div>
         </div>
         </>
+    );
+}
+
+function GalleryImage({
+    image, 
+    index, 
+    _index, 
+    setImageSrc
+}: {image: string, index: number, _index: number, setImageSrc: (src: string) => void}) {
+    const [wide, setWide] = useState<boolean>(false);
+
+    return(
+        <img 
+            src={image} 
+            alt={`archive_img_${index}_${_index}`} 
+            onClick={() => setImageSrc(image)} key={_index}
+            className={`${wide ? styles.wide : ''}`}
+            onLoad={e => {
+                const target = e.target as HTMLImageElement;
+                if(target.naturalWidth / target.naturalHeight > 1) {
+                    setWide(true);
+                }
+            }}
+        />
     );
 }

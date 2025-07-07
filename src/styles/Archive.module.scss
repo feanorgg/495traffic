@@ -57,6 +57,9 @@
             grid-auto-rows: max-content;
             gap: 8px;
 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-auto-flow: dense;
+
             img {
                 width: 100%;
                 height: auto;
@@ -64,6 +67,11 @@
                 object-fit: cover;
                 overflow: hidden;
                 cursor: pointer;
+            }
+
+            img.wide {
+                grid-column: span 2;
+                aspect-ratio: calc(836/500);
             }
         }
 
