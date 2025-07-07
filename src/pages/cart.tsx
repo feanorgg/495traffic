@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { yMapCfg } from '@/constants/mapStyleCfg';
 import { useRouter } from "next/router";
 import { Order } from "@/types/Order";
+import ClientService from "@/services/ClientService";
 
 export default function CartPage() {
     const [cart, setCart] = useState<Array<{id: string, size: string, amount: number}>>([]);
@@ -232,6 +233,8 @@ export default function CartPage() {
 
             updateSelectedShippingPoint(placeId);
         });
+
+        tryFillUserData();
     }, []);
 
     const [agreePrivacyPolicy, setAgreePrivacyPolicy] = useState<boolean>(false);
@@ -559,6 +562,16 @@ export default function CartPage() {
         setPromo("");
         setPromoCodeErr("");
         setPromoComment("");
+    }
+
+    async function tryFillUserData() {
+        const res = await ClientService.signInWithCookies();
+        if(res && res.email) {
+            setFirstName(res.first_name);
+            setLastName(res.last_name);
+            setEmail(res.email);
+            setPhoneNumber(res.phone);
+        }
     }
 
     return(

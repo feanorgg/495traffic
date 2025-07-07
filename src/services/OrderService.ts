@@ -146,4 +146,12 @@ export default class OrderService {
 
         return res.data;
     }
+
+    static async getOrdersList() {
+        const res = await axios.get(
+            `${API_URL}/orders/my-list`
+        );
+
+        return res.data.data as Array<Order>;
+    }
 };

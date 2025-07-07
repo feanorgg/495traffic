@@ -42,15 +42,45 @@ export default class ClientService {
         }
     }
 
-    static async signInWithCookies({
-        _callback
-    }: {
-        _callback: (r: any) => void
-    }) {
+    static async signInWithCookies() {
         try {
             const res = await axios.post(
                 `${API_URL}/users/login?remember`,
                 {},
+                { withCredentials: true }
+            );
+
+            axios.defaults.headers.common['Authorization'] = `Token ${res.data.user.token}`;
+
+            return res.data.user;
+        } catch(e) {
+            console.log(e);
+            return {};
+        }
+    }
+
+    static async updateUserInfo({
+        firstName,
+        lastName,
+        email,
+        phone
+    }: {
+        firstName: string,
+        lastName: string,
+        email: string,
+        phone: string
+    }) {
+        try {
+            const res = await axios.patch(
+                `${API_URL}/user`,
+                {
+                    user: {
+                        first_name: firstName,
+                        last_name: lastName,
+                        email: email,
+                        phone: phone
+                    }
+                },
                 { withCredentials: true }
             );
 
