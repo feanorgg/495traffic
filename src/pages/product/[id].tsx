@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import ColorPicker from "@/components/ColorPicker";
 import ProductCard from "@/components/ProductCard";
+import ProgressiveImage from "@/components/ProgressiveImage";
 import SizePicker from "@/components/SizePicker";
 import CatalogService from "@/services/CatalogService";
 import CookieService from "@/services/CookieService";
@@ -23,7 +24,12 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
 
     function addToCart({id, size}: {id: string, size: string}) {
         const cl: Array<{id: string, size: string, amount: number}> = JSON.parse(JSON.stringify(cart));
-        cl.push({id: id, size: size, amount: 1});
+        cl.push({id: id, size: size, amount: amount});
+
+        let cnt = 0;
+        for(const c of cl) {
+            cnt += c.amount;
+        }
 
         CookieService.setCookie('cart', JSON.stringify(cl), 365);
         setCart(cl);
@@ -31,7 +37,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         const el = document.getElementById('cart-cnt');
         const elC = document.getElementById('cart');
         if(el) {
-            el.innerHTML = String(cl.length);
+            el.innerHTML = String(cnt);
         }
         if(elC) {
             elC.style.display = 'flex';
@@ -57,9 +63,10 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 break;
             }
         }
-        if(!flag) {
+        /*if(!flag) {
             setAmount(1);
-        }
+            console.log('a)');
+        }*/
         setInCart(flag);
 
         for(const av of product.availability) {
@@ -75,15 +82,23 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         const _cart = JSON.parse(JSON.stringify(cart));
         let i = 0;
         let cnt = 0;
+        let inCart = false;
         for(const item of _cart) {
             if(item.size == sizeAlias) {
                 const _item = item;
                 _item.amount = _item.amount - 1;
                 _cart[i] = _item;
+                setAmount(_item.amount);
             }
 
             cnt += _cart[i].amount;
             i += 1;
+        }
+
+        if(!inCart) {
+            if(amount > 1) {
+                setAmount(amount - 1);
+            }
         }
 
         CookieService.setCookie('cart', JSON.stringify(_cart), 365);
@@ -104,15 +119,22 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         const _cart = JSON.parse(JSON.stringify(cart));
         let i = 0;
         let cnt = 0;
+        let inCart = false;
         for(const item of _cart) {
             if(item.size == sizeAlias) {
                 const _item = item;
                 _item.amount = _item.amount + 1;
                 _cart[i] = _item;
+                inCart = true;
+                setAmount(_item.amount);
             }
             
             cnt += _cart[i].amount;
             i += 1;
+        }
+
+        if(!inCart) {
+            setAmount(amount + 1);
         }
 
         CookieService.setCookie('cart', JSON.stringify(_cart), 365);
@@ -144,7 +166,12 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 }}>
                     <img src="/chevron-left-b.png" alt="left_arrow" />
                 </div>
-                <img className={styles.image} src={product.images[imageIndex].max} />
+                <ProgressiveImage
+                    alt="main_image"
+                    className={styles.image}
+                    src={product.images[imageIndex].max}
+                    placeholderSrc={product.images[imageIndex].min}
+                />
                 <div className={styles.arrow_right} onClick={() => {
                     if(imageIndex < product.images.length - 1) {
                         setImageIndex(imageIndex + 1);
