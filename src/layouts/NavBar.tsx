@@ -75,7 +75,7 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
             <div className={styles.black_line}>
                 <Link href="/"><img src="/logo.png" alt="logo" /></Link>
             </div>
-            <div className={styles.main_line}>
+            <div className={`${styles.main_line} ${menuState ? styles.hide_border : ''}`}>
                 <div className={styles.wrapper}>
                     <div className={styles.mobile_menu_button} onPointerDown={() => setMenuState(!menuState)}>
                         {menuState ? <img src="/mobile-close.png" alt="close_menu" /> : <img src="/mobile-menu.png" alt="open_menu" />}
