@@ -89,6 +89,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 _item.amount = _item.amount - 1;
                 _cart[i] = _item;
                 setAmount(_item.amount);
+                inCart = true;
             }
 
             cnt += _cart[i].amount;
