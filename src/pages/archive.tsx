@@ -39,7 +39,6 @@ export default function ArchivePage() {
     async function fetchContents() {
         const cg = await ContentService.getContentGroup("00000001");
         const _seasons: Array<string> = [];
-        console.log(cg);
         const _seasonObjects: Array<{title: string, images: Array<string>}> = [];
         let _seasonObject: {title: string, images: Array<string>} | null = null;
         for(const obj of cg.content_objects) {
@@ -179,7 +178,7 @@ function GalleryImage({
 
     return(
         <img 
-            src={image} 
+            src={`${image.split('.jpg')[0]}_tn.jpg`} 
             alt={`archive_img_${index}_${_index}`} 
             onClick={() => setImageSrc(image)} key={_index}
             className={`${wide ? styles.wide : ''}`}

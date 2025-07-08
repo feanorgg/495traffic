@@ -305,6 +305,7 @@
                 grid-template-columns: 1fr;
 
                 img.wide {
+                    grid-column: auto;
                     aspect-ratio: calc(828/500);
                 }
             }
