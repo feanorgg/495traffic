@@ -1,0 +1,85 @@
+import Head from "next/head";
+import styles from "@/styles/FaqPage.module.scss";
+import { useEffect, useState } from "react";
+import ContentService from "@/services/ContentService";
+
+export default function FaqPage() {
+    const [contents, setContents] = useState<Array<{title: string, content: string}>>([]);
+
+    useEffect(() => {
+        fetchContents();
+    }, []);
+
+    async function fetchContents() {
+            const cg = await ContentService.getContentGroup("00000002");
+            const _contents: Array<{title: string, content: string}> = [];
+            for(const obj of cg.content_objects) {
+                if(obj.type == 'text') {
+                    const title = obj.content.split('\n')[0];
+                    const content = obj.content.split('\n').slice(1).join('\n');
+                    _contents.push({
+                        title: title,
+                        content: content
+                    });
+                }
+            }
+            setContents(_contents);
+        }
+
+    return(
+        <>
+        <Head>
+            <title>495TRAFFIC - FAQ</title>
+        </Head>
+        <div className={styles.FAQ__root}>
+            <div className={styles.wrapper}>
+                <div className={styles.head}>
+                    <p className={styles.bc}>MAIN PAGE</p>
+                    <img src="/crumb.png" />
+                    <p className={`${styles.bc} ${styles.current}`}>FAQ</p>
+                </div>
+
+                <h2>FREQENTLY ASKED QUESTIONS</h2>
+
+                {contents.map((item, index) => {
+                    return(
+                        <ContentItem
+                            key={index}
+                            title={item.title}
+                            content={item.content}
+                            index={index}
+                        />
+                    );
+                })}
+            </div>
+        </div>
+        </>
+    );
+}
+
+function ContentItem({title, content, index}: {title: string, content: string, index: number}) {
+    const [revealed, setRevealed] = useState<boolean>(index == 0);
+
+    return(
+        <div className={`${styles.content_c} ${revealed ? styles.revealed : ''}`}>
+            <div className={styles.content_head} onClick={() => setRevealed(!revealed)}>
+                <h5>{title}</h5>
+                <img src="/plus-grey.png" className={revealed ? styles.rotated : ''} />
+            </div>
+            {revealed &&
+            <div className={styles.content_body}>
+                <p className={styles.content}>
+                    {content.split('\n').map((line, idx) => {
+                        return(
+                            <span key={idx}>
+                                {line}
+                                <br />
+                            </span>
+                        );
+                    })}
+                </p>
+            </div>
+            }
+        </div>
+    );
+}
