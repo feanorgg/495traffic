@@ -84,7 +84,11 @@ export default function CartPage() {
         setPromoCodeErr("");
     }
 
-     const [promo, setPromo] = useState<string>("");
+    useEffect(() => {
+        setEmpty(cart.length == 0);
+    }, [cart]);
+
+    const [promo, setPromo] = useState<string>("");
 
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
@@ -213,17 +217,19 @@ export default function CartPage() {
     }
 
     const router = useRouter();
+    const [empty, setEmpty] = useState<boolean>(false);
 
     useEffect(() => {
         const cl: string | null = CookieService.getCookie('cart');
         if(cl != null) {
             const cList: Array<{id: string, size: string, amount: number}> = JSON.parse(cl);
             if(cList.length == 0) {
-                router.back(); // ENABLE_BACK
+                setEmpty(true);
+            } else {
+                getCartProductsAsync(cList);
             }
-            getCartProductsAsync(cList);
         } else {
-            router.back(); // ENABLE_BACK
+            setEmpty(true);
         }
 
         document.addEventListener('click', function(e) {
@@ -847,6 +853,12 @@ export default function CartPage() {
                                 </div>
                             );
                         })}
+
+                        {empty &&
+                        <div className={`${styles.product_c} ${styles.empty_c}`}>
+                            <p>Your cart is empty</p>
+                        </div>
+                        }
 
                         <div className={styles.total_c}>
                             <p className={styles.total_sub}>
