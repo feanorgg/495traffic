@@ -368,3 +368,45 @@
         }
     }
 }
+
+@media screen and (max-width: 480px) {
+    .OrderTile {
+        height: 112px;
+
+        .info {
+            height: 96px;
+            max-height: 96px;
+
+            .date {
+                font-size: 13px;
+                line-height: 16px;
+            }
+
+            .code {
+                font-size: 18px;
+                line-height: 28px;
+                margin-bottom: 16px;
+            }
+
+            .hor {
+                display: flex;
+                flex-direction: column;
+                gap: 4 !important;
+
+                .status, .total {
+                    font-size: 13px;
+                    line-height: 16px;
+                }
+            }
+        }
+
+        .gallery {
+            height: 96px;
+
+            .img_c, .more {
+                width: 80px;
+                height: 96px;
+            }
+        }
+    }
+}
