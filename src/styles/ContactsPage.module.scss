@@ -149,7 +149,7 @@
 }
 
 @media screen and (max-width: 1920px) {
-    .ProductPage__root {
+    .Contacts__root {
         .wrapper {
             width: calc(100% - 128px);
             max-width: 1312px;
@@ -159,7 +159,7 @@
 }
 
 @media screen and (max-width: 1440px) {
-    .ProductPage__root {
+    .Contacts__root {
         .wrapper {
             width: calc(100% - 80px);
             max-width: 920px;
@@ -168,7 +168,7 @@
 }
 
 @media screen and (max-width: 1000px) {
-    .ProductPage__root {
+    .Contacts__root {
         .wrapper {
             width: calc(100% - 80px);
             max-width: 688px;
@@ -177,16 +177,27 @@
 }
 
 @media screen and (max-width: 768px) {
-    .ProductPage__root {
+    .Contacts__root {
         .wrapper {
             width: calc(100% - 40px);
             max-width: 1000px;
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+
+                .left, .right {
+                    width: 100%;
+                    min-width: 100%;
+                    border: none;
+                }
+            }
         }
     }
 }
 
 @media screen and (max-width: 480px) {
-    .ProductPage__root {
+    .Contacts__root {
         .wrapper {
             
         }
