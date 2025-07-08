@@ -94,7 +94,7 @@ export default function AccountPage() {
 
     if(loading || user == null) {
         return(
-            <p>loading</p>
+            <div className={styles.Account__root}/>
         );
     }
 
