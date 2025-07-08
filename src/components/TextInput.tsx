@@ -22,6 +22,7 @@ interface TextInputProps {
     disabled?: boolean;
     chevron?: boolean;
     secure?: boolean;
+    multiline?: boolean;
 
     hints?: Array<string | CityObject>;
 };
@@ -38,7 +39,8 @@ export default function TextInput({
     onBlur=()=>{},
     disabled=false,
     chevron=false,
-    secure=false
+    secure=false,
+    multiline=false
 }: TextInputProps) {
     const [hintsShown, setHintsShown] = useState<boolean>(false);
     const boxRef = useRef<HTMLDivElement | null>(null);
@@ -64,6 +66,15 @@ export default function TextInput({
 
     return(
         <div className={styles.TextInput} ref={boxRef}>
+            {multiline ? 
+            <textarea className={`${styles.input} ${errorMsg != "" ? styles.error : ''} ${disabled ? styles.disabled : ''}`}
+                value={value}
+                onChange={e => onChangeText(e.target.value)}
+                onClick={() => setHintsShown(true)}
+                disabled={disabled}
+                style={{resize: 'vertical', minHeight: '100px'}}
+            />
+            :
             <input className={`${styles.input} ${errorMsg != "" ? styles.error : ''} ${disabled ? styles.disabled : ''}`}
                 value={value}
                 onChange={e => onChangeText(e.target.value)}
@@ -71,7 +82,7 @@ export default function TextInput({
                 ref={phone ? phoneRef : null}
                 disabled={disabled}
                 type={secure ? 'password' : 'text'}
-            />
+            />}
             {value == "" && placeholder != "" && <p className={styles.placeholder}>{placeholder}{required ? <span>*</span> : ''}</p>}
             {errorMsg != "" && <p className={styles.err_msg}>{errorMsg}</p>}
 
