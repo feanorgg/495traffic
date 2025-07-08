@@ -303,6 +303,10 @@
 
             .images_grid {
                 grid-template-columns: 1fr;
+
+                img.wide {
+                    aspect-ratio: calc(828/500);
+                }
             }
             
             .go_to_products {
