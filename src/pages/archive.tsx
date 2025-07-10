@@ -3,7 +3,12 @@ import DropdownPicker from "@/components/DropdownPicker";
 import ContentService from "@/services/ContentService";
 import styles from "@/styles/Archive.module.scss";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import 'swiper/css';
+import 'swiper/css/navigation'; 
+import 'swiper/css/pagination';
 
 export default function ArchivePage() {
     const [imageSrc, setImageSrc] = useState<string>('');
@@ -12,6 +17,7 @@ export default function ArchivePage() {
     const [selectedSeason, setSelectedSeason] = useState<string>("");
     const [seasonObjects, setSeasonObjects] = useState<Array<{title: string, images: Array<string>}>>([]);
     const [filteredSeasonObjects, setFilteredSeasonObjects] = useState<Array<{title: string, images: Array<string>}>>([]);
+    const [filteredImages, setFilteredImages] = useState<Array<string>>([]);
 
     useEffect(() => {
         fetchContents();
@@ -20,21 +26,37 @@ export default function ArchivePage() {
     useEffect(() => {
         if(selectedSeason != "") {
             const _seasonObjects = [];
+            let _images: Array<string> = [];
             for(const obj of seasonObjects) {
                 if(obj.title == selectedSeason) {
                     _seasonObjects.push(obj);
+                    _images = [..._images, ...obj.images];
                     break;
                 }
             }
             if(_seasonObjects.length > 0) {
                 setFilteredSeasonObjects(_seasonObjects);
+                setFilteredImages(_images);
             } else {
                 setFilteredSeasonObjects(seasonObjects);
+                for (const obj of seasonObjects) {
+                    _images = [..._images, ...obj.images];
+                }
+                setFilteredImages(_images);
             }
         } else {
+            let _images: Array<string> = [];
+            for (const obj of seasonObjects) {
+                _images = [..._images, ...obj.images];
+            }
+            setFilteredImages(_images);
             setFilteredSeasonObjects(seasonObjects);
         }
     }, [seasonObjects, selectedSeason]);
+
+    useEffect(() => {
+        console.log(filteredImages);
+    }, [filteredImages]);
 
     async function fetchContents() {
         const cg = await ContentService.getContentGroup("00000001");
@@ -102,11 +124,15 @@ export default function ArchivePage() {
         }
     }
 
+    const swiperRef = useRef(null);
+
     return(
         <>
         {imageSrc != "" &&
         <div className={styles.Archive__overlay_container}>
             <div className={styles.wrapper}>
+                {window.innerWidth > 768 ? 
+                <>
                 <div className={styles.arrow_left} onClick={() => showPrevImage()}>
                     <img src="/chevron-left-b.png" alt="left_arrow" />
                 </div>
@@ -117,6 +143,38 @@ export default function ArchivePage() {
                 <div className={styles.close_button}>
                     <img src="/archive-close.png" alt="close" onClick={() => setImageSrc('')} />
                 </div>
+                </>
+                :
+                <>
+                <Swiper
+                    slidesPerView={1}
+                    spaceBetween={20}
+                    onSwiper={(swiper) => (
+                        // @ts-expect-error optional swiperRef
+                        swiperRef.current = swiper
+                    )}
+                    initialSlide={filteredImages.indexOf(imageSrc)}
+                    watchSlidesProgress
+                    onScroll={(swiper) => {
+                        swiper.update();
+                    }}
+                    direction='horizontal'
+                    loop
+                    className={styles.swiper}
+                >
+                    {filteredImages.map((image, index) => {
+                        return(
+                            <SwiperSlide key={index} className={styles.swiper_item}>
+                                <img className={styles.image} src={image} />
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper>
+                <div className={styles.close_button}>
+                    <img src="/archive-close.png" alt="close" onClick={() => setImageSrc('')} />
+                </div>
+                </>
+                }
             </div>
         </div>
         }
