@@ -117,6 +117,7 @@
             right: 0;
             top: 80px;
             cursor: pointer;
+            z-index: 3;
 
             img {
                 width: 40px;
@@ -134,7 +135,7 @@
 
     .swiper {
         width: 100%;
-        height: 75vh;
+        height: 100%;
 
         .swiper_item {
             width: 100%;
