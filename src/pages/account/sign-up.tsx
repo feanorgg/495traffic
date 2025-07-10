@@ -153,7 +153,7 @@ export default function SignUpPage() {
                     <Button
                         label={signUpLoading ? "Loading..." : "Sign up"}
                         onClick={() => trySignUp()}
-                        tertiary
+                        secondary
                         style={{width: '100%'}}
                     />
                     <p className={styles.sign_in}>

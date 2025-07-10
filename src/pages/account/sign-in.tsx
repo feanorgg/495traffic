@@ -74,7 +74,7 @@ export default function SignInPage() {
                     />
                     <Button
                         label="Log In"
-                        tertiary
+                        secondary
                         style={{width: '100%'}}
                         onClick={() => trySignIn()}
                     />
