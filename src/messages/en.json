@@ -1,5 +1,8 @@
 {
     "ANY_QUESTIONS": "Any other questions? Write to us and we will contact you as soon as possible.",
     "ADDR": "62 Pushkinskaya St., Mega shopping center, 2nd floor",
-    "PWD_8_CHAR": "Password must be at least 8 characters long"
+    "PWD_8_CHAR": "Password must be at least 8 characters long",
+    "CONTACT_INFORMATION": "To place an order, enter your contact information. Do you need help with the order?",
+    "PROC_1": "Your order is already being processed, and it will be sent to you soon.",
+    "PROC_2": "We will inform you when the order is delivered."
 }
