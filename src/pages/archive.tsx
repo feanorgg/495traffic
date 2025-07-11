@@ -10,8 +10,12 @@ import 'swiper/css';
 import 'swiper/css/navigation'; 
 import 'swiper/css/pagination';
 import ProgressiveImage from "@/components/ProgressiveImage";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 
 export default function ArchivePage() {
+    const t = useTranslations();
+
     const [imageSrc, setImageSrc] = useState<string>('');
 
     const [seasons, setSeasons] = useState<Array<string>>([]);
@@ -184,7 +188,7 @@ export default function ArchivePage() {
                 <div className={styles.head}>
                     <h1>ARCHIVE</h1>
                     <DropdownPicker
-                        placeholder="Season"
+                        placeholder={t("Season")}
                         items={seasons}
                         onChange={setSelectedSeason}
                         value={selectedSeason}
@@ -217,7 +221,7 @@ export default function ArchivePage() {
                 <div className={styles.go_to_products}>
                     <Link href="/" style={{textDecoration: 'none'}}>
                         <Button
-                            label="GO TO PRODUCTS"
+                            label={t("GO TO PRODUCTS")}
                         />
                     </Link>
                 </div>
@@ -266,3 +270,15 @@ function GalleryImage({
         />
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};
