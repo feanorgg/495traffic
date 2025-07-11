@@ -2,8 +2,12 @@ import Head from "next/head";
 import styles from "@/styles/FaqPage.module.scss";
 import { useEffect, useState } from "react";
 import ContentService from "@/services/ContentService";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 
 export default function FaqPage() {
+    const t = useTranslations();
+
     const [contents, setContents] = useState<Array<{title: string, content: string}>>([]);
 
     useEffect(() => {
@@ -34,12 +38,12 @@ export default function FaqPage() {
         <div className={styles.FAQ__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <p className={styles.bc}>MAIN PAGE</p>
+                    <p className={styles.bc}>{t('MAIN PAGE')}</p>
                     <img src="/crumb.png" />
                     <p className={`${styles.bc} ${styles.current}`}>FAQ</p>
                 </div>
 
-                <h2>FREQENTLY ASKED QUESTIONS</h2>
+                <h2>{t('FREQENTLY ASKED QUESTIONS')}</h2>
 
                 {contents.map((item, index) => {
                     return(
@@ -83,3 +87,15 @@ function ContentItem({title, content, index}: {title: string, content: string, i
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};

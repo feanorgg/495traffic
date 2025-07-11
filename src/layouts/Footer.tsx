@@ -1,7 +1,10 @@
 import styles from "@/layouts/Footer.module.scss";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function Footer() {
+    const t = useTranslations();
+
     return(
         <div className={styles.Footer__root}>
             <div className={styles.wrapper}>
@@ -13,13 +16,13 @@ export default function Footer() {
                         Faq
                     </Link>
                     <Link className={styles.link} href="/contacts">
-                        Contacts
+                        {t('Contacts')}
                     </Link>
                     <Link className={styles.link} href="/privacy">
-                        Privacy
+                        {t('Privacy')}
                     </Link>
                     <Link className={styles.link} href="/offer">
-                        Offer
+                        {t('Offer')}
                     </Link>
                 </div>
                 <img src="/dngc.png" alt="do_not_get_caught" className={styles.dngc} />

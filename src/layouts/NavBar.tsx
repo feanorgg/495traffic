@@ -1,13 +1,18 @@
+'use client';
 import styles from "@/layouts/NavBar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import CookieService from "@/services/CookieService";
+import { useTranslations } from "next-intl";
 
 export default function NavBar({ children }: { children: React.ReactElement }) {
+    const t = useTranslations();
+
     const router = useRouter();
     const [menuState, setMenuState] = useState<boolean>(false);
+    const [locale, setLocale] = useState<string>('ru');
 
     useEffect(() => {
         setMenuState(false);
@@ -50,12 +55,30 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
         }
     }, [router.pathname]);
 
+    useEffect(() => {
+        const locale = CookieService.getCookie('locale');
+        if(locale == null) {
+            CookieService.setCookie('locale', 'ru', 365);
+            router.reload();
+        } else {
+            setLocale(locale);
+        }
+    }, []);
+
+    async function switchLocale() {
+        const currentLocale = CookieService.getCookie('locale');
+        const newLocale = currentLocale === 'ru' ? 'en' : 'ru';
+        CookieService.setCookie('locale', newLocale, 365);
+        setLocale(newLocale);
+        router.reload();
+    }
+
     return(
         <>
         <div className={`${styles.MobileMenu__container} ${menuState ? styles.visible : ''}`}>
             <div className={styles.wrapper}>
                 <Link className={`${styles.menu_link} ${router.pathname == '/' ? styles.active : ''}`} href="/">
-                    All
+                    {t('All')}
                 </Link>
                 <Link className={`${styles.menu_link} ${router.pathname == '/pants' ? styles.active : ''}`} href="/pants">
                     Pants
@@ -82,19 +105,19 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                     </div>
                     <div className={styles.categories}>
                         <Link className={`${styles.link} ${styles.all} ${router.pathname == '/' ? styles.active : ''}`} href="/">
-                            All
+                            {t('All')}
                         </Link>
                         <Link className={`${styles.link} ${router.pathname == '/pants' ? styles.active : ''}`} href="/pants">
-                            Pants
+                            {t('Pants')}
                         </Link>
                         <Link className={`${styles.link} ${router.pathname == '/t-shirts' ? styles.active : ''}`} href="/t-shirts">
-                            T-shirts
+                            {t('T-shirts')}
                         </Link>
                         <Link className={`${styles.link} ${router.pathname == '/hoodie' ? styles.active : ''}`} href="/hoodie">
-                            Hoodie
+                            {t('Hoodie')}
                         </Link>
                         <Link className={`${styles.link} ${router.pathname == '/accessories' ? styles.active : ''}`} href="/accessories">
-                            Accessories
+                            {t('Accessories')}
                         </Link>
                     </div>
                     <div className={styles.controls}>
@@ -107,8 +130,8 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                                 <p id="cart-cnt">0</p>
                             </div>
                         </Link>
-                        <div className={styles.lang_c}>
-                            <p>EN</p>
+                        <div className={styles.lang_c} onClick={() => switchLocale()}>
+                            <p>{locale}</p>
                         </div>
                     </div>
                 </div>

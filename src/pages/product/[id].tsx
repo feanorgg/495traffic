@@ -8,9 +8,12 @@ import CookieService from "@/services/CookieService";
 import styles from "@/styles/Product.module.scss";
 import { Product } from "@/types/Product";
 import { GetServerSidePropsContext } from "next";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 export default function ProductPage({ product, relatedProducts }: { product: Product, relatedProducts: Array<Product> }) {
+    const t = useTranslations();
+
     const [selectedSize, setSelectedSize] = useState<string>(product.availability[0].size);
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [amount, setAmount] = useState<number>(1);
@@ -191,7 +194,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         <div className={styles.ProductPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <p className={styles.bc}>{product.categories[0].name}</p>
+                    <p className={styles.bc}>{t(product.categories[0].name)}</p>
                     <img src="/crumb.png" />
                     <p className={`${styles.bc} ${styles.current}`}>{product.name}</p>
                 </div>
@@ -223,26 +226,19 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                         </div>
                     </div>
                     <div className={styles.info}>
-                        <h5 className={styles.cat}>{product.categories[0].name}</h5>
+                        <h5 className={styles.cat}>{t(product.categories[0].name)}</h5>
                         <h4 className={styles.title}>{product.name}</h4>
                         <p className={styles.price}>{numberWithSpaces(product.availability[0].prices[0].value)} ₽</p>
                         <SizePicker
+                            label={t('Size')}
                             items={sizes}
                             value={selectedSize}
                             onChange={setSelectedSize}
                             className={styles.size_picker}
                         />
-                        {colors.length > 0 &&
-                        <ColorPicker
-                            items={colors}
-                            value={selectedColor}
-                            onChange={setSelectedColor}
-                            className={styles.color_picker}
-                        />
-                        }
                         <div className={styles.product_actions}>
                             <Button
-                                label={(outOfStock ? 'Out of stock' : (inCart ? "Added..." : "Add to bag"))}
+                                label={(outOfStock ? t('Out of stock') : (inCart ? t("Added...") : t("Add to bag")))}
                                 className={styles.add_button}
                                 disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "") || inCart || outOfStock}
                                 onClick={() => addToCart({id: product._id, size: selectedSize != "" ? selectedSize : sizes[0]})}
@@ -261,7 +257,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                             </div>
                             }
                         </div>
-                        <p className={styles.desc_title}>Description</p>
+                        <p className={styles.desc_title}>{t('Description')}</p>
                         <p className={styles.desc_content}>
                             {product.description.split("\n").map((item, index) => {
                                 return(
@@ -273,7 +269,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 </div>
 
                 <div className={styles.rel_head}>
-                    <h2>RELATED PRODUCTS</h2>
+                    <h2>{t('RELATED PRODUCTS')}</h2>
                 </div>
                 <div className={styles.rel_grid}>
                     {relatedProducts.map((item, index) => {
@@ -281,6 +277,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                             <ProductCard
                                 product={item}
                                 key={index}
+                                t={t}
                             />
                         );
                     })}
@@ -293,6 +290,8 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { id } = context.query;
+    const locale = context.req.cookies.locale || 'ru';
+    const messages = (await import(`./../../messages/${locale}.json`)).default;
 
     if(id == undefined || typeof(id) == 'object') {
         return {
@@ -319,7 +318,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
         props: {
             product: p,
-            relatedProducts: relProds
+            relatedProducts: relProds,
+            messages,
+            locale
         }
     }
 }

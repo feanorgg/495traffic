@@ -15,7 +15,7 @@ export default function SizePicker({
     disabledItems=[],
     value="",
     onChange=()=>{},
-    className=""
+    className="",
 }: SizePickerProps) {
     return(
         <div className={`${styles.SizePicker} ${className}`}>

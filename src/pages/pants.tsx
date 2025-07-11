@@ -9,8 +9,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Product } from "@/types/Product";
 import CatalogService from "@/services/CatalogService";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+    const t = useTranslations();
+
     const [products, setProducts] = useState<Array<Product>>([]);
     const [page, setPage] = useState<number>(1);
     const [pagesCount, setPagesCount] = useState<number>(0);
@@ -49,33 +53,33 @@ export default function Home() {
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <h1>PANTS</h1>
+                    <h1>{t('PANTS')}</h1>
                     <DropdownPicker
-                        placeholder="Sort by"
+                        placeholder={t("Sort by")}
                         items={[
-                            "Popularity",
-                            "Novelty",
-                            "In ascending order of price",
-                            "In descending order of price"
+                            t("Popularity"),
+                            t("Novelty"),
+                            t("In ascending order of price"),
+                            t("In descending order of price")
                         ]}
                         value={{
-                            "new": "Novelty",
-                            "popular": "Popularity",
-                            "price_asc": "In ascending order of price",
-                            "price_desc": "In descending order of price"
+                            "new": t("Novelty"),
+                            "popular": t("Popularity"),
+                            "price_asc": t("In ascending order of price"),
+                            "price_desc": t("In descending order of price")
                         }[sorting]}
                         onChange={v => {
                             switch(v) {
-                                case "Novelty":
+                                case t("Novelty"):
                                     setSorting("new");
                                     break;
-                                case "Popularity":
+                                case t("Popularity"):
                                     setSorting("popular");
                                     break;
-                                case "In ascending order of price":
+                                case t("In ascending order of price"):
                                     setSorting("price_asc");
                                     break;
-                                case "In descending order of price":
+                                case t("In descending order of price"):
                                     setSorting("price_desc");
                                     break;
                                 default:
@@ -92,6 +96,7 @@ export default function Home() {
                             <ProductCard
                                 product={product}
                                 key={index}
+                                t={t}
                             />
                         );
                     })}
@@ -99,7 +104,7 @@ export default function Home() {
 
                 <div className={styles.load_more}>
                     <Button
-                        label="load more"
+                        label={t("load more")}
                         tertiary
                         onClick={() => loadMoreProducts()}
                         disabled={page == pagesCount}
@@ -114,7 +119,7 @@ export default function Home() {
                     <p className={styles.title}>ARCHIVE</p>
                     <Link href="/archive" style={{textDecoration: 'none'}}>
                     <Button
-                        label="SEE MORE"
+                        label={t('SEE MORE')}
                         tertiary
                     /></Link>
                 </div>
@@ -123,3 +128,15 @@ export default function Home() {
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};

@@ -13,8 +13,12 @@ import { useRouter } from "next/router";
 import { Order } from "@/types/Order";
 import ClientService from "@/services/ClientService";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 
 export default function CartPage() {
+    const t = useTranslations();
+
     const [cart, setCart] = useState<Array<{id: string, size: string, amount: number}>>([]);
     const [cartProducts, setCartProducts] = useState<Array<Product>>([]);
 
@@ -673,13 +677,13 @@ export default function CartPage() {
                 <div className={styles.grid}>
                     <div className={styles.left}>
                         <p className={styles.contact_us}>
-                            To place an order, enter your contact information. Do you need help with the order? <a href="/contacts" target="_blank">Contact us</a>
+                            {t("CONTACT_INFORMATION")} <a href="/contacts" target="_blank">{t("Contact us")}</a>
                         </p>
                         <div className={styles.section}>
-                            <p className={styles.section_title}>Contact information</p>
+                            <p className={styles.section_title}>{t("Contact information")}</p>
                             <div className={styles.section_hor}>
                                 <TextInput
-                                    placeholder="First Name"
+                                    placeholder={t("First Name")}
                                     required
                                     value={firstName}
                                     onChangeText={setFirstName}
@@ -695,7 +699,7 @@ export default function CartPage() {
                             </div>
                             <div className={styles.section_hor}>
                                 <TextInput
-                                    placeholder="Last Name"
+                                    placeholder={t("Last Name")}
                                     required
                                     value={lastName}
                                     onChangeText={setLastName}
@@ -712,10 +716,10 @@ export default function CartPage() {
                             </div>
                         </div>
                         <div className={styles.section}>
-                            <p className={styles.section_title}>Delivery</p>
+                            <p className={styles.section_title}>{t('Delivery')}</p>
                             <div className={styles.section_hor}>
                                 <TextInput
-                                    placeholder="Select the city"
+                                    placeholder={t("Select the city")}
                                     required
                                     value={city}
                                     onChangeText={setCity}
@@ -733,22 +737,22 @@ export default function CartPage() {
                                 />
                                 <div className={`${styles.section_hor} ${styles.still_hor}`}>
                                     <div className={`${styles.tab_btn} ${deliveryMethod == 'cdek' ? styles.active : ''}`} onClick={() => setDeliveryMethod('cdek')}>
-                                        <p>Pick-up point</p>
+                                        <p>{t('Pick-up point')}</p>
                                     </div>
                                     <div className={`${styles.tab_btn} ${deliveryMethod == 'courier' ? styles.active : ''}`} onClick={() => setDeliveryMethod('courier')}>
-                                        <p>By courier</p>
+                                        <p>{t('By courier')}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className={`${styles.cdek_map_wrapper} ${deliveryMethod != 'cdek' ? styles.hidden : ''}`}>
                                 <div id="map" className={styles.map_container}>
-                                    <p>Specify your city to choose the pick-up point</p>
+                                    <p>{t('Specify your city to choose the pick-up point')}</p>
                                 </div>
                             </div>
                             {selectedShippingPoint != null && deliveryMethod == 'cdek' &&
                             <div className={styles.cdek_shipping_point}>
                                 <div className={styles.wrap}>
-                                    <p className={styles.subname}>Selected pick-up point:</p>
+                                    <p className={styles.subname}>{t('Selected pick-up point')}:</p>
                                     <p className={styles.name}>{selectedShippingPoint.name.split(', ')[0]}, {selectedShippingPoint.address}</p>
                                 </div>
                             </div>
@@ -756,14 +760,14 @@ export default function CartPage() {
                             {deliveryMethod == 'courier' &&
                             <div className={styles.section_hor}>
                                 <TextInput
-                                    placeholder="Address"
+                                    placeholder={t("Address")}
                                     required
                                     value={address}
                                     onChangeText={setAddress}
                                     errorMsg={addressErr}
                                 />
                                 <TextInput
-                                    placeholder="Apartment, suite, etc. (optional)"
+                                    placeholder={t("Apartment, suite, etc. (optional)")}
                                     value={address2}
                                     onChangeText={setAddress2}
                                 />
@@ -771,23 +775,23 @@ export default function CartPage() {
                             }
                         </div>
                         <div className={styles.section}>
-                            <p className={styles.section_title}>Comment</p>
+                            <p className={styles.section_title}>{t('Comment')}</p>
                             <TextInput
-                                placeholder="Comment on the order"
+                                placeholder={t("Comment on the order")}
                             />
                         </div>
                         <div className={styles.section}>
-                            <p className={styles.section_title}>Promocode</p>
+                            <p className={styles.section_title}>{t('Promocode')}</p>
                             <div className={styles.promo_hor}>
                                 <TextInput
-                                    placeholder="Enter the promo code"
+                                    placeholder={t("Enter the promo code")}
                                     value={promo}
                                     onChangeText={setPromo}
                                     errorMsg={promoCodeErr}
                                     disabled={promoApplied}
                                 />
                                 <Button
-                                    label={promoApplied ? "PROMOCODE APPLIED" : "APPLY"}
+                                    label={promoApplied ? t("PROMOCODE APPLIED") : t("APPLY")}
                                     secondary
                                     disabled={promo == "" || promoApplied}
                                     onClick={() => checkPromo()}
@@ -800,23 +804,23 @@ export default function CartPage() {
                                 checked={agreePrivacyPolicy}
                                 onChange={setAgreePrivacyPolicy}
                             >
-                                <p>I agree with the <a href="/privacy" target="_blank">personal data processing policy</a></p>
+                                <p>{t('I agree with the')} <a href="/privacy" target="_blank">{t('personal data processing policy')}</a></p>
                             </Checkbox>
                             <Checkbox
                                 error={agreePublicOfferErr != ""}
                                 checked={agreePublicOffer}
                                 onChange={setAgreePublicOffer}
                             >
-                                <p>I agree with the terms of the <a href="/offer" target="_blank">public offer</a></p>
+                                <p>{t('I agree with the terms of the')} <a href="/offer" target="_blank">{t('public offer')}</a></p>
                             </Checkbox>
                             <Checkbox
-                                label="I agree to receive an advertising newsletter"
+                                label={t("I agree to receive an advertising newsletter")}
                                 checked={agreeSubscription}
                                 onChange={setAgreeSubscription}
                             />
                         </div>
                         <Button
-                            label="MAKE AN ORDER"
+                            label={t("MAKE AN ORDER")}
                             secondary
                             style={{width: '100%'}}
                             onClick={() => tryCreateOrder()}
@@ -832,7 +836,7 @@ export default function CartPage() {
                                         <div className={styles.p_info}>
                                             <p className={styles.p_cat}>{product.categories[0].name}</p>
                                             <p className={styles.p_name}>{product.name}</p>
-                                            <p className={styles.p_size}>Size: <span>{product.availability[0].size}</span></p>
+                                            <p className={styles.p_size}>{t('Size')}: <span>{product.availability[0].size}</span></p>
                                         </div>
                                     </div>
                                     <div className={styles.p_price_and_qty}>
@@ -858,10 +862,10 @@ export default function CartPage() {
 
                         {empty &&
                         <div className={`${styles.product_c} ${styles.empty_c}`}>
-                            <p className={styles.label}>Your cart is empty</p>
+                            <p className={styles.label}>{t('Your cart is empty')}</p>
                             <Link href="/" style={{textDecoration: 'none'}}>
                                 <Button
-                                    label="GO TO PRODUCTS"
+                                    label={t("GO TO PRODUCTS")}
                                 />
                             </Link>
                         </div>
@@ -869,13 +873,13 @@ export default function CartPage() {
 
                         <div className={styles.total_c}>
                             <p className={styles.total_sub}>
-                                Amount: {numberWithSpaces(rawTotal)} ₽
+                                {t('Amount')}: {numberWithSpaces(rawTotal)} ₽
                             </p>
                             <p className={styles.total_sub}>
-                                Delivery: {numberWithSpaces(deliveryCost)} ₽
+                                {t('Delivery')}: {numberWithSpaces(deliveryCost)} ₽
                             </p>
                             <p className={styles.total_cost}>
-                                Total amount: {numberWithSpaces(rawTotal + deliveryCost)} ₽
+                                {t('Total amount')}: {numberWithSpaces(rawTotal + deliveryCost)} ₽
                             </p>
                         </div>
                     </div>
@@ -889,3 +893,15 @@ export default function CartPage() {
 function numberWithSpaces(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`./../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};

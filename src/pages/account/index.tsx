@@ -6,10 +6,13 @@ import OrderService from "@/services/OrderService";
 import styles from "@/styles/AccountPage.module.scss";
 import { Order } from "@/types/Order";
 import User from "@/types/User";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function AccountPage() {
+    const t = useTranslations();
     const router = useRouter();
 
     const [tabShown, setTabShown] = useState<number>(0);
@@ -102,15 +105,15 @@ export default function AccountPage() {
         <div className={styles.Account__root}>
             <div className={styles.wrapper}>
                 <div className={styles.left}>
-                    <h2>Welcome, {user.first_name}!</h2>
+                    <h2>{t('Welcome')}, {user.first_name}!</h2>
                     <p className={styles.c_info_title}>
-                        Contact information
+                        {t('Contact information')}
                     </p>
                     <div className={styles.info_grid}>
                         <TextInput
                             value={firstName}
                             onChangeText={setFirstName}
-                            placeholder="First Name"
+                            placeholder={t('First Name')}
                         />
                         <TextInput
                             value={email}
@@ -122,7 +125,7 @@ export default function AccountPage() {
                         <TextInput
                             value={lastName}
                             onChangeText={setLastName}
-                            placeholder="Last Name"
+                            placeholder={t("Last Name")}
                         />
                         <TextInput
                             value={phone}
@@ -134,14 +137,14 @@ export default function AccountPage() {
                         />
                     </div>
                     <Button
-                        label={updateLoading ? "Loading..." : "Update Information"}
+                        label={updateLoading ? t("Loading...") : t("Update Information")}
                         onClick={updateUserInfo}
                         loading={updateLoading}
                         tertiary
                         style={{width: '100%', marginBottom: '16px'}}
                     />
                     <Button
-                        label="Change Password"
+                        label={t("Change Password")}
                         tertiary
                         style={{width: '100%'}}
                     />
@@ -150,10 +153,10 @@ export default function AccountPage() {
                 <div className={styles.right}>
                     <div className={styles.hor}>
                         <div className={`${styles.tab_btn} ${tabShown == 0 ? styles.active : ''}`} onClick={() => setTabShown(0)}>
-                            <p>Active orders</p>
+                            <p>{t('Active orders')}</p>
                         </div>
                         <div className={`${styles.tab_btn} ${tabShown == 1 ? styles.active : ''}`} onClick={() => setTabShown(1)}>
-                            <p>Purchase history</p>
+                            <p>{t('Purchase history')}</p>
                         </div>
                     </div>
 
@@ -163,6 +166,7 @@ export default function AccountPage() {
                                 <OrderTile
                                     key={`active_${index}`}
                                     order={order}
+                                    t={t}
                                 />
                             );
                         })}
@@ -171,6 +175,7 @@ export default function AccountPage() {
                                 <OrderTile
                                     key={index}
                                     order={order}
+                                    t={t}
                                 />
                             );
                         })}
@@ -181,15 +186,17 @@ export default function AccountPage() {
     );
 }
 
-function OrderTile({order}: {order: Order}) {
+function OrderTile({order, t}: {order: Order, t: (key: string, values?: Record<string, any>) => string}) {
     return(
         <div className={styles.OrderTile}>
             <div className={styles.info}>
-                <p className={styles.date}>18.02.2025</p>
+                <p className={styles.date}>
+                    {new Date(order.created_at).toLocaleDateString('ru-RU')}
+                </p>
                 <p className={styles.code}>№{order._id}</p>
                 <div className={styles.hor}>
-                    <p className={styles.status}>Status: <span className={['cancelled'].includes(order.status) ? styles.cancelled : styles.delivered}>{order.status}</span></p>
-                    <p className={styles.total}>Total amount: {numberWithSpaces(order.total)} ₽</p>
+                    <p className={styles.status}>{t('Status')}: <span className={['cancelled'].includes(order.status) ? styles.cancelled : styles.delivered}>{t(order.status)}</span></p>
+                    <p className={styles.total}>{t('Total amount')}: {numberWithSpaces(order.total)} ₽</p>
                 </div>
             </div>
 
@@ -214,3 +221,15 @@ function OrderTile({order}: {order: Order}) {
 function numberWithSpaces(x: number) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`./../../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};

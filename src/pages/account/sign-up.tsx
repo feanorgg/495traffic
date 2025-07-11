@@ -3,11 +3,14 @@ import Checkbox from "@/components/Checkbox";
 import TextInput from "@/components/TextInput";
 import ClientService from "@/services/ClientService";
 import styles from "@/styles/SignUpPage.module.scss";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function SignUpPage() {
+    const t = useTranslations();
     const router = useRouter();
 
     const [firstName, setFirstName] = useState<string>("");
@@ -94,17 +97,17 @@ export default function SignUpPage() {
             <div className={styles.frame}>
                 <div className={styles.wrapper}>
                     <p className={styles.title}>
-                        Register to get started
+                        {t('Register to get started')}
                     </p>
                     <TextInput
-                        placeholder="Your first name"
+                        placeholder={t("Your first name")}
                         value={firstName}
                         onChangeText={setFirstName}
                         errorMsg={firstNameErr}
                         required
                     />
                     <TextInput
-                        placeholder="Your last name"
+                        placeholder={t("Your last name")}
                         value={lastName}
                         onChangeText={setLastName}
                         errorMsg={lastNameErr}
@@ -126,7 +129,7 @@ export default function SignUpPage() {
                         required
                     />
                     <TextInput
-                        placeholder="Password"
+                        placeholder={t("Password")}
                         secure
                         value={password}
                         onChangeText={setPassword}
@@ -143,24 +146,36 @@ export default function SignUpPage() {
                         }}
                         error={dataAgreementErr}
                     >
-                        <p>I agree with the <Link href="/">personal data processing policy</Link></p>
+                        <p>{t('I agree with the')} <Link href="/">{t('personal data processing policy')}</Link></p>
                     </Checkbox>
                     <Checkbox
-                        label="I agree to receive an advertising newsletter"
+                        label={t("I agree to receive an advertising newsletter")}
                         checked={newsletterAgreement}
                         onChange={setNewsletterAgreement}
                     />
                     <Button
-                        label={signUpLoading ? "Loading..." : "Sign up"}
+                        label={signUpLoading ? t("Loading...") : t("Sign up")}
                         onClick={() => trySignUp()}
                         secondary
                         style={{width: '100%'}}
                     />
                     <p className={styles.sign_in}>
-                        Have an account? <Link href="/account/sign-in">Log in</Link>
+                        {t('Have an account?')} <Link href="/account/sign-in">{t('Log in')}</Link>
                     </p>
                 </div>
             </div>
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`./../../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};

@@ -4,8 +4,12 @@ import TextInput from "@/components/TextInput";
 import Checkbox from "@/components/Checkbox";
 import Button from "@/components/Button";
 import { useState } from "react";
+import { GetServerSideProps } from "next";
+import { useTranslations } from "next-intl";
 
 export default function ContactsPage() {
+    const t = useTranslations();
+
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [message, setMessage] = useState<string>("");
@@ -56,17 +60,17 @@ export default function ContactsPage() {
         <div className={styles.Contacts__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <p className={styles.bc}>MAIN PAGE</p>
+                    <p className={styles.bc}>{t('MAIN PAGE')}</p>
                     <img src="/crumb.png" />
-                    <p className={`${styles.bc} ${styles.current}`}>CONTACTS</p>
+                    <p className={`${styles.bc} ${styles.current}`}>{t('CONTACTS')}</p>
                 </div>
                 <div className={styles.grid}>
                     <div className={styles.left}>
-                        <h2>CONTACTS</h2>
+                        <h2>{t('CONTACTS')}</h2>
                         <a href="mailto:495traffic@gmail.com" className={styles.email}>495TRAFFIC@GMAIL.COM</a>
                         <a href="tel:+79639326443" className={styles.phone}>+7 (963) 932 64-43</a>
-                        <p className={styles.address}>62 Pushkinskaya St., Mega shopping center, 2nd floor</p>
-                        <p className={styles.timetable}>from 10:00 to 18:00</p>
+                        <p className={styles.address}>{t('ADDR')}</p>
+                        <p className={styles.timetable}>{t('from 10:00 to 18:00')}</p>
                         <div className={styles.socials}>
                             <a href="https://t.me/donotgetcaught" target="_blank">
                                 <img src="/tg-grey.png" />
@@ -81,9 +85,9 @@ export default function ContactsPage() {
                     </div>
                     <div className={styles.right}>
                         <div className={styles.frame}>
-                            <p className={styles.title}>Any other questions? Write to us and we will contact you as soon as possible.</p>
+                            <p className={styles.title}>{t('ANY_QUESTIONS')}</p>
                             <TextInput
-                                placeholder="Name"
+                                placeholder={t('Name')}
                                 value={name}
                                 onChangeText={setName}
                                 errorMsg={nameErr}
@@ -95,7 +99,7 @@ export default function ContactsPage() {
                                 errorMsg={emailErr}
                             />
                             <TextInput
-                                placeholder="Message"
+                                placeholder={t("Message")}
                                 multiline
                                 value={message}
                                 onChangeText={setMessage}
@@ -106,10 +110,10 @@ export default function ContactsPage() {
                                 onChange={setDataAgreement}
                                 error={dataAgreementErr}
                             >
-                                <p>I agree with the <a href="/privacy" target="_blank">personal data processing policy</a></p>
+                                <p>{t('I agree with the')} <a href="/privacy" target="_blank">{t('personal data processing policy')}</a></p>
                             </Checkbox>
                             <Button
-                                label={formLoading ? "Sending..." : "Send"}
+                                label={formLoading ? t("Sending...") : t("Send")}
                                 secondary
                                 loading={formLoading}
                                 disabled={sent}
@@ -123,3 +127,15 @@ export default function ContactsPage() {
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};
