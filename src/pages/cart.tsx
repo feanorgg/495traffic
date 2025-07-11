@@ -320,19 +320,19 @@ export default function CartPage() {
         setCreationLoading(true);
 
         if(firstName == "") {
-            setFirstNameErr("Required field");
+            setFirstNameErr(t("Required field"));
             setCreationLoading(false);
             return false;
         } else {setFirstNameErr("");}
 
         if(lastName == "") {
-            setLastNameErr("Required field");
+            setLastNameErr(t("Required field"));
             setCreationLoading(false);
             return false;
         } else {setLastNameErr("");}
 
         if(email == "") {
-            setEmailErr("Required field");
+            setEmailErr(t("Required field"));
             setCreationLoading(false);
             return false;
         } else {setEmailErr("");}
@@ -340,51 +340,51 @@ export default function CartPage() {
         if(!String(email).toLowerCase().match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-            setEmailErr("Incorrect data, please try again");
+            setEmailErr(t("Incorrect email, please try again"));
             setCreationLoading(false);
             return false;
         } else {setEmailErr("");}
 
         if(phoneNumber == "") {
-            setPhoneNumberErr("Required field");
+            setPhoneNumberErr(t("Required field"));
             setCreationLoading(false);
             return false;
         } else {setPhoneNumberErr("");}
 
         if(deliveryMethod == 'cdek') {
             if(cityCode == 0) {
-                setCityErr("Required field");
+                setCityErr(t("Required field"));
                 setCreationLoading(false);
                 return false;
             } else {setCityErr("");}
 
             if(selectedShippingPoint == null) {
-                setShippingPointErr("Required field");
+                setShippingPointErr(t("Required field"));
                 setCreationLoading(false);
                 return false;
             } else {setShippingPointErr("");}
         } else if(deliveryMethod == 'courier') {
             if(cityCode == 0) {
-                setCityErr("Required field");
+                setCityErr(t("Required field"));
                 setCreationLoading(false);
                 return false;
             } else {setCityErr("");}
 
             if(address == "") {
-                setAddressErr("Required field");
+                setAddressErr(t("Required field"));
                 setCreationLoading(false);
                 return false;
             } else {setAddressErr("");}
         }
 
         if(!agreePrivacyPolicy) {
-            setAgreePrivacyPolicyErr("Required field");
+            setAgreePrivacyPolicyErr(t("Required field"));
             setCreationLoading(false);
             return false;
         } else {setAgreePrivacyPolicyErr("");}
 
         if(!agreePublicOffer) {
-            setAgreePublicOfferErr("Required field");
+            setAgreePublicOfferErr(t("Required field"));
             setCreationLoading(false);
             return false;
         } else {setAgreePublicOfferErr("");}

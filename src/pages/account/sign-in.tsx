@@ -31,15 +31,15 @@ export default function SignInPage() {
 
     async function trySignIn() {
         if(email == "") {
-            setEmailErr("Please enter your email");
+            setEmailErr(t("Please enter your email"));
             return;
         } else {setEmailErr("");}
         if(password == "") {
-            setPasswordErr("Please enter your password");
+            setPasswordErr(t("Please enter your password"));
             return;
         } else {setPasswordErr("");}
         if(password.length < 8) {
-            setPasswordErr("Password must be at least 8 characters long");
+            setPasswordErr(t("PWD_8_CHAR"));
             return;
         } else {setPasswordErr("");}
 
@@ -51,7 +51,7 @@ export default function SignInPage() {
         if(res && res.email) {
             router.push("/account");
         } else {
-            setPasswordErr("Invalid email or password");
+            setPasswordErr(t("Invalid email or password"));
         }
     }
 

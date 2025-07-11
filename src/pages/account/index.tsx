@@ -71,13 +71,13 @@ export default function AccountPage() {
         if(updateLoading) return;
 
         if(email == "") {
-            setEmailErr("Please enter your email");
+            setEmailErr(t("Please enter your email"));
             return;
         } else {
             setEmailErr("");
         }
         if(phone == "") {
-            setPhoneErr("Please enter your phone number");
+            setPhoneErr(t("Please enter your phone number"));
             return;
         } else {
             setPhoneErr("");

@@ -89,5 +89,15 @@
     "Sending...": "Отправка...",
     "Send": "Отправить",
     "FREQENTLY ASKED QUESTIONS": "ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ",
-    "Season": "Сезон"
+    "Season": "Сезон",
+    "Please enter your first name": "Пожалуйста, введите ваше имя",
+    "Please enter your last name": "Пожалуйста, введите вашу фамилию",
+    "Please enter your email": "Пожалуйста, введите ваш email",
+    "Please enter your phone number": "Пожалуйста, введите ваш номер телефона",
+    "Incorrect email, please try again": "Некорректный email, пожалуйста, попробуйте еще раз",
+    "Please enter your password": "Пожалуйста, введите ваш пароль",
+    "PWD_8_CHAR": "Пароль должен содержать не менее 8 символов",
+    "An account with this email already exists": "Аккаунт с таким email уже существует",
+    "Invalid email or password": "Некорректный email или пароль",
+    "Required field": "Обязательное поле"
 }

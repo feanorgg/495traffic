@@ -38,33 +38,33 @@ export default function SignUpPage() {
         if(signUpLoading) {return;}
 
         if(firstName == "") {
-            setFirstNameErr("Please enter your first name");
+            setFirstNameErr(t("Please enter your first name"));
             return;
         } else {setFirstNameErr("");}
         if(lastName == "") {
-            setLastNameErr("Please enter your last name");
+            setLastNameErr(t("Please enter your last name"));
             return;
         } else {setLastNameErr("");}
         if(phone == "") {
-            setPhoneErr("Please enter your phone number");
+            setPhoneErr(t("Please enter your phone number"));
             return;
         } else {setPhoneErr("");}
         if(email == "") {
-            setEmailErr("Please enter your email");
+            setEmailErr(t("Please enter your email"));
             return;
         } else {setEmailErr("");}
         if(!String(email).toLowerCase().match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-            setEmailErr("Incorrect email, please try again");
+            setEmailErr(t("Incorrect email, please try again"));
             return false;
         } else {setEmailErr("");}
         if(password == "") {
-            setPasswordErr("Please enter your password");
+            setPasswordErr(t("Please enter your password"));
             return;
         } else {setPasswordErr("");}
         if(password.length < 8) {
-            setPasswordErr("Password must be at least 8 characters long");
+            setPasswordErr(t("PWD_8_CHAR"));
             return;
         } else {setPasswordErr("");}
 
@@ -88,7 +88,7 @@ export default function SignUpPage() {
         } else {
             // Error during sign up
             setSignUpLoading(false);
-            setEmailErr("An account with this email already exists");
+            setEmailErr(t("An account with this email already exists"));
         }
     }
 

@@ -1,4 +1,5 @@
 import styles from "@/components/Button.module.scss";
+import { useTranslations } from "next-intl";
 
 interface ButtonProps {
     label: string;
@@ -26,6 +27,8 @@ export default function Button({
     className="",
     style={}
 }: ButtonProps) {
+    const t = useTranslations();
+
     return(
         <button 
             className={`${styles.Button} ${loading ? styles.loading : ''} ${secondary ? styles.secondary : ''} ${tertiary ? styles.tertiary : ''} ${className} ${disabled ? styles.disabled : ''}`}
@@ -33,7 +36,7 @@ export default function Button({
             onClick={disabled ? () => {} : onClick}
             style={style}
         >
-            <p>{(loading && !tertiary) ? "Loading..." : label}</p>
+            <p>{(loading && !tertiary) ? t("Loading...") : label}</p>
         </button>
     );
 }
