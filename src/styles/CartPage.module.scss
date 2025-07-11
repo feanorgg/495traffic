@@ -331,8 +331,10 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    flex-direction: column;
+                    gap: 20px;
 
-                    p {
+                    .label {
                         color: #737373;
                         margin: 0;
                         padding: 0;

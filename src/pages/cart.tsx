@@ -12,6 +12,7 @@ import { yMapCfg } from '@/constants/mapStyleCfg';
 import { useRouter } from "next/router";
 import { Order } from "@/types/Order";
 import ClientService from "@/services/ClientService";
+import Link from "next/link";
 
 export default function CartPage() {
     const [cart, setCart] = useState<Array<{id: string, size: string, amount: number}>>([]);
@@ -671,7 +672,7 @@ export default function CartPage() {
                 <div className={styles.grid}>
                     <div className={styles.left}>
                         <p className={styles.contact_us}>
-                            To place an order, enter your contact information. Do you need help with the order? <a>Contact us</a>
+                            To place an order, enter your contact information. Do you need help with the order? <a href="/contacts" target="_blank">Contact us</a>
                         </p>
                         <div className={styles.section}>
                             <p className={styles.section_title}>Contact information</p>
@@ -856,7 +857,12 @@ export default function CartPage() {
 
                         {empty &&
                         <div className={`${styles.product_c} ${styles.empty_c}`}>
-                            <p>Your cart is empty</p>
+                            <p className={styles.label}>Your cart is empty</p>
+                            <Link href="/" style={{textDecoration: 'none'}}>
+                                <Button
+                                    label="GO TO PRODUCTS"
+                                />
+                            </Link>
                         </div>
                         }
 
