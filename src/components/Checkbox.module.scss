@@ -1,16 +1,18 @@
 .Checkbox {
     width: max-content;
+    width: 100%;
     height: max-content;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 0 10px 0 0;
+    // padding: 0 10px 0 0;
     cursor: pointer;
 
     .check_frame {
         width: 14px;
         height: 14px;
+        min-width: 14px;;
         border: 1px solid #9898A4;
         margin: 20px 10px 20px 20px;
         margin: 0 10px 0 0;
@@ -40,6 +42,9 @@
         font-size: 16px;
         line-height: 24px;
         margin-right: 10px;
+
+        width: max-content;
+        max-width: 100%;
 
         transition: color .3s ease-in;
     }
