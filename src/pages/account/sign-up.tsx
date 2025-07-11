@@ -77,7 +77,7 @@ export default function SignUpPage() {
             phone: phone,
             email: email,
             password: password,
-            newsletterAgreement: newsletterAgreement
+            subscribe: newsletterAgreement
         });
 
         if(res && res.email) {

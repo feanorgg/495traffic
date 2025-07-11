@@ -410,6 +410,7 @@ export default function CartPage() {
                 },
                 delivery_address: `${city}, ${address}, ${address2}`,
                 payment_method: "card",
+                subscribe: agreeSubscription,
                 _callback: (order: Order) => {
                     CookieService.setCookie('cart', '[]', 365);
                     const el = document.getElementById('cart-cnt');

@@ -85,6 +85,7 @@ export default class OrderService {
         cdek_data,
         delivery_address="",
         payment_method="cash",
+        subscribe=false,
         _callback,
         _onStockError=()=>{}
     }: {
@@ -105,6 +106,7 @@ export default class OrderService {
         },
         delivery_address?: string,
         payment_method?: string,
+        subscribe?: boolean,
         _callback: (o: Order) => void,
         _onStockError?: () => void
     }) {
@@ -122,6 +124,7 @@ export default class OrderService {
                 delivery_type: delivery_type,
                 delivery_address: delivery_address,
                 payment_method: payment_method,
+                subscribe: subscribe,
                 cdek_data: {
                     shipping_point_code: cdek_data.shipping_point_code,
                     city_code: cdek_data.city_code,

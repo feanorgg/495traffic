@@ -25,14 +25,14 @@ export default class ClientService {
         phone,
         email,
         password,
-        newsletterAgreement
+        subscribe=false
     }: {
         firstName: string,
         lastName: string,
         phone: string,
         email: string,
         password: string,
-        newsletterAgreement?: boolean
+        subscribe?: boolean
     }) {
         try {
             const res = await axios.post(
@@ -45,7 +45,7 @@ export default class ClientService {
                         email: email,
                         username: email,
                         password: password,
-                        newsletter_agreement: newsletterAgreement || false
+                        subscribe: subscribe
                     }
                 },
                 { withCredentials: true }
