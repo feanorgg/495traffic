@@ -11,6 +11,7 @@ import { Product } from "@/types/Product";
 import CatalogService from "@/services/CatalogService";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import RunningLine from "@/components/RunningLine";
 
 export default function Home() {
     const t = useTranslations();
@@ -47,6 +48,15 @@ export default function Home() {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
+        <div className={styles.Marquee__wrapper}>
+            <div className={styles.marquee}>
+                <div className={styles.track}>
+                    <RunningLine/>
+                    <RunningLine/>
+                    <RunningLine/>
+                </div>
+            </div>
+        </div>
         <div className={styles.Home__root}>
             <div className={styles.header}>
                 <img src="/main-banner.webp" alt="main_banner" />

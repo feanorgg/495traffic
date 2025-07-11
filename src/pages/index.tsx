@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { Product } from "@/types/Product";
 import { useTranslations } from 'next-intl';
 import { GetServerSideProps } from "next";
+import RunningLine from "@/components/RunningLine";
 // import { getRequestLocale } from 'next-intl/server';
 
 export default function Home() {
@@ -52,6 +53,15 @@ export default function Home() {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
+        <div className={styles.Marquee__wrapper}>
+            <div className={styles.marquee}>
+                <div className={styles.track}>
+                    <RunningLine/>
+                    <RunningLine/>
+                    <RunningLine/>
+                </div>
+            </div>
+        </div>
         <div className={styles.Home__root}>
             <div className={styles.header}>
                 <img 
