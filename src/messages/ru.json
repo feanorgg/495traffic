@@ -99,5 +99,7 @@
     "PWD_8_CHAR": "Пароль должен содержать не менее 8 символов",
     "An account with this email already exists": "Аккаунт с таким email уже существует",
     "Invalid email or password": "Некорректный email или пароль",
-    "Required field": "Обязательное поле"
+    "Required field": "Обязательное поле",
+    "Please enter your message": "Пожалуйста, введите ваше сообщение",
+    "Please enter your name": "Пожалуйста, введите ваше имя"
 }

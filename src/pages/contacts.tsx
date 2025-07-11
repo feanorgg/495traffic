@@ -25,21 +25,21 @@ export default function ContactsPage() {
 
     async function trySendForm() {
         if(name == "") {
-            setNameErr("Please enter your name");
+            setNameErr(t("Please enter your name"));
             return;
         } else {setNameErr("");}
         if(email == "") {
-            setEmailErr("Please enter your email");
+            setEmailErr(t("Please enter your email"));
             return;
         } else {setEmailErr("");}
         if(!String(email).toLowerCase().match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )) {
-            setEmailErr("Incorrect email, please try again");
+            setEmailErr(t("Incorrect email, please try again"));
             return;
         } else {setEmailErr("");}
         if(message == "") {
-            setMessageErr("Please enter your message");
+            setMessageErr(t("Please enter your message"));
             return;
         } else {setMessageErr("");}
         if(!dataAgreement) {
