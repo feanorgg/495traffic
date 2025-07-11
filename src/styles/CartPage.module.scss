@@ -504,8 +504,16 @@
 
             .grid {
                 margin-top: 0;
+                width: 100%;
+                max-width: 100%;
+
+                .left {
+                    max-width: calc(100vw - 40px);
+                }
                 
                 .right {
+                    max-width: calc(100vw - 40px);
+
                     .product_c {
                         display: flex;
                         flex-direction: column;
