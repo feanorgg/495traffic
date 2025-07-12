@@ -1,15 +1,24 @@
 import CookieService from "@/services/CookieService";
 import styles from "@/styles/TextPage.module.scss";
+import { useEffect, useState } from "react";
 
 export default function PrivacyPage() {
+    const [locale, setLocale] = useState<string>('ru');
+    useEffect(() => {
+        const _locale = CookieService.getCookie('locale');
+        if(_locale != null) {
+            setLocale(_locale);
+        }
+    }, []);
+
     return(
         <div className={styles.TextPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <h1 className={styles.title}>{CookieService.getCookie('locale') == 'ru' || CookieService.getCookie('locale') == null ? "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ" : "PRIVACY POLICY"}</h1>
+                    <h1 className={styles.title}>{locale == 'ru' ? "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ" : "PRIVACY POLICY"}</h1>
                 </div>
                 <div className={styles.content}>
-                    <p>{CookieService.getCookie('locale') == 'ru' || CookieService.getCookie('locale') == null ? `в отношении обработки персональных данных
+                    <p>{locale == 'ru' ? `в отношении обработки персональных данных
 
 ⸻
 

@@ -1,15 +1,24 @@
 import CookieService from "@/services/CookieService";
 import styles from "@/styles/TextPage.module.scss";
+import { useEffect, useState } from "react";
 
 export default function OfferPage() {
+    const [locale, setLocale] = useState<string>('ru');
+    useEffect(() => {
+        const _locale = CookieService.getCookie('locale');
+        if(_locale != null) {
+            setLocale(_locale);
+        }
+    }, []);
+    
     return(
         <div className={styles.TextPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <h1 className={styles.title}>{CookieService.getCookie('locale') == 'ru' || CookieService.getCookie('locale') == null ? "ПУБЛИЧНАЯ ОФЕРТА" : "PUBLIC OFFER"}</h1>
+                    <h1 className={styles.title}>{locale == 'ru' ? "ПУБЛИЧНАЯ ОФЕРТА" : "PUBLIC OFFER"}</h1>
                 </div>
                 <div className={styles.content}>
-                    <p>{CookieService.getCookie('locale') == 'ru' || CookieService.getCookie('locale') == null ? `о заключении договора купли-продажи товаров дистанционным способом
+                    <p>{locale == 'ru' ? `о заключении договора купли-продажи товаров дистанционным способом
 
 ⸻
 
