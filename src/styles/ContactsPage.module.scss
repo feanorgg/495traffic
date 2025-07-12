@@ -68,6 +68,35 @@
             .left {
                 border-right: 1px solid #C1C1C8;
 
+                .phone, .email {
+                    margin-top: 12px;
+                    font-size: 24px;
+                    line-height: 32px;
+                    letter-spacing: -1%;
+                    color: #0B0B0B;
+                    text-decoration: none;
+
+                    font-size: 32px;
+                    line-height: 40px;
+                    letter-spacing: -2%;
+                    color: #0B0B0B;
+                    text-decoration: none;
+
+                    text-transform: uppercase;
+
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 10px;
+
+                    img {
+                        filter: invert(1);
+                        width: 36px;
+                        height: 36px;
+                    }
+                }
+
                 .email {
                     margin-top: 64px;
                     font-size: 32px;
@@ -75,15 +104,12 @@
                     letter-spacing: -2%;
                     color: #0B0B0B;
                     text-decoration: none;
-                }
 
-                .phone {
-                    margin-top: 12px;
-                    font-size: 24px;
-                    line-height: 32px;
-                    letter-spacing: -1%;
-                    color: #0B0B0B;
-                    text-decoration: none;
+                    img {
+                        width: 30px;
+                        margin: 0 3px;
+                        object-fit: contain;
+                    }
                 }
 
                 .address {
@@ -98,10 +124,15 @@
                     font-size: 16px;
                     line-height: 24px;
                     color: #9898A4;
+
+                    font-size: 20px;
+                    line-height: 28px;
+                    margin: 64px 0 0 0;
                 }
 
                 .socials {
-                    margin-top: 64px;
+                    // margin-top: 64px;
+                    margin-top: 24px;
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;

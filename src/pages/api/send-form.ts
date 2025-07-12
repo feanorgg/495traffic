@@ -46,7 +46,7 @@ export default async function handler(
 
         const mailOptions = {
             from: 'info@495traffic.com',
-            to: 'ivan.galkin5066@gmail.com', // Enter recipient email
+            to: '495traffic@gmail.com', // Enter recipient email
             subject: `Новый ответ на форму от ${name}`,
             text: `Имя: ${name}\nEmail: ${email}\n\n${message}`,
         };

@@ -25,6 +25,8 @@ export default function ContactsPage() {
     const [sent, setSent] = useState<boolean>(false);
 
     async function trySendForm() {
+        if(formLoading) {return;}
+
         if(name == "") {
             setNameErr(t("Please enter your name"));
             return;
@@ -80,10 +82,16 @@ export default function ContactsPage() {
                 <div className={styles.grid}>
                     <div className={styles.left}>
                         <h2>{t('CONTACTS')}</h2>
-                        <a href="mailto:495traffic@gmail.com" className={styles.email}>495TRAFFIC@GMAIL.COM</a>
-                        <a href="tel:+79639326443" className={styles.phone}>+7 (963) 932 64-43</a>
-                        <p className={styles.address}>{t('ADDR')}</p>
-                        <p className={styles.timetable}>{t('from 10:00 to 18:00')}</p>
+                        <a href="mailto:495traffic@gmail.com" className={styles.email}>
+                            <img src="/email.png" />
+                            <p>495TRAFFIC@GMAIL.COM</p>
+                        </a>
+                        <a href="https://t.me/supplier495" className={styles.phone}>
+                            <img src="/tg.png" />
+                            <p>@supplier495</p>
+                        </a>
+                        {/*<p className={styles.address}>{t('ADDR')}</p>*/}
+                        <p className={styles.timetable}>{t('Media')}</p>
                         <div className={styles.socials}>
                             <a href="https://t.me/donotgetcaught" target="_blank">
                                 <img src="/tg-grey.png" />
@@ -126,9 +134,9 @@ export default function ContactsPage() {
                                 <p>{t('I agree with the')} <a href="/privacy" target="_blank">{t('personal data processing policy')}</a></p>
                             </Checkbox>
                             <Button
-                                label={formLoading ? t("Sending...") : t("Send")}
+                                label={formLoading ? t("Sending...") : (sent ? t("Sent") : t("Send"))}
                                 secondary
-                                loading={formLoading}
+                                // loading={formLoading}
                                 disabled={sent}
                                 onClick={() => trySendForm()}
                             />
