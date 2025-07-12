@@ -81,16 +81,16 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                     {t('All')}
                 </Link>
                 <Link className={`${styles.menu_link} ${router.pathname == '/pants' ? styles.active : ''}`} href="/pants">
-                    Pants
+                    {t('Pants')}
                 </Link>
                 <Link className={`${styles.menu_link} ${router.pathname == '/t-shirts' ? styles.active : ''}`} href="/t-shirts">
-                    T-shirts
+                    {t('T-shirts')}
                 </Link>
                 <Link className={`${styles.menu_link} ${router.pathname == '/hoodie' ? styles.active : ''}`} href="/hoodie">
-                    Hoodie
+                    {t('Hoodie')}
                 </Link>
                 <Link className={`${styles.menu_link} ${router.pathname == '/accessories' ? styles.active : ''}`} href="/accessories">
-                    Accessories
+                    {t('Accessories')}
                 </Link>
             </div>
         </div>

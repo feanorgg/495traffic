@@ -834,7 +834,7 @@ export default function CartPage() {
                                     <div className={styles.p_img_and_info}>
                                         <img className={styles.p_img} src={product.images[0].min} alt="p_img" />
                                         <div className={styles.p_info}>
-                                            <p className={styles.p_cat}>{product.categories[0].name}</p>
+                                            <p className={styles.p_cat}>{t(product.categories[0].name)}</p>
                                             <p className={styles.p_name}>{product.name}</p>
                                             <p className={styles.p_size}>{t('Size')}: <span>{product.availability[0].size}</span></p>
                                         </div>

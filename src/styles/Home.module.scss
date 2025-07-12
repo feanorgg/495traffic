@@ -112,7 +112,8 @@
 .Marquee__wrapper {
     overflow: hidden;
     width: 100%;
-    background: black;
+    max-width: 100vw;
+    background: #01F300;
     color: white;
     white-space: nowrap;
     position: fixed;
@@ -247,6 +248,14 @@
 
         .archive_banner_container {
             height: 420px;
+            max-width: 100vw;
+            overflow: hidden;
+
+            .wrapper {
+                .title {
+                    font-size: 72px;
+                }
+            }
         }
     }
 }
