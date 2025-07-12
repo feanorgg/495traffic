@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import { useState } from "react";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import axios from "axios";
 
 export default function ContactsPage() {
     const t = useTranslations();
@@ -50,6 +51,18 @@ export default function ContactsPage() {
         setFormLoading(true);
 
         // send 
+        try {
+            const res = await axios.post(`https://495traffic.com/api/send-form`, {
+                name: name,
+                email: email,
+                message: message
+            });
+            setFormLoading(false);
+            setSent(true);
+        } catch {
+            setFormLoading(false);
+            setMessageErr('Произошла ошибка при отправке формы.');
+        }
     }
 
     return(
