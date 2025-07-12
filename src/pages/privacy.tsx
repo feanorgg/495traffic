@@ -1,3 +1,4 @@
+import CookieService from "@/services/CookieService";
 import styles from "@/styles/TextPage.module.scss";
 
 export default function PrivacyPage() {
@@ -5,10 +6,10 @@ export default function PrivacyPage() {
         <div className={styles.TextPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <h1 className={styles.title}>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</h1>
+                    <h1 className={styles.title}>{CookieService.getCookie('locale') == 'ru' || CookieService.getCookie('locale') == null ? "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ" : "PRIVACY POLICY"}</h1>
                 </div>
                 <div className={styles.content}>
-                    <p>{`в отношении обработки персональных данных
+                    <p>{CookieService.getCookie('locale') == 'ru' || CookieService.getCookie('locale') == null ? `в отношении обработки персональных данных
 
 ⸻
 
@@ -136,7 +137,136 @@ E-mail: 495traffic@gmail.com
 
 11.2. Оператор вправе вносить изменения в Политику. Актуальная версия всегда доступна по адресу https://495traffic.com/privacy.
 
-11.3. Все вопросы, связанные с обработкой данных, направляются на 495traffic@gmail.com.`}</p>
+11.3. Все вопросы, связанные с обработкой данных, направляются на 495traffic@gmail.com.` : 
+`Regarding the Processing of Personal Data
+
+⸻
+
+1. General Provisions
+
+1.1. This Policy is drafted in accordance with Federal Law of the Russian Federation No. 152-FZ dated 27.07.2006 "On Personal Data" and defines the procedure for processing and protecting personal data provided by users of the website https://495traffic.com.
+
+1.2. The personal data operator is:
+Sole Proprietor Dmitry Shukhratovich Sadyvakasov
+INN: 771618905209
+OGRNIP: 325774600387818
+E-mail: 495traffic@gmail.com
+
+1.3. This Policy applies to all personal data that the Operator may receive from the user when using the website, including order placement, subscription, participation in promotions, feedback, and other forms of interaction.
+
+1.4. The purpose of the Policy is to protect human rights and freedoms when processing their personal data, to ensure data security, and to maintain confidentiality.
+
+⸻
+
+2. Legal Grounds for Data Processing
+
+2.1. Personal data is processed on the following grounds:
+• user consent obtained when filling out forms on the website;
+• execution of a sale and purchase agreement (offer);
+• compliance with legal requirements, including for tax and accounting purposes;
+• the Operator's legitimate interests, such as protecting their rights and improving the website’s operation.
+
+⸻
+
+3. What Data We Collect
+
+3.1. Personal data:
+• full name;
+• phone number;
+• e-mail address;
+• delivery address;
+• order and interaction history with the website;
+• other information voluntarily provided by the user when placing orders or filling out forms.
+
+3.2. Non-personal (anonymized) data:
+• cookies;
+• IP address;
+• browser and device data;
+• website usage behavior;
+• analytics data (Google Analytics, Yandex.Metrica, etc.).
+These are data that do not allow the user to be directly identified.
+
+⸻
+
+4. Purposes of Data Processing
+
+4.1. The Operator uses personal data solely for the following purposes:
+• order placement, payment, and delivery;
+• communication with users regarding orders;
+• sending notifications (if the user has given consent);
+• compliance with legal requirements;
+• analytics and website improvement.
+
+⸻
+
+5. User Consent
+
+5.1. The user gives consent to the processing of their personal data:
+• when filling out forms on the website;
+• when placing an order;
+• when subscribing to the newsletter;
+• when using the website with cookies enabled.
+
+5.2. The user has the right to withdraw consent at any time by sending an email to 495traffic@gmail.com with the subject “Withdrawal of Consent for Personal Data Processing.”
+
+⸻
+
+6. Data Storage and Deletion
+
+6.1. Personal data is stored:
+• for 3 years from the date of last interaction or order placement;
+• or for the period established by law (e.g., for accounting — 5 years).
+
+6.2. After the expiration of the storage period, data is deleted or anonymized, unless otherwise provided by law.
+
+⸻
+
+7. Data Transfer and Cross-Border Transmission
+
+7.1. Data may be transferred to third parties only in the following cases:
+• to payment systems — for processing payments;
+• to delivery services — for shipping orders;
+• to government authorities — upon lawful request.
+
+7.2. We use analytical and technical services (Google, Meta, Yandex) that may be located outside the Russian Federation. Cross-border data transfer is carried out in compliance with personal data protection requirements.
+
+⸻
+
+8. Cookies and Automated Processing
+
+8.1. We use cookies and pixels for analytics, preference storage, and to improve user experience.
+
+8.2. Users may disable cookies in their browser settings. Disabling cookies may affect the website’s functionality.
+
+8.3. No automated decision-making is applied on the website that entails legal consequences (e.g., behavioral profiling).
+
+⸻
+
+9. User Rights
+
+The user has the right to:
+• request information about their personal data;
+• demand correction, blocking, or deletion of data;
+• withdraw consent to data processing;
+• file a complaint to Roskomnadzor about the Operator's actions.
+
+⸻
+
+10. User Responsibility
+
+10.1. The user agrees to provide only accurate and truthful information.
+
+10.2. The Operator is not liable for losses resulting from the user's submission of inaccurate data.
+
+⸻
+
+11. Final Provisions
+
+11.1. This Policy is valid indefinitely until it is replaced with a new version.
+
+11.2. The Operator reserves the right to make changes to the Policy. The current version is always available at https://495traffic.com/privacy.
+
+11.3. All questions related to data processing should be directed to 495traffic@gmail.com.`}</p>
                 </div>
             </div>
         </div>
