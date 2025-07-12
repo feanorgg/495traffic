@@ -238,7 +238,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                         />
                         <div className={styles.product_actions}>
                             <Button
-                                label={(outOfStock ? t('Out of stock') : (inCart ? t("Added...") : t("Add to bag")))}
+                                label={(outOfStock ? t('Out of stock') : (inCart ? `${t("Added")}...` : t("Add to bag")))}
                                 className={styles.add_button}
                                 disabled={(colors.length > 1 && selectedColor == "") || (sizes.length > 1 && selectedSize == "") || inCart || outOfStock}
                                 onClick={() => addToCart({id: product._id, size: selectedSize != "" ? selectedSize : sizes[0]})}

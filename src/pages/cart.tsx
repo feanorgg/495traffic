@@ -767,7 +767,7 @@ export default function CartPage() {
                                     errorMsg={addressErr}
                                 />
                                 <TextInput
-                                    placeholder={t("Apartment, suite, etc. (optional)")}
+                                    placeholder={t("Apartment, suite, etc (optional)")}
                                     value={address2}
                                     onChangeText={setAddress2}
                                 />

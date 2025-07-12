@@ -134,7 +134,7 @@ export default function ContactsPage() {
                                 <p>{t('I agree with the')} <a href="/privacy" target="_blank">{t('personal data processing policy')}</a></p>
                             </Checkbox>
                             <Button
-                                label={formLoading ? t("Sending...") : (sent ? t("Sent") : t("Send"))}
+                                label={formLoading ? `${t("Sending")}...` : (sent ? t("Sent") : t("Send"))}
                                 secondary
                                 // loading={formLoading}
                                 disabled={sent}
