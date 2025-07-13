@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ContentService from "@/services/ContentService";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import CookieService from "@/services/CookieService";
 
 export default function FaqPage() {
     const t = useTranslations();
@@ -15,20 +16,21 @@ export default function FaqPage() {
     }, []);
 
     async function fetchContents() {
-            const cg = await ContentService.getContentGroup("00000002");
-            const _contents: Array<{title: string, content: string}> = [];
-            for(const obj of cg.content_objects) {
-                if(obj.type == 'text') {
-                    const title = obj.content.split('\n')[0];
-                    const content = obj.content.split('\n').slice(1).join('\n');
-                    _contents.push({
-                        title: title,
-                        content: content
-                    });
-                }
+        const locale = CookieService.getCookie('locale');
+        const cg = await ContentService.getContentGroup(locale == 'ru' || locale == null ? "00000002" : "00000003");
+        const _contents: Array<{title: string, content: string}> = [];
+        for(const obj of cg.content_objects) {
+            if(obj.type == 'text') {
+                const title = obj.content.split('\n')[0];
+                const content = obj.content.split('\n').slice(1).join('\n');
+                _contents.push({
+                    title: title,
+                    content: content
+                });
             }
-            setContents(_contents);
         }
+        setContents(_contents);
+    }
 
     return(
         <>
