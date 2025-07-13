@@ -71,7 +71,7 @@ export default function Home() {
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
-                    <h1>{t("All products")}</h1>
+                    <h1>{t("ALL PRODUCTS")}</h1>
                     <DropdownPicker
                         placeholder={t("Sort by")}
                         items={[
