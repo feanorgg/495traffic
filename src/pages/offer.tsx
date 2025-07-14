@@ -1,5 +1,6 @@
 import CookieService from "@/services/CookieService";
 import styles from "@/styles/TextPage.module.scss";
+import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 
 export default function OfferPage() {
@@ -305,3 +306,15 @@ Phone number: +7 (968) 495-69-69`}</p>
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const locale = req.cookies.locale || 'ru';
+    const messages = (await import(`./../messages/${locale}.json`)).default;
+
+    return {
+        props: {
+            messages,
+            locale
+        }
+    };
+};
