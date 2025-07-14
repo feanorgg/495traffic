@@ -255,7 +255,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                 <div className={styles.grid}>
                     <div className={styles.gallery}>
                         <div className={styles.main_img_c}>
-                            <img src={product.images[imageIndex].max} onClick={() => setOverlayState(true)} />
+                            <img src={withCDNPrefix(product.images[imageIndex].max)} onClick={() => setOverlayState(true)} />
                             {imageIndex != 0 &&
                             <div className={styles.arrow_back} onClick={() => setImageIndex(imageIndex - 1)}>
                                 <img src="https://cdn2.495traffic.com/chevron-left-w.png" />
