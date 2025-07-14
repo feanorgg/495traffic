@@ -36,7 +36,7 @@ export default function Button({
             onClick={disabled ? () => {} : onClick}
             style={style}
         >
-            <p>{(loading && !tertiary) ? `${t("Loading")}...` : label}</p>
+            <p>{loading ? `${t("Loading")}...` : label}</p>
         </button>
     );
 }

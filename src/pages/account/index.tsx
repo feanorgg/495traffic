@@ -101,7 +101,7 @@ export default function AccountPage() {
 
     async function tryResetPassword() {
         if(user != null) {
-            if(resetLoading) return;
+            if(resetLoading || pwdEmailSent) return;
             setResetLoading(true);
 
             const res = await ClientService.resetPassword(user.email);
@@ -175,9 +175,10 @@ export default function AccountPage() {
                         style={{width: '100%', marginBottom: '16px'}}
                     />
                     <Button
-                        label={pwdEmailSent ? t("Email sent") : t("Reset Password")}
+                        label={pwdEmailSent ? t("Email sent") : t("Change Password")}
                         onClick={() => tryResetPassword()}
                         loading={resetLoading}
+                        disabled={pwdEmailSent}
                         tertiary
                         style={{width: '100%'}}
                     />
