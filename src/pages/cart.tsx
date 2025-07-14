@@ -15,7 +15,7 @@ import ClientService from "@/services/ClientService";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
-import withCDNPrefix from "@/functions/withCdnPrefix";
+import withCDNPrefix from "@/functions/withCDNPrefix";
 
 export default function CartPage() {
     const t = useTranslations();

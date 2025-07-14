@@ -1,10 +1,8 @@
 import styles from "@/components/ProductCard.module.scss";
-import Button from "./Button";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Product } from "@/types/Product";
-import { TranslationValues } from "next-intl";
-import withCDNPrefix from "@/functions/withCdnPrefix";
+import withCDNPrefix from "@/functions/withCDNPrefix";
 
 export default function ProductCard({product, t}: {product: Product, t: (key: string, values?: Record<string, any>) => string}) {
     /*const product = {

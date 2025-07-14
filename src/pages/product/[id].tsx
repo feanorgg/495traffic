@@ -16,7 +16,7 @@ import 'swiper/css';
 import 'swiper/css/navigation'; 
 import 'swiper/css/pagination';
 import Head from "next/head";
-import withCDNPrefix from "@/functions/withCdnPrefix";
+import withCDNPrefix from "@/functions/withCDNPrefix";
 
 export default function ProductPage({ product, relatedProducts }: { product: Product, relatedProducts: Array<Product> }) {
     const t = useTranslations();

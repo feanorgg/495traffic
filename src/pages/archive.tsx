@@ -13,7 +13,7 @@ import ProgressiveImage from "@/components/ProgressiveImage";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
-import withCDNPrefix from "@/functions/withCdnPrefix";
+import withCDNPrefix from "@/functions/withCDNPrefix";
 
 export default function ArchivePage() {
     const t = useTranslations();
