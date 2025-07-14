@@ -118,5 +118,7 @@
     "Please enter your new password": "Пожалуйста, введите ваш новый пароль",
     "Failed to change password": "Не удалось изменить пароль",
     "PWD_CHANGED": "Ваш пароль был успешно изменен. Вы можете войти в аккаунт с новыми данными",
-    "New password": "Новый пароль"
+    "New password": "Новый пароль",
+    "Failed to send reset password email": "Не удалось отправить письмо для сброса пароля",
+    "Email sent": "Письмо отправлено"
 }

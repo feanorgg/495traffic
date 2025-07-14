@@ -102,6 +102,24 @@ export default function AccountPage() {
         );
     }
 
+    const [pwdEmailSent, setPwdEmailSent] = useState<boolean>(false);
+    const [resetLoading, setResetLoading] = useState<boolean>(false);
+
+    async function tryResetPassword() {
+        if(user != null) {
+            if(resetLoading) return;
+            setResetLoading(true);
+
+            const res = await ClientService.resetPassword(user.email);
+            if(res) {
+                setPwdEmailSent(true);
+            } else {
+                setEmailErr(t("Failed to send reset password email"));
+            }
+            setResetLoading(false);
+        }
+    }
+
     return(
         <>
         <Head>
@@ -157,7 +175,9 @@ export default function AccountPage() {
                         style={{width: '100%', marginBottom: '16px'}}
                     />
                     <Button
-                        label={t("Change Password")}
+                        label={pwdEmailSent ? t("Email sent") : t("Reset Password")}
+                        onClick={() => tryResetPassword()}
+                        loading={resetLoading}
                         tertiary
                         style={{width: '100%'}}
                     />
