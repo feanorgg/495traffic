@@ -67,7 +67,7 @@ export default function Home() {
         <div className={styles.Home__root}>
             <div className={styles.header}>
                 <img 
-                    src="/main-banner.webp"
+                    src="https://cdn2.495traffic.com/main-banner.webp"
                     alt="main_banner"
                 />
             </div>
@@ -134,7 +134,7 @@ export default function Home() {
 
             <div className={styles.archive_banner_container}>
                 <img 
-                    src="/archive-banner.webp"
+                    src="https://cdn2.495traffic.com/archive-banner.webp"
                     alt="archive_banner"
                 />
                 <div className={styles.fade} />

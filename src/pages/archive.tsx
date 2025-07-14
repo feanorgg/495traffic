@@ -13,6 +13,7 @@ import ProgressiveImage from "@/components/ProgressiveImage";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
+import withCDNPrefix from "@/functions/withCdnPrefix";
 
 export default function ArchivePage() {
     const t = useTranslations();
@@ -148,14 +149,14 @@ export default function ArchivePage() {
                 {window.innerWidth > 768 ? 
                 <>
                 <div className={styles.arrow_left} onClick={() => showPrevImage()}>
-                    <img src="/chevron-left-b.png" alt="left_arrow" />
+                    <img src="https://cdn2.495traffic.com/chevron-left-b.png" alt="left_arrow" />
                 </div>
                 <img className={styles.image} src={imageSrc} />
                 <div className={styles.arrow_right} onClick={() => showNextImage()}>
-                    <img src="/chevron-right-b.png" alt="right_arrow" />
+                    <img src="https://cdn2.495traffic.com/chevron-right-b.png" alt="right_arrow" />
                 </div>
                 <div className={styles.close_button}>
-                    <img src="/archive-close.png" alt="close" onClick={() => setImageSrc('')} />
+                    <img src="https://cdn2.495traffic.com/archive-close.png" alt="close" onClick={() => setImageSrc('')} />
                 </div>
                 </>
                 :
@@ -185,7 +186,7 @@ export default function ArchivePage() {
                     })}
                 </Swiper>
                 <div className={styles.close_button}>
-                    <img src="/archive-close.png" alt="close" onClick={() => setImageSrc('')} />
+                    <img src="https://cdn2.495traffic.com/archive-close.png" alt="close" onClick={() => setImageSrc('')} />
                 </div>
                 </>
                 }
@@ -265,8 +266,8 @@ function GalleryImage({
 
     return(
         <ProgressiveImage 
-            placeholderSrc={`${image.split('.jpg')[0]}_tn.jpg`} 
-            src={image}
+            placeholderSrc={withCDNPrefix(`${image.split('.jpg')[0]}_tn.jpg`)} 
+            src={withCDNPrefix(image)}
             alt={`archive_img_${index}_${_index}`} 
             onClick={() => setImageSrc(image)} key={_index}
             className={`${wide ? styles.wide : ''}`}

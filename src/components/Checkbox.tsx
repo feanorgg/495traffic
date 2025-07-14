@@ -18,7 +18,7 @@ export default function Checkbox({
     return(
         <div className={`${styles.Checkbox} ${error ? styles.error : ''}`} onClick={() => onChange(!checked)}>
             <div className={`${styles.check_frame} ${checked ? styles.checked : ''}`}>
-                {checked && <img src="/check.png" className={styles.check_img} />}
+                {checked && <img src="https://cdn2.495traffic.com/check.png" className={styles.check_img} />}
             </div>
             {label != "" && <p className={styles.label}>{label}</p>}
             {children}

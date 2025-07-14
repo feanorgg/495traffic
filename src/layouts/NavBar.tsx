@@ -96,12 +96,12 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
         </div>
         <div className={styles.NavBar__root}>
             <div className={styles.black_line}>
-                <Link href="/"><img src="/logo.png" alt="logo" /></Link>
+                <Link href="/"><img src="https://cdn2.495traffic.com/logo.png" alt="logo" /></Link>
             </div>
             <div className={`${styles.main_line} ${menuState ? styles.hide_border : ''}`}>
                 <div className={styles.wrapper}>
                     <div className={styles.mobile_menu_button} onPointerDown={() => setMenuState(!menuState)}>
-                        {menuState ? <img src="/mobile-close.png" alt="close_menu" /> : <img src="/mobile-menu.png" alt="open_menu" />}
+                        {menuState ? <img src="https://cdn2.495traffic.com/mobile-close.png" alt="close_menu" /> : <img src="https://cdn2.495traffic.com/mobile-menu.png" alt="open_menu" />}
                     </div>
                     <div className={styles.categories}>
                         <Link className={`${styles.link} ${styles.all} ${router.pathname == '/' ? styles.active : ''}`} href="/">
@@ -122,10 +122,10 @@ export default function NavBar({ children }: { children: React.ReactElement }) {
                     </div>
                     <div className={styles.controls}>
                         <Link className={styles.icon_c} href="/account">
-                            <img src="/profile.png" alt="profile" className={`${styles.profile_img} ${router.pathname.includes('/account') ? styles.active : ''}`} />
+                            <img src="https://cdn2.495traffic.com/profile.png" alt="profile" className={`${styles.profile_img} ${router.pathname.includes('/account') ? styles.active : ''}`} />
                         </Link>
                         <Link className={styles.icon_c} href="/cart">
-                            <img src="/bag.png" alt="bag" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />
+                            <img src="https://cdn2.495traffic.com/bag.png" alt="bag" className={`${styles.bag_img} ${router.pathname.includes('/cart') ? styles.active : ''}`} />
                             <div id="cart" className={styles.cart_counter_container}>
                                 <p id="cart-cnt">0</p>
                             </div>

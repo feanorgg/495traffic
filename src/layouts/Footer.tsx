@@ -25,16 +25,16 @@ export default function Footer() {
                         {t('Offer')}
                     </Link>
                 </div>
-                <img src="/dngc.png" alt="do_not_get_caught" className={styles.dngc} />
+                <img src="https://cdn2.495traffic.com/dngc.png" alt="do_not_get_caught" className={styles.dngc} />
                 <div className={styles.socials}>
                     <Link className={styles.social} href="https://t.me/donotgetcaught" target="_blank">
-                        <img src="/tg.png" alt="tg" />
+                        <img src="https://cdn2.495traffic.com/tg.png" alt="tg" />
                     </Link>
                     <Link className={styles.social} href="https://instagram.com/495traffic" target="_blank">
-                        <img src="/is.png" alt="insta" />
+                        <img src="https://cdn2.495traffic.com/is.png" alt="insta" />
                     </Link>
                     <Link className={styles.social} href="https://vk.com/traffic495" target="_blank">
-                        <img src="/vk.png" alt="vk" />
+                        <img src="https://cdn2.495traffic.com/vk.png" alt="vk" />
                     </Link>
                 </div>
             </div>

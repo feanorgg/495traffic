@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Product } from "@/types/Product";
 import { TranslationValues } from "next-intl";
+import withCDNPrefix from "@/functions/withCdnPrefix";
 
 export default function ProductCard({product, t}: {product: Product, t: (key: string, values?: Record<string, any>) => string}) {
     /*const product = {
@@ -70,7 +71,7 @@ export default function ProductCard({product, t}: {product: Product, t: (key: st
                 {product.images.map((image, index) => {
                     return(
                         <img 
-                            src={image.min}
+                            src={withCDNPrefix(image.min)}
                             key={index}
                             alt={`product_img_${index}`}
                             style={imageIndex == index ? {opacity: 1} : {}}

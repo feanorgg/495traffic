@@ -21,7 +21,7 @@ export default function OrderSuccessPage({order}: {order: Order}) {
             <link rel="icon" href="/favicon.ico" /> 
         </Head>
         <div className={styles.OrderSuccess__root}>
-            <img className={styles.mark} src="/mark.png" alt="mark" />
+            <img className={styles.mark} src="https://cdn2.495traffic.com/mark.png" alt="mark" />
             <div className={styles.content}>
                 <h5>{t("Order number")}: №{order._id}</h5>
                 <h2>{t("THANK YOU FOR ORDER")}!</h2>

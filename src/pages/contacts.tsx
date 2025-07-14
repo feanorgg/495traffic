@@ -81,31 +81,31 @@ export default function ContactsPage() {
             <div className={styles.wrapper}>
                 <div className={styles.head}>
                     <p className={styles.bc}>{t('MAIN PAGE')}</p>
-                    <img src="/crumb.png" />
+                    <img src="https://cdn2.495traffic.com/crumb.png" />
                     <p className={`${styles.bc} ${styles.current}`}>{t('CONTACTS')}</p>
                 </div>
                 <div className={styles.grid}>
                     <div className={styles.left}>
                         <h2>{t('CONTACTS')}</h2>
                         <a href="mailto:495traffic@gmail.com" className={styles.email}>
-                            <img src="/email.png" />
+                            <img src="https://cdn2.495traffic.com/email.png" />
                             <p>495TRAFFIC@GMAIL.COM</p>
                         </a>
                         <a href="https://t.me/supplier495" className={styles.phone}>
-                            <img src="/tg.png" />
+                            <img src="https://cdn2.495traffic.com/tg.png" />
                             <p>@supplier495</p>
                         </a>
                         {/*<p className={styles.address}>{t('ADDR')}</p>*/}
                         <p className={styles.timetable}>{t('Media')}</p>
                         <div className={styles.socials}>
                             <a href="https://t.me/donotgetcaught" target="_blank">
-                                <img src="/tg-grey.png" />
+                                <img src="https://cdn2.495traffic.com/tg-grey.png" />
                             </a>
                             <a href="https://instagram.com/495traffic" target="_blank">
-                                <img src="/is-grey.png" />
+                                <img src="https://cdn2.495traffic.com/is-grey.png" />
                             </a>
                             <a href="https://vk.com/traffic495" target="_blank">
-                                <img src="/vk-grey.png" />
+                                <img src="https://cdn2.495traffic.com/vk-grey.png" />
                             </a>
                         </div>
                     </div>

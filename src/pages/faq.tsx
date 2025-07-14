@@ -46,7 +46,7 @@ export default function FaqPage() {
             <div className={styles.wrapper}>
                 <div className={styles.head}>
                     <p className={styles.bc}>{t('MAIN PAGE')}</p>
-                    <img src="/crumb.png" />
+                    <img src="https://cdn2.495traffic.com/crumb.png" />
                     <p className={`${styles.bc} ${styles.current}`}>FAQ</p>
                 </div>
 
@@ -75,7 +75,7 @@ function ContentItem({title, content, index}: {title: string, content: string, i
         <div className={`${styles.content_c} ${revealed ? styles.revealed : ''}`}>
             <div className={styles.content_head} onClick={() => setRevealed(!revealed)}>
                 <h5>{title}</h5>
-                <img src="/plus-grey.png" className={revealed ? styles.rotated : ''} />
+                <img src="https://cdn2.495traffic.com/plus-grey.png" className={revealed ? styles.rotated : ''} />
             </div>
             {revealed &&
             <div className={styles.content_body}>

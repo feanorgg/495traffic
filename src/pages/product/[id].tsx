@@ -16,6 +16,7 @@ import 'swiper/css';
 import 'swiper/css/navigation'; 
 import 'swiper/css/pagination';
 import Head from "next/head";
+import withCDNPrefix from "@/functions/withCdnPrefix";
 
 export default function ProductPage({ product, relatedProducts }: { product: Product, relatedProducts: Array<Product> }) {
     const t = useTranslations();
@@ -171,7 +172,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
         <Head>
             <title>{product.name} - 495TRAFFIC</title>
             <meta name="description" content={`Купить 495TRAFFIC ${product.name} с доставкой по всей России. Do Not Get Caught.`} />
-            <meta property="og:image" content={product.images.length > 0 ? product.images[0].min : '/dngc.png'} />
+            <meta property="og:image" content={product.images.length > 0 ? withCDNPrefix(product.images[0].min) : 'https://cdn2.495traffic.com/dngc.png'} />
             <meta property="og:title" content={`${product.name} - 495TRAFFIC`} />
             <meta property="og:description" content={`Купить 495TRAFFIC ${product.name} с доставкой по всей России. Do Not Get Caught.`} />
         </Head>
@@ -187,14 +188,14 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                         __setRender(1-__render);
                     }
                 }}>
-                    <img src="/chevron-left-b.png" alt="left_arrow" />
+                    <img src="https://cdn2.495traffic.com/chevron-left-b.png" alt="left_arrow" />
                 </div>
                 {window.innerWidth > 768 ? 
                 <ProgressiveImage
                     alt="main_image"
                     className={styles.image}
-                    src={product.images[imageIndex].max}
-                    placeholderSrc={product.images[imageIndex].min}
+                    src={withCDNPrefix(product.images[imageIndex].max)}
+                    placeholderSrc={withCDNPrefix(product.images[imageIndex].min)}
                 />
                 :
                 <Swiper
@@ -219,8 +220,8 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                                 <ProgressiveImage
                                     alt={`main_image_${index}`}
                                     className={styles.image}
-                                    src={image.max}
-                                    placeholderSrc={image.min}
+                                    src={withCDNPrefix(image.max)}
+                                    placeholderSrc={withCDNPrefix(image.min)}
                                 />
                             </SwiperSlide>
                         );
@@ -236,10 +237,10 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                         __setRender(1-__render);
                     }
                 }}>
-                    <img src="/chevron-right-b.png" alt="right_arrow" />
+                    <img src="https://cdn2.495traffic.com/chevron-right-b.png" alt="right_arrow" />
                 </div>
                 <div className={styles.close_button}>
-                    <img src="/archive-close.png" alt="close" onClick={() => setOverlayState(false)} />
+                    <img src="https://cdn2.495traffic.com/archive-close.png" alt="close" onClick={() => setOverlayState(false)} />
                 </div>
             </div>
         </div>
@@ -248,7 +249,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
             <div className={styles.wrapper}>
                 <div className={styles.head}>
                     <p className={styles.bc}>{t(product.categories[0].name)}</p>
-                    <img src="/crumb.png" />
+                    <img src="https://cdn2.495traffic.com/crumb.png" />
                     <p className={`${styles.bc} ${styles.current}`}>{product.name}</p>
                 </div>
                 <div className={styles.grid}>
@@ -257,12 +258,12 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                             <img src={product.images[imageIndex].max} onClick={() => setOverlayState(true)} />
                             {imageIndex != 0 &&
                             <div className={styles.arrow_back} onClick={() => setImageIndex(imageIndex - 1)}>
-                                <img src="/chevron-left-w.png" />
+                                <img src="https://cdn2.495traffic.com/chevron-left-w.png" />
                             </div>
                             }
                             {imageIndex != product.images.length - 1 &&
                             <div className={styles.arrow_forward} onClick={() => setImageIndex(imageIndex + 1)}>
-                                <img src="/chevron-left-w.png" style={{transform: 'rotate(180deg)'}} />
+                                <img src="https://cdn2.495traffic.com/chevron-left-w.png" style={{transform: 'rotate(180deg)'}} />
                             </div>
                             }
                         </div>
@@ -271,7 +272,7 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                                 return(
                                     <img
                                         key={index}
-                                        src={image.min}
+                                        src={withCDNPrefix(image.min)}
                                         onClick={() => setImageIndex(index)}
                                     />
                                 );
@@ -299,13 +300,13 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
                             {!outOfStock &&
                             <div className={styles.amount_contols}>
                                 <div className={styles.control} onClick={() => tryDecreaseQty()}>
-                                    <img src="/minus.png" />
+                                    <img src="https://cdn2.495traffic.com/minus.png" />
                                 </div>
                                 <div className={styles.counter}>
                                     <p>{amount}</p>
                                 </div>
                                 <div className={styles.control} onClick={() => tryIncreaseQty()}>
-                                    <img src="/plus.png" />
+                                    <img src="https://cdn2.495traffic.com/plus.png" />
                                 </div>
                             </div>
                             }

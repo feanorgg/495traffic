@@ -15,6 +15,7 @@ import ClientService from "@/services/ClientService";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import withCDNPrefix from "@/functions/withCdnPrefix";
 
 export default function CartPage() {
     const t = useTranslations();
@@ -850,7 +851,7 @@ export default function CartPage() {
                             return(
                                 <div className={styles.product_c} key={index}>
                                     <div className={styles.p_img_and_info}>
-                                        <img className={styles.p_img} src={product.images[0].min} alt="p_img" />
+                                        <img className={styles.p_img} src={withCDNPrefix(product.images[0].min)} alt="p_img" />
                                         <div className={styles.p_info}>
                                             <p className={styles.p_cat}>{t(product.categories[0].name)}</p>
                                             <p className={styles.p_name}>{product.name}</p>
@@ -860,19 +861,19 @@ export default function CartPage() {
                                     <div className={styles.p_price_and_qty}>
                                         <div className={styles.p_amount_contols}>
                                             <div className={styles.control} onClick={() => decreaseQty(product)}>
-                                                <img src="/minus.png" />
+                                                <img src="https://cdn2.495traffic.com/minus.png" />
                                             </div>
                                             <div className={styles.counter}>
                                                 <p>{product.availability[0].amount}</p>
                                             </div>
                                             <div className={styles.control} onClick={() => increaseQty(product)}>
-                                                <img src="/plus.png" />
+                                                <img src="https://cdn2.495traffic.com/plus.png" />
                                             </div>
                                         </div>
                                         <p className={styles.p_price}>{numberWithSpaces(product.availability[0].prices[0].newValue == 0 ? product.availability[0].prices[0].value : product.availability[0].prices[0].newValue)} ₽</p>
                                     </div>
                                     <div className={styles.p_remove} onClick={() => removeFromCart({id: product._id, size: product.availability[0].size})}>
-                                        <img src="/cart-remove.png" />
+                                        <img src="https://cdn2.495traffic.com/cart-remove.png" />
                                     </div>
                                 </div>
                             );
