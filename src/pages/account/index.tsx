@@ -96,12 +96,6 @@ export default function AccountPage() {
         setUpdateLoading(false);
     }
 
-    if(loading || user == null) {
-        return(
-            <div className={styles.Account__root}/>
-        );
-    }
-
     const [pwdEmailSent, setPwdEmailSent] = useState<boolean>(false);
     const [resetLoading, setResetLoading] = useState<boolean>(false);
 
@@ -118,6 +112,12 @@ export default function AccountPage() {
             }
             setResetLoading(false);
         }
+    }
+
+    if(loading || user == null) {
+        return(
+            <div className={styles.Account__root}/>
+        );
     }
 
     return(
