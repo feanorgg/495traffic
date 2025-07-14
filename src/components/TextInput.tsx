@@ -23,6 +23,7 @@ interface TextInputProps {
     chevron?: boolean;
     secure?: boolean;
     multiline?: boolean;
+    maxLength?: number;
 
     hints?: Array<string | CityObject>;
 };
@@ -36,6 +37,7 @@ export default function TextInput({
     required = false,
     hints = [],
     phone=false,
+    maxLength=255,
     onBlur=()=>{},
     disabled=false,
     chevron=false,
@@ -73,6 +75,7 @@ export default function TextInput({
                 onClick={() => setHintsShown(true)}
                 disabled={disabled}
                 style={{resize: 'vertical', minHeight: '100px'}}
+                maxLength={maxLength}
             />
             :
             <input className={`${styles.input} ${errorMsg != "" ? styles.error : ''} ${disabled ? styles.disabled : ''}`}
@@ -82,6 +85,7 @@ export default function TextInput({
                 ref={phone ? phoneRef : null}
                 disabled={disabled}
                 type={secure ? 'password' : 'text'}
+                maxLength={maxLength}
             />}
             {value == "" && placeholder != "" && <p className={styles.placeholder}>{placeholder}{required ? <span>*</span> : ''}</p>}
             {errorMsg != "" && <p className={styles.err_msg}>{errorMsg}</p>}

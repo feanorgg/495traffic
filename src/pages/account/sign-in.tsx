@@ -67,6 +67,7 @@ export default function SignInPage() {
                         value={email}
                         onChangeText={setEmail}
                         errorMsg={emailErr}
+                        maxLength={63}
                     />
                     <TextInput
                         placeholder={t("Password")}
@@ -74,6 +75,7 @@ export default function SignInPage() {
                         value={password}
                         onChangeText={setPassword}
                         errorMsg={passwordErr}
+                        maxLength={20}
                     />
                     <Button
                         label={t("Log In")}

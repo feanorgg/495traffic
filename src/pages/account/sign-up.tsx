@@ -105,6 +105,7 @@ export default function SignUpPage() {
                         onChangeText={setFirstName}
                         errorMsg={firstNameErr}
                         required
+                        maxLength={63}
                     />
                     <TextInput
                         placeholder={t("Your last name")}
@@ -112,6 +113,7 @@ export default function SignUpPage() {
                         onChangeText={setLastName}
                         errorMsg={lastNameErr}
                         required
+                        maxLength={63}
                     />
                     <TextInput
                         placeholder="+7 (999) 999 99-99"
@@ -127,6 +129,7 @@ export default function SignUpPage() {
                         onChangeText={setEmail}
                         errorMsg={emailErr}
                         required
+                        maxLength={63}
                     />
                     <TextInput
                         placeholder={t("Password")}
@@ -135,6 +138,7 @@ export default function SignUpPage() {
                         onChangeText={setPassword}
                         errorMsg={passwordErr}
                         required
+                        maxLength={20}
                     />
                     <Checkbox
                         checked={dataAgreement}

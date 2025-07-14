@@ -111,6 +111,8 @@ export default function CartPage() {
     const [cityErr, setCityErr] = useState<string>("");
     const [addressErr, setAddressErr] = useState<string>("");
 
+    const [comment, setComment] = useState<string>("");
+
     type CityObject = {
         // city_uuid: string;
         code: number;
@@ -448,6 +450,7 @@ export default function CartPage() {
                     zip: ""
                 },
                 delivery_address: `${city}, ${address}, ${address2}`,
+                comment: comment,
                 payment_method: "card",
                 _callback: (order: Order) => {
                     CookieService.setCookie('cart', '[]', 365);
@@ -688,6 +691,7 @@ export default function CartPage() {
                                     value={firstName}
                                     onChangeText={setFirstName}
                                     errorMsg={firstNameErr}
+                                    maxLength={63}
                                 />
                                 <TextInput
                                     placeholder="E-Mail"
@@ -695,6 +699,7 @@ export default function CartPage() {
                                     value={email}
                                     onChangeText={setEmail}
                                     errorMsg={emailErr}
+                                    maxLength={63}
                                 />
                             </div>
                             <div className={styles.section_hor}>
@@ -704,6 +709,7 @@ export default function CartPage() {
                                     value={lastName}
                                     onChangeText={setLastName}
                                     errorMsg={lastNameErr}
+                                    maxLength={63}
                                 />
                                 <TextInput
                                     placeholder="+7 (999) 999-99-99"
@@ -765,11 +771,13 @@ export default function CartPage() {
                                     value={address}
                                     onChangeText={setAddress}
                                     errorMsg={addressErr}
+                                    maxLength={255}
                                 />
                                 <TextInput
                                     placeholder={t("Apartment, suite, etc (optional)")}
                                     value={address2}
                                     onChangeText={setAddress2}
+                                    maxLength={255}
                                 />
                             </div>
                             }
@@ -778,6 +786,9 @@ export default function CartPage() {
                             <p className={styles.section_title}>{t('Comment')}</p>
                             <TextInput
                                 placeholder={t("Comment on the order")}
+                                value={comment}
+                                onChangeText={setComment}
+                                maxLength={511}
                             />
                         </div>
                         <div className={styles.section}>
@@ -789,6 +800,7 @@ export default function CartPage() {
                                     onChangeText={setPromo}
                                     errorMsg={promoCodeErr}
                                     disabled={promoApplied}
+                                    maxLength={63}
                                 />
                                 <Button
                                     label={promoApplied ? t("PROMOCODE APPLIED") : t("APPLY")}

@@ -86,6 +86,7 @@ export default class OrderService {
         delivery_address="",
         payment_method="cash",
         subscribe=false,
+        comment="",
         _callback,
         _onStockError=()=>{}
     }: {
@@ -107,6 +108,7 @@ export default class OrderService {
         delivery_address?: string,
         payment_method?: string,
         subscribe?: boolean,
+        comment?: string,
         _callback: (o: Order) => void,
         _onStockError?: () => void
     }) {

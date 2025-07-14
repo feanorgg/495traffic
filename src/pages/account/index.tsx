@@ -114,6 +114,7 @@ export default function AccountPage() {
                             value={firstName}
                             onChangeText={setFirstName}
                             placeholder={t('First Name')}
+                            maxLength={63}
                         />
                         <TextInput
                             value={email}
@@ -121,11 +122,13 @@ export default function AccountPage() {
                             placeholder="E-mail"
                             required
                             errorMsg={emailErr}
+                            maxLength={63}
                         />
                         <TextInput
                             value={lastName}
                             onChangeText={setLastName}
                             placeholder={t("Last Name")}
+                            maxLength={63}
                         />
                         <TextInput
                             value={phone}
