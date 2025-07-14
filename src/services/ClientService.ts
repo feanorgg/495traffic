@@ -150,7 +150,7 @@ export default class ClientService {
 
     static async verifyToken(token: string) {
         try {
-            const res = await axios.post(
+            const res = await axios.get(
                 `${API_URL}/users/verify-token?token=${token}`,
                 { withCredentials: true }
             );
