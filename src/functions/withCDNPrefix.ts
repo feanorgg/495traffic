@@ -5,6 +5,9 @@ export default function withCDNPrefix(url: string) {
     } else if(_url.includes('https://495traffic.com')) {
         _url = _url.replace('://', '://cdn2.');
         return _url;
+    } else if(_url.includes('https://test.495traffic.com')) {
+        _url = _url.replace('://test.', '://cdn2.');
+        return _url;
     } else {
         return _url;
     }
