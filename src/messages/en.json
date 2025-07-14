@@ -4,5 +4,8 @@
     "PWD_8_CHAR": "Password must be at least 8 characters long",
     "CONTACT_INFORMATION": "To place an order, enter your contact information. Do you need help with the order?",
     "PROC_1": "Your order is already being processed, and it will be sent to you soon.",
-    "PROC_2": "We will inform you when the order is delivered."
+    "PROC_2": "We will inform you when the order is delivered.",
+    "ENTER_EMAIL": "Enter the email address that you provided during registration. We will send you an email with a link to reset your password.",
+    "RECOVER_SENT": "Your personal account login details have been sent to the specified email address.",
+    "PWD_CHANGED": "Your password has been successfully changed. You can log in with the new credentials."
 }

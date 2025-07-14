@@ -132,4 +132,52 @@ export default class ClientService {
             return {};
         }
     }
+    
+    static async resetPassword(email: string) {
+        try {
+            const res = await axios.post(
+                `${API_URL}/users/reset-password`,
+                { email: email },
+                { withCredentials: true }
+            );
+
+            return res.status == 200;
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
+    }
+
+    static async verifyToken(token: string) {
+        try {
+            const res = await axios.post(
+                `${API_URL}/users/verify-token?token=${token}`,
+                { withCredentials: true }
+            );
+
+            return { success: res.status == 200 };
+        } catch(e) {
+            return { success: false };
+        }
+    }
+
+    static async changePassword({
+        token,
+        password
+    }: {
+        token: string,
+        password: string
+    }) {
+        try {
+            const res = await axios.post(
+                `${API_URL}/users/change-password`,
+                { token: token, password: password },
+                { withCredentials: true }
+            );
+
+            return res.status == 200;
+        } catch(e) {
+            return false;
+        }
+    }
 };
