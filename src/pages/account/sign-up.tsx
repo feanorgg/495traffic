@@ -5,6 +5,7 @@ import ClientService from "@/services/ClientService";
 import styles from "@/styles/SignUpPage.module.scss";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -93,6 +94,15 @@ export default function SignUpPage() {
     }
 
     return(
+        <>
+        <Head>
+            <title>Sign up - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Sign up - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
+        </Head>
         <div className={styles.SignUp__root}>
             <div className={styles.frame}>
                 <div className={styles.wrapper}>
@@ -169,6 +179,7 @@ export default function SignUpPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

@@ -8,6 +8,7 @@ import { Order } from "@/types/Order";
 import User from "@/types/User";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -102,6 +103,15 @@ export default function AccountPage() {
     }
 
     return(
+        <>
+        <Head>
+            <title>Account - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Account - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
+        </Head>
         <div className={styles.Account__root}>
             <div className={styles.wrapper}>
                 <div className={styles.left}>
@@ -186,6 +196,7 @@ export default function AccountPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

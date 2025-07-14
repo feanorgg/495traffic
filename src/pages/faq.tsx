@@ -35,7 +35,12 @@ export default function FaqPage() {
     return(
         <>
         <Head>
-            <title>495TRAFFIC - FAQ</title>
+            <title>FAQ - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="FAQ - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
         </Head>
         <div className={styles.FAQ__root}>
             <div className={styles.wrapper}>

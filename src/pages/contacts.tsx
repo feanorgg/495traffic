@@ -70,7 +70,12 @@ export default function ContactsPage() {
     return(
         <>
         <Head>
-            <title>495TRAFFIC - Contacts</title>
+            <title>Contacts - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Contacts - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
         </Head>
         <div className={styles.Contacts__root}>
             <div className={styles.wrapper}>

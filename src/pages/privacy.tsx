@@ -1,6 +1,7 @@
 import CookieService from "@/services/CookieService";
 import styles from "@/styles/TextPage.module.scss";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 
 export default function PrivacyPage() {
@@ -13,6 +14,15 @@ export default function PrivacyPage() {
     }, []);
 
     return(
+        <>
+        <Head>
+            <title>Privacy - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Privacy - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
+        </Head>
         <div className={styles.TextPage__root}>
             <div className={styles.wrapper}>
                 <div className={styles.head}>
@@ -280,6 +290,7 @@ The user has the right to:
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

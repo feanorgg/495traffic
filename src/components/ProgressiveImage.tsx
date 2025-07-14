@@ -63,7 +63,13 @@ const ProgressiveImage = ({ placeholderSrc, src, ...props }: any) => {
         return () => {
             observer.disconnect();
         };
-    }, []);
+    }, [src, placeholderSrc]);
+
+    useEffect(() => {
+        setImgSrc(placeholderSrc);
+        setIsVisible(false);
+        setIsLoaded(false);
+    }, [placeholderSrc]);
 
     useEffect(() => {
         if (isVisible && !isLoaded) {
@@ -74,7 +80,7 @@ const ProgressiveImage = ({ placeholderSrc, src, ...props }: any) => {
                 setIsLoaded(true);
             };
         }
-    }, [isVisible, src, isLoaded]);
+    }, [isVisible, src, isLoaded, placeholderSrc]);
 
     return (
         <img

@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import ProgressiveImage from "@/components/ProgressiveImage";
 import { GetServerSideProps } from "next";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 export default function ArchivePage() {
     const t = useTranslations();
@@ -133,6 +134,14 @@ export default function ArchivePage() {
 
     return(
         <>
+        <Head>
+            <title>Archive - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Archive - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
+        </Head>
         {imageSrc != "" &&
         <div className={styles.Archive__overlay_container}>
             <div className={styles.wrapper}>

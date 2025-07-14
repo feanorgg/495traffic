@@ -13,7 +13,12 @@ export default function OrderSuccessPage({order}: {order: Order}) {
     return(
         <>
         <Head>
-            <title>495TRAFFIC - Successful order</title>
+            <title>Successful order - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Successful order - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
         </Head>
         <div className={styles.OrderSuccess__root}>
             <img className={styles.mark} src="/mark.png" alt="mark" />

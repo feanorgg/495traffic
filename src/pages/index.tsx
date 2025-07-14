@@ -49,9 +49,11 @@ export default function Home() {
         <>
         <Head>
             <title>495TRAFFIC</title>
-            <meta name="description" content="495TRAFFIC Test Website" />
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href="/favicon.ico" /> 
         </Head>
         <div className={styles.Marquee__wrapper}>
             <div className={styles.marquee}>

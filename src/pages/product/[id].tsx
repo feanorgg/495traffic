@@ -9,10 +9,18 @@ import styles from "@/styles/Product.module.scss";
 import { Product } from "@/types/Product";
 import { GetServerSidePropsContext } from "next";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import 'swiper/css';
+import 'swiper/css/navigation'; 
+import 'swiper/css/pagination';
+import Head from "next/head";
 
 export default function ProductPage({ product, relatedProducts }: { product: Product, relatedProducts: Array<Product> }) {
     const t = useTranslations();
+
+    const swiperRef = useRef(null);
 
     const [selectedSize, setSelectedSize] = useState<string>(product.availability[0].size);
     const [selectedColor, setSelectedColor] = useState<string>("");
@@ -156,31 +164,76 @@ export default function ProductPage({ product, relatedProducts }: { product: Pro
     const [imageIndex, setImageIndex] = useState<number>(0);
     const [overlayState, setOverlayState] = useState<boolean>(false);
 
+    const [__render, __setRender] = useState<number>(1);
+
     return(
         <>
+        <Head>
+            <title>{product.name} - 495TRAFFIC</title>
+            <meta name="description" content={`Купить 495TRAFFIC ${product.name} с доставкой по всей России. Do Not Get Caught.`} />
+            <meta property="og:image" content={product.images.length > 0 ? product.images[0].min : '/dngc.png'} />
+            <meta property="og:title" content={`${product.name} - 495TRAFFIC`} />
+            <meta property="og:description" content={`Купить 495TRAFFIC ${product.name} с доставкой по всей России. Do Not Get Caught.`} />
+        </Head>
         {overlayState &&
         <div className={styles.Product__overlay_container}>
             <div className={styles.wrapper}>
                 <div className={styles.arrow_left} onClick={() => {
                     if(imageIndex > 0) {
                         setImageIndex(imageIndex - 1);
+                        __setRender(1-__render);
                     } else {
                         setImageIndex(product.images.length - 1);
+                        __setRender(1-__render);
                     }
                 }}>
                     <img src="/chevron-left-b.png" alt="left_arrow" />
                 </div>
+                {window.innerWidth > 768 ? 
                 <ProgressiveImage
                     alt="main_image"
                     className={styles.image}
                     src={product.images[imageIndex].max}
                     placeholderSrc={product.images[imageIndex].min}
                 />
+                :
+                <Swiper
+                    slidesPerView={1}
+                    spaceBetween={20}
+                    onSwiper={(swiper) => (
+                        // @ts-expect-error optional swiperRef
+                        swiperRef.current = swiper
+                    )}
+                    initialSlide={imageIndex}
+                    watchSlidesProgress
+                    onScroll={(swiper) => {
+                        swiper.update();
+                    }}
+                    direction='horizontal'
+                    loop
+                    className={styles.swiper}
+                >
+                    {product.images.map((image, index) => {
+                        return(
+                            <SwiperSlide key={index} className={styles.swiper_item}>
+                                <ProgressiveImage
+                                    alt={`main_image_${index}`}
+                                    className={styles.image}
+                                    src={image.max}
+                                    placeholderSrc={image.min}
+                                />
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper>
+                }
                 <div className={styles.arrow_right} onClick={() => {
                     if(imageIndex < product.images.length - 1) {
                         setImageIndex(imageIndex + 1);
+                        __setRender(1-__render);
                     } else {
                         setImageIndex(0);
+                        __setRender(1-__render);
                     }
                 }}>
                     <img src="/chevron-right-b.png" alt="right_arrow" />

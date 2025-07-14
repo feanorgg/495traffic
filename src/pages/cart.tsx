@@ -602,6 +602,12 @@ export default function CartPage() {
                 border: 3px solid #525252;
             }
             `}</style>
+            <title>Cart - 495TRAFFIC</title>
+            <meta name="description" content="Do Not Get Caught." />
+            <meta property="og:title" content="Cart - 495TRAFFIC" />
+            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" /> 
         </Head>
         <Script src="https://api-maps.yandex.ru/v3/?apikey=9a60df23-70f9-4e64-ade1-dce7ada907ff&lang=ru_RU" type="text/javascript" strategy="beforeInteractive" id="ymap" />
         <Script id="ymap-functions">{`
