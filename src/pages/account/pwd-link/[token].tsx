@@ -58,6 +58,7 @@ export default function PasswordResetPage({token}: {token: string}) {
                     <Button
                         label={t('Save')}
                         secondary
+                        style={{width: '100%'}}
                         loading={loading}
                         onClick={() => tryChangePassword()}
                     />
