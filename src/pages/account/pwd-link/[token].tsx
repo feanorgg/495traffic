@@ -72,7 +72,7 @@ export default function PasswordResetPage({token}: {token: string}) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { token } = context.query;
     const locale = context.req.cookies.locale || 'ru';
-    const messages = (await import(`./../../messages/${locale}.json`)).default;
+    const messages = (await import(`./../../../messages/${locale}.json`)).default;
 
     // verify token 
     if (!token) {
