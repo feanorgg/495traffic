@@ -88,7 +88,7 @@ export default function ContactsPage() {
                     <div className={styles.left}>
                         <h2>{t('CONTACTS')}</h2>
                         <a href="mailto:495traffic@gmail.com" className={styles.email}>
-                            <img src="https://cdn2.495traffic.com/email3.png" />
+                            <img src="https://cdn2.495traffic.com/email4.png" />
                             <p>495TRAFFIC@GMAIL.COM</p>
                         </a>
                         <a href="https://t.me/supplier495" className={styles.phone}>
