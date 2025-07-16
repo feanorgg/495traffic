@@ -88,7 +88,7 @@ export default function ContactsPage() {
                     <div className={styles.left}>
                         <h2>{t('CONTACTS')}</h2>
                         <a href="mailto:495traffic@gmail.com" className={styles.email}>
-                            <img src="https://cdn2.495traffic.com/email.png" />
+                            <img src="https://cdn2.495traffic.com/email2.png" />
                             <p>495TRAFFIC@GMAIL.COM</p>
                         </a>
                         <a href="https://t.me/supplier495" className={styles.phone}>
@@ -99,13 +99,13 @@ export default function ContactsPage() {
                         <p className={styles.timetable}>{t('Media')}</p>
                         <div className={styles.socials}>
                             <a href="https://t.me/donotgetcaught" target="_blank">
-                                <img src="https://cdn2.495traffic.com/tg-grey.png" />
+                                <img src="https://cdn2.495traffic.com/tg-gray.png" />
                             </a>
                             <a href="https://instagram.com/495traffic" target="_blank">
-                                <img src="https://cdn2.495traffic.com/is-grey.png" />
+                                <img src="https://cdn2.495traffic.com/is-gray.png" />
                             </a>
                             <a href="https://vk.com/traffic495" target="_blank">
-                                <img src="https://cdn2.495traffic.com/vk-grey.png" />
+                                <img src="https://cdn2.495traffic.com/vk-gray.png" />
                             </a>
                         </div>
                     </div>
