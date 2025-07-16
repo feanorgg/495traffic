@@ -75,7 +75,7 @@ function ContentItem({title, content, index}: {title: string, content: string, i
         <div className={`${styles.content_c} ${revealed ? styles.revealed : ''}`}>
             <div className={styles.content_head} onClick={() => setRevealed(!revealed)}>
                 <h5>{title}</h5>
-                <img src="https://cdn2.495traffic.com/plus-gray.png" className={revealed ? styles.rotated : ''} />
+                <img src="https://cdn2.495traffic.com/plus2.png" className={revealed ? styles.rotated : ''} />
             </div>
             {revealed &&
             <div className={styles.content_body}>
