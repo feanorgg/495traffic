@@ -49,9 +49,9 @@ export default function Home() {
         <>
         <Head>
             <title>495TRAFFIC</title>
-            <meta name="description" content="Do Not Get Caught." />
+            <meta name="description" content="Do Not Get Caught. Купить одежду и аксессуары бренда 495TRAFFIC. Доставка по России" />
             <meta property="og:title" content="495TRAFFIC" />
-            <meta property="og:description" content="Do Not Get Caught." /> 
+            <meta property="og:description" content="Do Not Get Caught. Купить одежду и аксессуары бренда 495TRAFFIC. Доставка по России" /> 
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" /> 
         </Head>
