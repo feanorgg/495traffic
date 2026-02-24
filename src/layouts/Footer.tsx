@@ -9,9 +9,6 @@ export default function Footer() {
         <div className={styles.Footer__root}>
             <div className={styles.wrapper}>
                 <div className={styles.links}>
-                    {/*<Link className={`${styles.link} ${styles.left}`} href="/about">
-                        About
-                    </Link>*/}
                     <Link className={`${styles.link} ${styles.left}`} href="/faq">
                         Faq
                     </Link>
@@ -32,10 +29,12 @@ export default function Footer() {
                     </Link>
                     <Link className={styles.social} href="https://instagram.com/495traffic" target="_blank">
                         <img src="https://cdn2.495traffic.com/is.png" alt="insta" />
+                        <span style={{position: 'absolute', right: '-5px', top: '-5px', lineHeight: '20px', color: "#fff", fontSize: '20px'}}>*</span>
                     </Link>
                     <Link className={styles.social} href="https://vk.com/traffic495" target="_blank">
                         <img src="https://cdn2.495traffic.com/vk.png" alt="vk" />
                     </Link>
+                    <p style={{position: 'absolute', color: "#525252", fontSize: "10px", bottom: '-40px'}}>* Проект Meta Platforms Inc., деятельность которой запрещена в РФ</p>
                 </div>
             </div>
         </div>

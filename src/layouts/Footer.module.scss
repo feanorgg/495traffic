@@ -67,6 +67,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                position: relative;
 
                 img {
                     width: 40px;
@@ -99,21 +100,6 @@
     .Footer__root {
         .wrapper {
             width: calc(100% - 80px);
-            /*max-width: 920px;
-            justify-content: space-between;
-            
-            .links {
-                position: relative;
-                gap: 24px;
-            }
-    
-            .socials {
-                position: relative;
-            }
-
-            .dngc {
-                position: relative;
-            }*/
         }
     }
 }
@@ -174,7 +160,7 @@
             .socials {
                 width: 100%;
                 justify-content: space-between;
-                margin: 32px 0 40px;
+                margin: 32px 0 80px;
             }
         }
     }
